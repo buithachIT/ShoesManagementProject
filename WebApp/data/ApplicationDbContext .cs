@@ -7,6 +7,6 @@ namespace WebApp.data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         // Thêm DbSet cho bảng trong database
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

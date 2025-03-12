@@ -1,0 +1,27 @@
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.container-form-log {
+    border: 2px solid transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: block;
+
+}
+
+.signup-director span a,
+.forgot-password-director a {
+    color: rgb(184, 103, 116);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-director span a:hover {
+    color: rgb(88, 15, 15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.forgot-password-director a:hover {
+    color: rgb(88, 15, 15);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
