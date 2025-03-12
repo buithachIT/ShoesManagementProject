@@ -1,6 +1,6 @@
 Shoes Management Project. (Cshap)
 ----------------------------------------------------------------
-****This project was created to manage an e-commerce site for shoes.
+######This project was created to manage an e-commerce site for shoes.
 Technology used:
 🔹 Web part (User)
 -ASP.NET MVC (C#) - Web framework
@@ -10,6 +10,6 @@ Technology used:
 🔹 Admin part (WinForms)
 -WinForms (C#) - Product and order management
 -SQL Server - Share database with Web
--DataGridView - Display product and order list****
+-DataGridView - Display product and order list######
 ----------------------------------------------
 Authors: BuiThach, CongTuan, HuyHung.
