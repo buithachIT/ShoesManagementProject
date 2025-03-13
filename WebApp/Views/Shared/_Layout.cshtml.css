@@ -1,5 +1,16 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+html,
+body {
+  overflow-x: hidden;
+
+}
 
 a.navbar-brand {
   white-space: normal;
@@ -8,7 +19,9 @@ a.navbar-brand {
 }
 
 a {
-  color: #0077cc;
+  color: #333;
+  text-decoration: none;
+
 }
 
 .btn-primary {
@@ -17,7 +30,8 @@ a {
   border-color: #1861ac;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
@@ -26,6 +40,7 @@ a {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -45,4 +60,56 @@ button.accept-policy {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+
+.nav-top-group-log-ul li:not(:last-child)::after {
+  content: "  |";
+  margin-left: 8px;
+  color: gray;
+  position: relative;
+  top: -2px;
+}
+
+.nav-top {
+  background-color: aliceblue;
+  height: 5%;
+}
+
+.default-text {
+  color: #333;
+}
+
+.ul-hover-group {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 5px 0;
+  min-width: 150px;
+  border-radius: 10px;
+}
+
+.user-group:hover .ul-hover-group {
+  display: block;
+}
+
+.ul-hover-group li {
+  margin-left: 10px;
+}
+
+.ul-hover-group li::after {
+  content: none !important;
+}
+
+.nav-top-group-log-ul li {
+  font-size: small;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-left: 120px;
 }

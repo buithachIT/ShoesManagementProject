@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -17,6 +21,49 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+
+
+
+.carousel-item img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+.line {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  height: 1px;
+  background-color: #949494;
+}
+
+header {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.option-by-gender-label {
+  width: 100px;
+  margin-top: 10px;
+  height: 30px;
+  background-color: rgb(0, 0, 0);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.option-by-gender-label p {
+  color: #ddd;
+}
+
+.option-by-new {
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  padding-bottom: 10px;
 }
