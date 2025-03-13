@@ -8,5 +8,6 @@ namespace WebApp.data
 
         // Thêm DbSet cho bảng trong database
         public DbSet<User> User { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

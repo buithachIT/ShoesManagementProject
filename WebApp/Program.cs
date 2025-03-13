@@ -7,8 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 // Thêm DbContext trực tiếp
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql("server=localhost;database=shoes_web;user=root;password=", 
-        ServerVersion.AutoDetect("server=localhost;database=shoes_web;user=root;password=")));
+    options.UseMySQL("Server=localhost;Database=shoes_web;User Id=root;Password=;")
+           .LogTo(Console.WriteLine, LogLevel.Information)); // Log SQL Queries
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
