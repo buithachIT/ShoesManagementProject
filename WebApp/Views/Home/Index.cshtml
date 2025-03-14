@@ -31,21 +31,21 @@
         <div class="option-by-gender d-flex w-100 justify-content-between">
             <div class="option-by-gender-men">
                 <div class="option-by-gender-img"><img src="@Url.Content("~/image/men.png")" width="400" alt=""></div>
-                <div class="option-by-gender-label">
+                <a href=""><div class="option-by-gender-label">
                     <p>Shop's Men</p>
-                </div>
+                </div></a>
             </div>
-            <div class="option-by-gender-girl">
-                <div class="option-by-gender-img"><img src="@Url.Content("~/image/men.png")" width="400" alt=""></div>
-                <div class="option-by-gender-label">
+            <div class="option-by-gender-girl d-flex flex-column justify-content-between">
+                <div class="option-by-gender-img"><img src="@Url.Content("~/image/giay_nu.jpg")" width="400" alt=""></div>
+                <a href=""><div class="option-by-gender-label">
                     <p>Shop's Girl</p>
-                </div>
+                </div></a>
             </div>
-            <div class="option-by-gender-kid">
-                <div class="option-by-gender-img"><img src="@Url.Content("~/image/men.png")" width="400" alt=""></div>
-                <div class="option-by-gender-label">
+            <div class="option-by-gender-kid d-flex flex-column justify-content-between">
+                <div class="option-by-gender-img"><img src="@Url.Content("~/image/giay_kid.png")" width="400" alt=""></div>
+                <a href=""><div class="option-by-gender-label">
                     <p>Shop's Kid</p>
-                </div>
+                </div></a>
             </div>
         </div>
     </div>
@@ -60,16 +60,17 @@
         <div class="option-by-new d-flex w-100 justify-content-between" id="new-products">
         @foreach (var product in Model)
             {
-                <div class="product-by-new">
+                <a href="#"><div class="product-by-new">
                     <div class="product-by-new-img">
-                        <img src="@Url.Content("~/image/pd1.png")" width="400" alt="@product.NameProduct">
+                        <img src="@Url.Content("~/image/image_product/"+@product.ImageUrl)" width="400" alt="@product.NameProduct">
+
                     </div>
                     <div class="option-by-new-label">
                         <p class="fw-bold">@product.NameProduct</p>
                         
                         <p>@product.Price<sup class="ms-1">đ</sup></p>
                     </div>
-                </div>
+                </div></a>
                 }
     </div>
     </div>
