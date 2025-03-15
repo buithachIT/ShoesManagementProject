@@ -1,0 +1,23 @@
+@model List<Shared.Models.Product>
+
+<head>
+    <link rel="stylesheet" href="product.css">
+</head>
+<h2>Sản phẩm thuộc danh mục: @ViewData["Category"]</h2>
+@await Html.PartialAsync("_Filter")
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.NameProduct">
+                <div class="card-body">
+                    <h5 class="card-title">@product.NameProduct</h5>
+                    <p class="card-text">@product.Price) VNĐ</p>
+                    <a href="/Product/Detail/@product.IdProduct" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

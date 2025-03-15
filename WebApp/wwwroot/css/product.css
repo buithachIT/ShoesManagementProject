@@ -1,0 +1,47 @@
+.filter-section {
+    width: 300px !important;
+}
+
+.card {
+    width: 100%;
+    height: 500px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.resize-image {
+    width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ phần tử chứa nó */
+    height: auto;
+    /* Giữ tỷ lệ khung hình */
+    object-fit: cover;
+    /* Cắt hình ảnh để lấp đầy khung mà không méo */
+    max-height: 300px;
+    /* Giới hạn chiều cao để tránh ảnh quá to */
+    display: block;
+    /* Đảm bảo không bị ảnh hưởng bởi inline */
+    margin: auto;
+    /* Căn giữa hình */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: unset;
+}
+
+.card-title {
+    min-height: 50px;
+}
+
+.card-text {
+    min-height: 30px;
+
+}
+
+.product {
+    width: 100% !important;
+    margin-left: 0 !important;
+}

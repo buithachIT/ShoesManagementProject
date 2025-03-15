@@ -1,0 +1,82 @@
+<div class="filter-section w-50">
+    <form asp-action="Index" method="get">
+        <!-- Lọc theo Giá (Thanh trượt noUiSlider) -->
+        <div class="mb-5">
+            <label class="form-label mb-5">Khoảng giá: <span id="priceRangeLabel">0 - 100</span> (triệu VNĐ)</label>
+            <div id="priceSlider"></div>
+            <input type="hidden" id="minPriceInput" name="minPrice" value="0">
+            <input type="hidden" id="maxPriceInput" name="maxPrice" value="100">
+        </div>
+
+        <!-- Lọc theo Tình trạng còn hàng -->
+        <div class="mb-3">
+            <label class="form-label">Tình trạng</label>
+            <select name="inStock" class="form-control">
+                <option value="">Tất cả</option>
+                <option value="true">Còn hàng</option>
+                <option value="false">Hết hàng</option>
+            </select>
+        </div>
+
+        <!-- Lọc theo Ngày phát hành -->
+        <div class="mb-3">
+            <label for="releaseOrder" class="form-label">Ngày phát hành</label>
+            <select name="releaseOrder" class="form-control">
+                <option value="">Mặc định</option>
+                <option value="newest">Mới nhất</option>
+                <option value="oldest">Cũ nhất</option>
+            </select>
+        </div>
+
+        <!-- Lọc theo Chất liệu -->
+        <div class="mb-3">
+            <label for="material" class="form-label">Chất liệu</label>
+            @* <select name="material" class="form-control">
+            <option value="">Tất cả</option>
+            @foreach (var mat in ViewData["Materials"] as List<string>)
+            {
+                <option value="@mat">@mat</option>
+            }
+        </select> *@
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lọc</button>
+    </form>
+</div>
+<!-- Thêm thư viện noUiSlider -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var priceSlider = document.getElementById('priceSlider');
+        var minPriceInput = document.getElementById('minPriceInput');
+        var maxPriceInput = document.getElementById('maxPriceInput');
+        var priceRangeLabel = document.getElementById('priceRangeLabel');
+
+        noUiSlider.create(priceSlider, {
+            start: [0, 50],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 50
+            },
+            step: 1,
+            tooltips: [true, true],  // Hiển thị giá trị trên thanh trượt
+            format: {
+                to: function (value) {
+                    return Math.round(value);
+                },
+                from: function (value) {
+                    return Number(value);
+                }
+            }
+        });
+
+        priceSlider.noUiSlider.on('update', function (values) {
+            minPriceInput.value = values[0];
+            maxPriceInput.value = values[1];
+            priceRangeLabel.innerText = values[0] + " - " + values[1];
+        });
+    });
+</script>

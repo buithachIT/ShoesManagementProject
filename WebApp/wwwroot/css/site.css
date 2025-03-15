@@ -16,6 +16,10 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -75,4 +79,39 @@ header {
   white-space: nowrap;
   gap: 10px;
   padding-bottom: 10px;
+}
+
+.ul-hover-group {
+  z-index: 10;
+}
+
+.line-straight {
+  width: .1px;
+  height: 400px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border: #9dc7f5 .1px solid;
+}
+
+.btn-outline-secondary:hover {
+  color: white !important;
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+
+.dropdown-menu {
+  padding-top: 10px !important;
+  padding: 20px !important;
+  width: 100vh;
+  border-radius: 10px;
+  min-height: 30vh;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

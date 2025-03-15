@@ -1,0 +1,47 @@
+@model Shared.Models.User
+
+@{
+    ViewData["Title"] = "Đăng Ký";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <h3 class="text-center fw-bold  mb-4">Sign Up</h3>
+
+                <form asp-action="Register" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">User Name</label>
+                        <input asp-for="Username" class="form-control" placeholder="" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input asp-for="PasswordHash" type="password" class="form-control" placeholder="" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input asp-for="FullName" class="form-control" placeholder="" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input asp-for="Phone" type="tel" class="form-control" placeholder="" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-secondary w-100">Sign Up</button>
+                </form>
+
+                <p class="text-center mt-3">
+                    Have already account? <a class="ms-3" asp-action="Login">Login ></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

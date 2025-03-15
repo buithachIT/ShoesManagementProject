@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using  WebApp.Models;
+using  Shared.Models;
+using Shared.Models;
 namespace WebApp.data
 {
     public class ApplicationDbContext : DbContext
@@ -9,5 +10,9 @@ namespace WebApp.data
         // Thêm DbSet cho bảng trong database
         public DbSet<User> User { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Line> Lines { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
+
     }
 }
