@@ -12,22 +12,44 @@ public class ProductController : Controller
     {
         _context = context;
     }
+[Route("Product/ByCategory/{id}")]
+[Route("Product/ByCategory/{id}/{lineId?}")]
+public async Task<IActionResult> ByCategory(int id, int? lineId)
+{
+    var products = _context.Products
+        .Include(p => p.Line)
+        .ThenInclude(l => l.Category)
+        .Where(p => p.Line.IdCategory == id);
 
-    public async Task<IActionResult> ByCategory(int id)
+    string? lineName = null; // Khai báo biến để lưu tên dòng sản phẩm
+
+    if (lineId.HasValue)
     {
-        var products = await _context.Products
-            .Include(p => p.Line)
-            .ThenInclude(l => l.Category)
-            .Where(p => p.Line.IdCategory == id) // Lọc theo Category
-            .ToListAsync();
-
-        ViewData["Category"] = await _context.Categories
-            .Where(c => c.Id == id)
-            .Select(c => c.Name)
+        products = products.Where(p => p.IdLine == lineId.Value);
+        lineName = await _context.Lines
+            .Where(l => l.Id == lineId.Value)
+            .Select(l => l.Name)
             .FirstOrDefaultAsync();
-
-        return View(products);
     }
+
+    var categoryName = await _context.Categories
+        .Where(c => c.Id == id)
+        .Select(c => c.Name)
+        .FirstOrDefaultAsync();
+
+    var lines = await _context.Lines
+        .Where(l => l.IdCategory == id)
+        .ToListAsync();
+
+    ViewData["Category"] = categoryName;
+    ViewData["Lines"] = lines;
+    ViewData["SelectedLine"] = lineId;
+    ViewData["LineName"] = lineName; // Lưu tên dòng sản phẩm vào ViewData
+ViewData["Categories"] = _context.Categories.Include(c => c.Lines).ToList();
+
+    return View(await products.ToListAsync());
+}
+
 
     [HttpGet]
 public IActionResult Index(decimal? minPrice, decimal? maxPrice, bool? inStock, DateTime? releaseDate, string material)

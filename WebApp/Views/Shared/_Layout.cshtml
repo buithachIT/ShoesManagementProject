@@ -58,11 +58,10 @@
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse navbarnebarrrrrr collapse d-sm-inline-flex justify-content-between">
                     @{
                         var categories = ViewData["Categories"] as List<Shared.Models.Category>;
                     }
-
                     <ul class="navbar-nav flex-grow-1">
                         @if (categories != null)
                         {
@@ -78,7 +77,8 @@
                                         {
                                             @foreach (var line in category.Lines)
                                             {
-                                                <li><a class="dropdown-item" href="#">@line.Name</a></li>
+                                                <li><a class="dropdown-item"
+                                                        href="/Product/ByCategory/@category.Id/@line.Id">@line.Name</a></li>
                                             }
                                         }
                                         else
@@ -113,7 +113,7 @@
         </main>
     </div>
 
-    <footer class="bg-dark text-light text-center py-3 mt-5">
+    <footer class="bg-dark text-light text-center py-3 mb-0 mt-5">
         <p class="mb-0">&copy; 2025 BuiThach. All Rights Reserved.</p>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

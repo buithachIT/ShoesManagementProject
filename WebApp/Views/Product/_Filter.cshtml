@@ -8,7 +8,6 @@
             <input type="hidden" id="maxPriceInput" name="maxPrice" value="100">
         </div>
 
-        <!-- Lọc theo Tình trạng còn hàng -->
         <div class="mb-3">
             <label class="form-label">Tình trạng</label>
             <select name="inStock" class="form-control">
@@ -18,7 +17,6 @@
             </select>
         </div>
 
-        <!-- Lọc theo Ngày phát hành -->
         <div class="mb-3">
             <label for="releaseOrder" class="form-label">Ngày phát hành</label>
             <select name="releaseOrder" class="form-control">
@@ -31,16 +29,17 @@
         <!-- Lọc theo Chất liệu -->
         <div class="mb-3">
             <label for="material" class="form-label">Chất liệu</label>
-            @* <select name="material" class="form-control">
-            <option value="">Tất cả</option>
-            @foreach (var mat in ViewData["Materials"] as List<string>)
-            {
-                <option value="@mat">@mat</option>
-            }
-        </select> *@
+            <select name="material" class="form-control">
+                <option value="">Tất cả</option>
+                s
+                @foreach (var product in Model)
+                {
+                    <option value="@product.Material">@product.Material</option>
+                }
+            </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Lọc</button>
+        <button type="submit" class="btn btn-outline-secondary">Lọc</button>
     </form>
 </div>
 <!-- Thêm thư viện noUiSlider -->
@@ -62,7 +61,7 @@
                 'max': 50
             },
             step: 1,
-            tooltips: [true, true],  // Hiển thị giá trị trên thanh trượt
+            tooltips: [true, true],
             format: {
                 to: function (value) {
                     return Math.round(value);

@@ -1,3 +1,7 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 @model List<Shared.Models.Product>
 
 <head>
@@ -13,11 +17,17 @@
         </div>
         <div class="col-md-8"> <!-- Sản phẩm -->
             <div class="product">
-                <h4 class="mb-4">@ViewData["Category"]</h4>
+                <h5 class="mb-4 mt-5">
+                    @ViewData["Category"]
+                    @if (ViewData["LineName"] != null)
+                    {
+                        <span> - @ViewData["LineName"]</span>
+                    }
+                </h5>
                 <div class="row g-3">
                     @foreach (var product in Model)
                     {
-                        <div class="col-lg-4 col-md-6 col-sm-12"> <!-- Điều chỉnh kích thước cột -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="card">
                                 <img src="@Url.Content("~/image/image_product/" + @product.ImageUrl)"
                                     class="card-img-top resize-image" alt="@product.NameProduct">
@@ -25,10 +35,12 @@
                                     <p class="card-title fw-bold">@product.NameProduct</p>
                                     <p class="card-text">@product.Price <sup>đ</sup></p>
                                     <div class="group-btn-add-cart w-100 border-top  d-flex justify-content-evenly">
-                                        <a href="/Product/Detail/@product.IdProduct"><i class="fa fa-eye fa-2x pt-3"
-                                                aria-hidden="true"></i></a>
+                                        <a href="/Product/Detail/@product.IdProduct" title="Xem chi tiết">
+                                            <i class="fa fa-eye fa-2x pt-3" aria-hidden="true"></i>
+                                        </a>
                                         <span class="pt-3">|</span>
-                                        <i class="fa fa-shopping-bag pt-3 fa-2x" aria-hidden="true"></i>
+                                        <i class="fa fa-shopping-bag pt-3 fa-2x" aria-hidden="true"
+                                            title="Thêm vào giỏ hàng"></i>
                                     </div>
                                 </div>
                             </div>
