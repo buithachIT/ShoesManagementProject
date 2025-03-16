@@ -29,7 +29,7 @@ partial class Form1
     private void InitializeComponent()
     {
         tabControl1 = new TabControl();
-        tabPage1 = new TabPage();
+        tabProduct = new TabPage();
         numericUpDown1 = new NumericUpDown();
         dateTimePicker1 = new DateTimePicker();
         comboBox3 = new ComboBox();
@@ -38,7 +38,7 @@ partial class Form1
         label7 = new Label();
         textBox4 = new TextBox();
         label6 = new Label();
-        button4 = new Button();
+        buttonAddImage = new Button();
         textBox3 = new TextBox();
         label5 = new Label();
         comboBox2 = new ComboBox();
@@ -52,8 +52,8 @@ partial class Form1
         button3 = new Button();
         button2 = new Button();
         button1 = new Button();
-        dataGridView1 = new DataGridView();
-        tabPage2 = new TabPage();
+        tableProduct = new DataGridView();
+        tabUser = new TabPage();
         comboBox5 = new ComboBox();
         comboBox4 = new ComboBox();
         textBox10 = new TextBox();
@@ -73,8 +73,8 @@ partial class Form1
         button5 = new Button();
         button6 = new Button();
         button7 = new Button();
-        dataGridView2 = new DataGridView();
-        tabPage3 = new TabPage();
+        tableUsers = new DataGridView();
+        tabColorSize = new TabPage();
         textBox14 = new TextBox();
         textBox15 = new TextBox();
         textBox16 = new TextBox();
@@ -94,11 +94,11 @@ partial class Form1
         button9 = new Button();
         button8 = new Button();
         label19 = new Label();
-        dataGridView4 = new DataGridView();
+        tableSize = new DataGridView();
         label18 = new Label();
-        dataGridView3 = new DataGridView();
-        tabPage5 = new TabPage();
-        button20 = new Button();
+        tableColor = new DataGridView();
+        tabBrandLine = new TabPage();
+        buttonAddCategory = new Button();
         comboBox6 = new ComboBox();
         textBox20 = new TextBox();
         label32 = new Label();
@@ -117,41 +117,56 @@ partial class Form1
         label28 = new Label();
         label27 = new Label();
         label26 = new Label();
-        dataGridView6 = new DataGridView();
-        dataGridView5 = new DataGridView();
-        tabPage7 = new TabPage();
+        tableLine = new DataGridView();
+        tableBrand = new DataGridView();
+        tabVariant = new TabPage();
+        dateTimePicker2 = new DateTimePicker();
+        textBox22 = new TextBox();
+        comboBox9 = new ComboBox();
+        comboBox8 = new ComboBox();
+        comboBox7 = new ComboBox();
+        textBox21 = new TextBox();
+        label38 = new Label();
+        label37 = new Label();
+        label36 = new Label();
+        label35 = new Label();
+        label34 = new Label();
+        label33 = new Label();
+        button23 = new Button();
+        button22 = new Button();
+        button21 = new Button();
+        tableVariant = new DataGridView();
         tabPage10 = new TabPage();
-        tabPage11 = new TabPage();
-        dataGridView7 = new DataGridView();
         dataGridView8 = new DataGridView();
+        tabPage11 = new TabPage();
         dataGridView9 = new DataGridView();
         tabControl1.SuspendLayout();
-        tabPage1.SuspendLayout();
+        tabProduct.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-        tabPage2.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-        tabPage3.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
-        tabPage5.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView6).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView5).BeginInit();
-        tabPage7.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
+        tabUser.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)tableUsers).BeginInit();
+        tabColorSize.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)tableSize).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)tableColor).BeginInit();
+        tabBrandLine.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)tableLine).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)tableBrand).BeginInit();
+        tabVariant.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)tableVariant).BeginInit();
         tabPage10.SuspendLayout();
-        tabPage11.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView7).BeginInit();
         ((System.ComponentModel.ISupportInitialize)dataGridView8).BeginInit();
+        tabPage11.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)dataGridView9).BeginInit();
         SuspendLayout();
         // 
         // tabControl1
         // 
-        tabControl1.Controls.Add(tabPage1);
-        tabControl1.Controls.Add(tabPage2);
-        tabControl1.Controls.Add(tabPage3);
-        tabControl1.Controls.Add(tabPage5);
-        tabControl1.Controls.Add(tabPage7);
+        tabControl1.Controls.Add(tabProduct);
+        tabControl1.Controls.Add(tabUser);
+        tabControl1.Controls.Add(tabColorSize);
+        tabControl1.Controls.Add(tabBrandLine);
+        tabControl1.Controls.Add(tabVariant);
         tabControl1.Controls.Add(tabPage10);
         tabControl1.Controls.Add(tabPage11);
         tabControl1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -160,39 +175,40 @@ partial class Form1
         tabControl1.SelectedIndex = 0;
         tabControl1.Size = new Size(1141, 693);
         tabControl1.TabIndex = 0;
+        tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
         // 
-        // tabPage1
+        // tabProduct
         // 
-        tabPage1.Controls.Add(numericUpDown1);
-        tabPage1.Controls.Add(dateTimePicker1);
-        tabPage1.Controls.Add(comboBox3);
-        tabPage1.Controls.Add(label10);
-        tabPage1.Controls.Add(label9);
-        tabPage1.Controls.Add(label7);
-        tabPage1.Controls.Add(textBox4);
-        tabPage1.Controls.Add(label6);
-        tabPage1.Controls.Add(button4);
-        tabPage1.Controls.Add(textBox3);
-        tabPage1.Controls.Add(label5);
-        tabPage1.Controls.Add(comboBox2);
-        tabPage1.Controls.Add(comboBox1);
-        tabPage1.Controls.Add(label4);
-        tabPage1.Controls.Add(label3);
-        tabPage1.Controls.Add(textBox2);
-        tabPage1.Controls.Add(label2);
-        tabPage1.Controls.Add(textBox1);
-        tabPage1.Controls.Add(label1);
-        tabPage1.Controls.Add(button3);
-        tabPage1.Controls.Add(button2);
-        tabPage1.Controls.Add(button1);
-        tabPage1.Controls.Add(dataGridView1);
-        tabPage1.Location = new Point(4, 37);
-        tabPage1.Name = "tabPage1";
-        tabPage1.Padding = new Padding(3);
-        tabPage1.Size = new Size(1133, 652);
-        tabPage1.TabIndex = 0;
-        tabPage1.Text = "Product";
-        tabPage1.UseVisualStyleBackColor = true;
+        tabProduct.Controls.Add(numericUpDown1);
+        tabProduct.Controls.Add(dateTimePicker1);
+        tabProduct.Controls.Add(comboBox3);
+        tabProduct.Controls.Add(label10);
+        tabProduct.Controls.Add(label9);
+        tabProduct.Controls.Add(label7);
+        tabProduct.Controls.Add(textBox4);
+        tabProduct.Controls.Add(label6);
+        tabProduct.Controls.Add(buttonAddImage);
+        tabProduct.Controls.Add(textBox3);
+        tabProduct.Controls.Add(label5);
+        tabProduct.Controls.Add(comboBox2);
+        tabProduct.Controls.Add(comboBox1);
+        tabProduct.Controls.Add(label4);
+        tabProduct.Controls.Add(label3);
+        tabProduct.Controls.Add(textBox2);
+        tabProduct.Controls.Add(label2);
+        tabProduct.Controls.Add(textBox1);
+        tabProduct.Controls.Add(label1);
+        tabProduct.Controls.Add(button3);
+        tabProduct.Controls.Add(button2);
+        tabProduct.Controls.Add(button1);
+        tabProduct.Controls.Add(tableProduct);
+        tabProduct.Location = new Point(4, 37);
+        tabProduct.Name = "tabProduct";
+        tabProduct.Padding = new Padding(3);
+        tabProduct.Size = new Size(1133, 652);
+        tabProduct.TabIndex = 0;
+        tabProduct.Text = "Product";
+        tabProduct.UseVisualStyleBackColor = true;
         // 
         // numericUpDown1
         // 
@@ -260,14 +276,14 @@ partial class Form1
         label6.TabIndex = 15;
         label6.Text = "Material";
         // 
-        // button4
+        // buttonAddImage
         // 
-        button4.Location = new Point(1011, 570);
-        button4.Name = "button4";
-        button4.Size = new Size(107, 41);
-        button4.TabIndex = 14;
-        button4.Text = "Thêm ảnh";
-        button4.UseVisualStyleBackColor = true;
+        buttonAddImage.Location = new Point(1011, 570);
+        buttonAddImage.Name = "buttonAddImage";
+        buttonAddImage.Size = new Size(107, 41);
+        buttonAddImage.TabIndex = 14;
+        buttonAddImage.Text = "Thêm ảnh";
+        buttonAddImage.UseVisualStyleBackColor = true;
         // 
         // textBox3
         // 
@@ -377,46 +393,45 @@ partial class Form1
         button1.TabIndex = 1;
         button1.Text = "Thêm";
         button1.UseVisualStyleBackColor = true;
-        button1.Click += button1_Click_1;
         // 
-        // dataGridView1
+        // tableProduct
         // 
-        dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView1.Location = new Point(16, 15);
-        dataGridView1.Name = "dataGridView1";
-        dataGridView1.RowHeadersWidth = 51;
-        dataGridView1.Size = new Size(1102, 294);
-        dataGridView1.TabIndex = 0;
+        tableProduct.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableProduct.Location = new Point(16, 15);
+        tableProduct.Name = "tableProduct";
+        tableProduct.RowHeadersWidth = 51;
+        tableProduct.Size = new Size(1102, 294);
+        tableProduct.TabIndex = 0;
         // 
-        // tabPage2
+        // tabUser
         // 
-        tabPage2.Controls.Add(comboBox5);
-        tabPage2.Controls.Add(comboBox4);
-        tabPage2.Controls.Add(textBox10);
-        tabPage2.Controls.Add(label15);
-        tabPage2.Controls.Add(label16);
-        tabPage2.Controls.Add(label17);
-        tabPage2.Controls.Add(textBox9);
-        tabPage2.Controls.Add(textBox8);
-        tabPage2.Controls.Add(textBox5);
-        tabPage2.Controls.Add(label8);
-        tabPage2.Controls.Add(label11);
-        tabPage2.Controls.Add(label12);
-        tabPage2.Controls.Add(textBox6);
-        tabPage2.Controls.Add(label13);
-        tabPage2.Controls.Add(textBox7);
-        tabPage2.Controls.Add(label14);
-        tabPage2.Controls.Add(button5);
-        tabPage2.Controls.Add(button6);
-        tabPage2.Controls.Add(button7);
-        tabPage2.Controls.Add(dataGridView2);
-        tabPage2.Location = new Point(4, 37);
-        tabPage2.Name = "tabPage2";
-        tabPage2.Padding = new Padding(3);
-        tabPage2.Size = new Size(1133, 652);
-        tabPage2.TabIndex = 1;
-        tabPage2.Text = "User";
-        tabPage2.UseVisualStyleBackColor = true;
+        tabUser.Controls.Add(comboBox5);
+        tabUser.Controls.Add(comboBox4);
+        tabUser.Controls.Add(textBox10);
+        tabUser.Controls.Add(label15);
+        tabUser.Controls.Add(label16);
+        tabUser.Controls.Add(label17);
+        tabUser.Controls.Add(textBox9);
+        tabUser.Controls.Add(textBox8);
+        tabUser.Controls.Add(textBox5);
+        tabUser.Controls.Add(label8);
+        tabUser.Controls.Add(label11);
+        tabUser.Controls.Add(label12);
+        tabUser.Controls.Add(textBox6);
+        tabUser.Controls.Add(label13);
+        tabUser.Controls.Add(textBox7);
+        tabUser.Controls.Add(label14);
+        tabUser.Controls.Add(button5);
+        tabUser.Controls.Add(button6);
+        tabUser.Controls.Add(button7);
+        tabUser.Controls.Add(tableUsers);
+        tabUser.Location = new Point(4, 37);
+        tabUser.Name = "tabUser";
+        tabUser.Padding = new Padding(3);
+        tabUser.Size = new Size(1133, 652);
+        tabUser.TabIndex = 1;
+        tabUser.Text = "User";
+        tabUser.UseVisualStyleBackColor = true;
         // 
         // comboBox5
         // 
@@ -576,46 +591,46 @@ partial class Form1
         button7.Text = "Thêm";
         button7.UseVisualStyleBackColor = true;
         // 
-        // dataGridView2
+        // tableUsers
         // 
-        dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView2.Location = new Point(6, 6);
-        dataGridView2.Name = "dataGridView2";
-        dataGridView2.RowHeadersWidth = 51;
-        dataGridView2.Size = new Size(1121, 328);
-        dataGridView2.TabIndex = 0;
+        tableUsers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableUsers.Location = new Point(6, 6);
+        tableUsers.Name = "tableUsers";
+        tableUsers.RowHeadersWidth = 51;
+        tableUsers.Size = new Size(1121, 328);
+        tableUsers.TabIndex = 0;
         // 
-        // tabPage3
+        // tabColorSize
         // 
-        tabPage3.Controls.Add(textBox14);
-        tabPage3.Controls.Add(textBox15);
-        tabPage3.Controls.Add(textBox16);
-        tabPage3.Controls.Add(label23);
-        tabPage3.Controls.Add(label24);
-        tabPage3.Controls.Add(label25);
-        tabPage3.Controls.Add(textBox13);
-        tabPage3.Controls.Add(textBox12);
-        tabPage3.Controls.Add(textBox11);
-        tabPage3.Controls.Add(label22);
-        tabPage3.Controls.Add(label21);
-        tabPage3.Controls.Add(label20);
-        tabPage3.Controls.Add(button11);
-        tabPage3.Controls.Add(button12);
-        tabPage3.Controls.Add(button13);
-        tabPage3.Controls.Add(button10);
-        tabPage3.Controls.Add(button9);
-        tabPage3.Controls.Add(button8);
-        tabPage3.Controls.Add(label19);
-        tabPage3.Controls.Add(dataGridView4);
-        tabPage3.Controls.Add(label18);
-        tabPage3.Controls.Add(dataGridView3);
-        tabPage3.Location = new Point(4, 37);
-        tabPage3.Name = "tabPage3";
-        tabPage3.Padding = new Padding(3);
-        tabPage3.Size = new Size(1133, 652);
-        tabPage3.TabIndex = 2;
-        tabPage3.Text = "Color & Size";
-        tabPage3.UseVisualStyleBackColor = true;
+        tabColorSize.Controls.Add(textBox14);
+        tabColorSize.Controls.Add(textBox15);
+        tabColorSize.Controls.Add(textBox16);
+        tabColorSize.Controls.Add(label23);
+        tabColorSize.Controls.Add(label24);
+        tabColorSize.Controls.Add(label25);
+        tabColorSize.Controls.Add(textBox13);
+        tabColorSize.Controls.Add(textBox12);
+        tabColorSize.Controls.Add(textBox11);
+        tabColorSize.Controls.Add(label22);
+        tabColorSize.Controls.Add(label21);
+        tabColorSize.Controls.Add(label20);
+        tabColorSize.Controls.Add(button11);
+        tabColorSize.Controls.Add(button12);
+        tabColorSize.Controls.Add(button13);
+        tabColorSize.Controls.Add(button10);
+        tabColorSize.Controls.Add(button9);
+        tabColorSize.Controls.Add(button8);
+        tabColorSize.Controls.Add(label19);
+        tabColorSize.Controls.Add(tableSize);
+        tabColorSize.Controls.Add(label18);
+        tabColorSize.Controls.Add(tableColor);
+        tabColorSize.Location = new Point(4, 37);
+        tabColorSize.Name = "tabColorSize";
+        tabColorSize.Padding = new Padding(3);
+        tabColorSize.Size = new Size(1133, 652);
+        tabColorSize.TabIndex = 2;
+        tabColorSize.Text = "Color & Size";
+        tabColorSize.UseVisualStyleBackColor = true;
         // 
         // textBox14
         // 
@@ -778,14 +793,14 @@ partial class Form1
         label19.TabIndex = 3;
         label19.Text = "Size Table";
         // 
-        // dataGridView4
+        // tableSize
         // 
-        dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView4.Location = new Point(627, 44);
-        dataGridView4.Name = "dataGridView4";
-        dataGridView4.RowHeadersWidth = 51;
-        dataGridView4.Size = new Size(489, 292);
-        dataGridView4.TabIndex = 2;
+        tableSize.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableSize.Location = new Point(627, 44);
+        tableSize.Name = "tableSize";
+        tableSize.RowHeadersWidth = 51;
+        tableSize.Size = new Size(489, 292);
+        tableSize.TabIndex = 2;
         // 
         // label18
         // 
@@ -796,55 +811,55 @@ partial class Form1
         label18.TabIndex = 1;
         label18.Text = "Color Table";
         // 
-        // dataGridView3
+        // tableColor
         // 
-        dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView3.Location = new Point(15, 44);
-        dataGridView3.Name = "dataGridView3";
-        dataGridView3.RowHeadersWidth = 51;
-        dataGridView3.Size = new Size(489, 292);
-        dataGridView3.TabIndex = 0;
+        tableColor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableColor.Location = new Point(15, 44);
+        tableColor.Name = "tableColor";
+        tableColor.RowHeadersWidth = 51;
+        tableColor.Size = new Size(489, 292);
+        tableColor.TabIndex = 0;
         // 
-        // tabPage5
+        // tabBrandLine
         // 
-        tabPage5.Controls.Add(button20);
-        tabPage5.Controls.Add(comboBox6);
-        tabPage5.Controls.Add(textBox20);
-        tabPage5.Controls.Add(label32);
-        tabPage5.Controls.Add(label31);
-        tabPage5.Controls.Add(button17);
-        tabPage5.Controls.Add(button18);
-        tabPage5.Controls.Add(button19);
-        tabPage5.Controls.Add(button16);
-        tabPage5.Controls.Add(button15);
-        tabPage5.Controls.Add(button14);
-        tabPage5.Controls.Add(textBox19);
-        tabPage5.Controls.Add(label30);
-        tabPage5.Controls.Add(textBox18);
-        tabPage5.Controls.Add(label29);
-        tabPage5.Controls.Add(textBox17);
-        tabPage5.Controls.Add(label28);
-        tabPage5.Controls.Add(label27);
-        tabPage5.Controls.Add(label26);
-        tabPage5.Controls.Add(dataGridView6);
-        tabPage5.Controls.Add(dataGridView5);
-        tabPage5.Location = new Point(4, 37);
-        tabPage5.Name = "tabPage5";
-        tabPage5.Padding = new Padding(3);
-        tabPage5.Size = new Size(1133, 652);
-        tabPage5.TabIndex = 4;
-        tabPage5.Text = "Brand, Line & Category";
-        tabPage5.UseVisualStyleBackColor = true;
+        tabBrandLine.Controls.Add(buttonAddCategory);
+        tabBrandLine.Controls.Add(comboBox6);
+        tabBrandLine.Controls.Add(textBox20);
+        tabBrandLine.Controls.Add(label32);
+        tabBrandLine.Controls.Add(label31);
+        tabBrandLine.Controls.Add(button17);
+        tabBrandLine.Controls.Add(button18);
+        tabBrandLine.Controls.Add(button19);
+        tabBrandLine.Controls.Add(button16);
+        tabBrandLine.Controls.Add(button15);
+        tabBrandLine.Controls.Add(button14);
+        tabBrandLine.Controls.Add(textBox19);
+        tabBrandLine.Controls.Add(label30);
+        tabBrandLine.Controls.Add(textBox18);
+        tabBrandLine.Controls.Add(label29);
+        tabBrandLine.Controls.Add(textBox17);
+        tabBrandLine.Controls.Add(label28);
+        tabBrandLine.Controls.Add(label27);
+        tabBrandLine.Controls.Add(label26);
+        tabBrandLine.Controls.Add(tableLine);
+        tabBrandLine.Controls.Add(tableBrand);
+        tabBrandLine.Location = new Point(4, 37);
+        tabBrandLine.Name = "tabBrandLine";
+        tabBrandLine.Padding = new Padding(3);
+        tabBrandLine.Size = new Size(1133, 652);
+        tabBrandLine.TabIndex = 4;
+        tabBrandLine.Text = "Brand, Line & Category";
+        tabBrandLine.UseVisualStyleBackColor = true;
         // 
-        // button20
+        // buttonAddCategory
         // 
-        button20.FlatStyle = FlatStyle.System;
-        button20.Location = new Point(798, 527);
-        button20.Name = "button20";
-        button20.Size = new Size(155, 48);
-        button20.TabIndex = 20;
-        button20.Text = "Add Category";
-        button20.UseVisualStyleBackColor = true;
+        buttonAddCategory.FlatStyle = FlatStyle.System;
+        buttonAddCategory.Location = new Point(798, 527);
+        buttonAddCategory.Name = "buttonAddCategory";
+        buttonAddCategory.Size = new Size(155, 48);
+        buttonAddCategory.TabIndex = 20;
+        buttonAddCategory.Text = "Add Category";
+        buttonAddCategory.UseVisualStyleBackColor = true;
         // 
         // comboBox6
         // 
@@ -999,34 +1014,184 @@ partial class Form1
         label26.TabIndex = 2;
         label26.Text = "Brand";
         // 
-        // dataGridView6
+        // tableLine
         // 
-        dataGridView6.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView6.Location = new Point(627, 56);
-        dataGridView6.Name = "dataGridView6";
-        dataGridView6.RowHeadersWidth = 51;
-        dataGridView6.Size = new Size(484, 308);
-        dataGridView6.TabIndex = 1;
+        tableLine.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableLine.Location = new Point(627, 56);
+        tableLine.Name = "tableLine";
+        tableLine.RowHeadersWidth = 51;
+        tableLine.Size = new Size(484, 308);
+        tableLine.TabIndex = 1;
         // 
-        // dataGridView5
+        // tableBrand
         // 
-        dataGridView5.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView5.Location = new Point(15, 56);
-        dataGridView5.Name = "dataGridView5";
-        dataGridView5.RowHeadersWidth = 51;
-        dataGridView5.Size = new Size(484, 308);
-        dataGridView5.TabIndex = 0;
+        tableBrand.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableBrand.Location = new Point(15, 56);
+        tableBrand.Name = "tableBrand";
+        tableBrand.RowHeadersWidth = 51;
+        tableBrand.Size = new Size(484, 308);
+        tableBrand.TabIndex = 0;
         // 
-        // tabPage7
+        // tabVariant
         // 
-        tabPage7.Controls.Add(dataGridView7);
-        tabPage7.Location = new Point(4, 37);
-        tabPage7.Name = "tabPage7";
-        tabPage7.Padding = new Padding(3);
-        tabPage7.Size = new Size(1133, 652);
-        tabPage7.TabIndex = 6;
-        tabPage7.Text = "Variant";
-        tabPage7.UseVisualStyleBackColor = true;
+        tabVariant.Controls.Add(dateTimePicker2);
+        tabVariant.Controls.Add(textBox22);
+        tabVariant.Controls.Add(comboBox9);
+        tabVariant.Controls.Add(comboBox8);
+        tabVariant.Controls.Add(comboBox7);
+        tabVariant.Controls.Add(textBox21);
+        tabVariant.Controls.Add(label38);
+        tabVariant.Controls.Add(label37);
+        tabVariant.Controls.Add(label36);
+        tabVariant.Controls.Add(label35);
+        tabVariant.Controls.Add(label34);
+        tabVariant.Controls.Add(label33);
+        tabVariant.Controls.Add(button23);
+        tabVariant.Controls.Add(button22);
+        tabVariant.Controls.Add(button21);
+        tabVariant.Controls.Add(tableVariant);
+        tabVariant.Location = new Point(4, 37);
+        tabVariant.Name = "tabVariant";
+        tabVariant.Padding = new Padding(3);
+        tabVariant.Size = new Size(1133, 652);
+        tabVariant.TabIndex = 6;
+        tabVariant.Text = "Variant";
+        tabVariant.UseVisualStyleBackColor = true;
+        // 
+        // dateTimePicker2
+        // 
+        dateTimePicker2.Location = new Point(569, 550);
+        dateTimePicker2.Name = "dateTimePicker2";
+        dateTimePicker2.Size = new Size(315, 34);
+        dateTimePicker2.TabIndex = 15;
+        // 
+        // textBox22
+        // 
+        textBox22.Location = new Point(565, 459);
+        textBox22.Name = "textBox22";
+        textBox22.Size = new Size(277, 34);
+        textBox22.TabIndex = 14;
+        // 
+        // comboBox9
+        // 
+        comboBox9.FormattingEnabled = true;
+        comboBox9.Location = new Point(565, 365);
+        comboBox9.Name = "comboBox9";
+        comboBox9.Size = new Size(277, 36);
+        comboBox9.TabIndex = 13;
+        // 
+        // comboBox8
+        // 
+        comboBox8.FormattingEnabled = true;
+        comboBox8.Location = new Point(136, 548);
+        comboBox8.Name = "comboBox8";
+        comboBox8.Size = new Size(277, 36);
+        comboBox8.TabIndex = 12;
+        // 
+        // comboBox7
+        // 
+        comboBox7.FormattingEnabled = true;
+        comboBox7.Location = new Point(136, 457);
+        comboBox7.Name = "comboBox7";
+        comboBox7.Size = new Size(277, 36);
+        comboBox7.TabIndex = 11;
+        // 
+        // textBox21
+        // 
+        textBox21.Location = new Point(136, 365);
+        textBox21.Name = "textBox21";
+        textBox21.Size = new Size(277, 34);
+        textBox21.TabIndex = 10;
+        // 
+        // label38
+        // 
+        label38.AutoSize = true;
+        label38.Location = new Point(442, 548);
+        label38.Name = "label38";
+        label38.Size = new Size(121, 28);
+        label38.TabIndex = 9;
+        label38.Text = "Expired date";
+        // 
+        // label37
+        // 
+        label37.AutoSize = true;
+        label37.Location = new Point(442, 457);
+        label37.Name = "label37";
+        label37.Size = new Size(88, 28);
+        label37.TabIndex = 8;
+        label37.Text = "Quantity";
+        // 
+        // label36
+        // 
+        label36.AutoSize = true;
+        label36.Location = new Point(442, 365);
+        label36.Name = "label36";
+        label36.Size = new Size(84, 28);
+        label36.TabIndex = 7;
+        label36.Text = "ID Color";
+        // 
+        // label35
+        // 
+        label35.AutoSize = true;
+        label35.Location = new Point(6, 548);
+        label35.Name = "label35";
+        label35.Size = new Size(71, 28);
+        label35.TabIndex = 6;
+        label35.Text = "ID Size";
+        // 
+        // label34
+        // 
+        label34.AutoSize = true;
+        label34.Location = new Point(6, 457);
+        label34.Name = "label34";
+        label34.Size = new Size(105, 28);
+        label34.TabIndex = 5;
+        label34.Text = "ID Product";
+        // 
+        // label33
+        // 
+        label33.AutoSize = true;
+        label33.Location = new Point(6, 365);
+        label33.Name = "label33";
+        label33.Size = new Size(31, 28);
+        label33.TabIndex = 4;
+        label33.Text = "ID";
+        // 
+        // button23
+        // 
+        button23.Location = new Point(920, 548);
+        button23.Name = "button23";
+        button23.Size = new Size(175, 53);
+        button23.TabIndex = 3;
+        button23.Text = "Xóa";
+        button23.UseVisualStyleBackColor = true;
+        // 
+        // button22
+        // 
+        button22.Location = new Point(920, 457);
+        button22.Name = "button22";
+        button22.Size = new Size(175, 53);
+        button22.TabIndex = 2;
+        button22.Text = "Sửa";
+        button22.UseVisualStyleBackColor = true;
+        // 
+        // button21
+        // 
+        button21.Location = new Point(920, 365);
+        button21.Name = "button21";
+        button21.Size = new Size(175, 53);
+        button21.TabIndex = 1;
+        button21.Text = "Thêm";
+        button21.UseVisualStyleBackColor = true;
+        // 
+        // tableVariant
+        // 
+        tableVariant.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        tableVariant.Location = new Point(6, 3);
+        tableVariant.Name = "tableVariant";
+        tableVariant.RowHeadersWidth = 51;
+        tableVariant.Size = new Size(1121, 321);
+        tableVariant.TabIndex = 0;
         // 
         // tabPage10
         // 
@@ -1039,6 +1204,15 @@ partial class Form1
         tabPage10.Text = "Bảo hành";
         tabPage10.UseVisualStyleBackColor = true;
         // 
+        // dataGridView8
+        // 
+        dataGridView8.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+        dataGridView8.Location = new Point(9, 3);
+        dataGridView8.Name = "dataGridView8";
+        dataGridView8.RowHeadersWidth = 51;
+        dataGridView8.Size = new Size(1118, 300);
+        dataGridView8.TabIndex = 0;
+        // 
         // tabPage11
         // 
         tabPage11.Controls.Add(dataGridView9);
@@ -1049,24 +1223,6 @@ partial class Form1
         tabPage11.TabIndex = 10;
         tabPage11.Text = "Hóa đơn";
         tabPage11.UseVisualStyleBackColor = true;
-        // 
-        // dataGridView7
-        // 
-        dataGridView7.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView7.Location = new Point(6, 3);
-        dataGridView7.Name = "dataGridView7";
-        dataGridView7.RowHeadersWidth = 51;
-        dataGridView7.Size = new Size(1121, 321);
-        dataGridView7.TabIndex = 0;
-        // 
-        // dataGridView8
-        // 
-        dataGridView8.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridView8.Location = new Point(9, 3);
-        dataGridView8.Name = "dataGridView8";
-        dataGridView8.RowHeadersWidth = 51;
-        dataGridView8.Size = new Size(1118, 300);
-        dataGridView8.TabIndex = 0;
         // 
         // dataGridView9
         // 
@@ -1086,26 +1242,27 @@ partial class Form1
         Name = "Form1";
         Text = "Quản lý cửa hàng giày";
         tabControl1.ResumeLayout(false);
-        tabPage1.ResumeLayout(false);
-        tabPage1.PerformLayout();
+        tabProduct.ResumeLayout(false);
+        tabProduct.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-        tabPage2.ResumeLayout(false);
-        tabPage2.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-        tabPage3.ResumeLayout(false);
-        tabPage3.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
-        tabPage5.ResumeLayout(false);
-        tabPage5.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)dataGridView6).EndInit();
-        ((System.ComponentModel.ISupportInitialize)dataGridView5).EndInit();
-        tabPage7.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)tableProduct).EndInit();
+        tabUser.ResumeLayout(false);
+        tabUser.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)tableUsers).EndInit();
+        tabColorSize.ResumeLayout(false);
+        tabColorSize.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)tableSize).EndInit();
+        ((System.ComponentModel.ISupportInitialize)tableColor).EndInit();
+        tabBrandLine.ResumeLayout(false);
+        tabBrandLine.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)tableLine).EndInit();
+        ((System.ComponentModel.ISupportInitialize)tableBrand).EndInit();
+        tabVariant.ResumeLayout(false);
+        tabVariant.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)tableVariant).EndInit();
         tabPage10.ResumeLayout(false);
-        tabPage11.ResumeLayout(false);
-        ((System.ComponentModel.ISupportInitialize)dataGridView7).EndInit();
         ((System.ComponentModel.ISupportInitialize)dataGridView8).EndInit();
+        tabPage11.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)dataGridView9).EndInit();
         ResumeLayout(false);
     }
@@ -1113,15 +1270,15 @@ partial class Form1
     #endregion
 
     private TabControl tabControl1;
-    private TabPage tabPage1;
-    private TabPage tabPage2;
-    private TabPage tabPage3;
-    private TabPage tabPage5;
-    private TabPage tabPage7;
+    private TabPage tabProduct;
+    private TabPage tabUser;
+    private TabPage tabColorSize;
+    private TabPage tabBrandLine;
+    private TabPage tabVariant;
     private TabPage tabPage10;
     private TabPage tabPage11;
     private Button button1;
-    private DataGridView dataGridView1;
+    private DataGridView tableProduct;
     private Label label1;
     private Button button3;
     private Button button2;
@@ -1137,7 +1294,7 @@ partial class Form1
     private Label label7;
     private TextBox textBox4;
     private Label label6;
-    private Button button4;
+    private Button buttonAddImage;
     private Label label10;
     private Label label9;
     private DateTimePicker dateTimePicker1;
@@ -1156,7 +1313,7 @@ partial class Form1
     private Button button5;
     private Button button6;
     private Button button7;
-    private DataGridView dataGridView2;
+    private DataGridView tableUsers;
     private ComboBox comboBox5;
     private ComboBox comboBox4;
     private TextBox textBox10;
@@ -1167,9 +1324,9 @@ partial class Form1
     private Button button9;
     private Button button8;
     private Label label19;
-    private DataGridView dataGridView4;
+    private DataGridView tableSize;
     private Label label18;
-    private DataGridView dataGridView3;
+    private DataGridView tableColor;
     private Button button11;
     private Button button12;
     private Button button13;
@@ -1185,8 +1342,8 @@ partial class Form1
     private Label label23;
     private Label label24;
     private Label label25;
-    private DataGridView dataGridView6;
-    private DataGridView dataGridView5;
+    private DataGridView tableLine;
+    private DataGridView tableBrand;
     private Label label31;
     private Button button17;
     private Button button18;
@@ -1202,11 +1359,26 @@ partial class Form1
     private Label label28;
     private Label label27;
     private Label label26;
-    private Button button20;
+    private Button buttonAddCategory;
     private ComboBox comboBox6;
     private TextBox textBox20;
     private Label label32;
-    private DataGridView dataGridView7;
+    private DataGridView tableVariant;
     private DataGridView dataGridView8;
     private DataGridView dataGridView9;
+    private Label label38;
+    private Label label37;
+    private Label label36;
+    private Label label35;
+    private Label label34;
+    private Label label33;
+    private Button button23;
+    private Button button22;
+    private Button button21;
+    private DateTimePicker dateTimePicker2;
+    private TextBox textBox22;
+    private ComboBox comboBox9;
+    private ComboBox comboBox8;
+    private ComboBox comboBox7;
+    private TextBox textBox21;
 }
