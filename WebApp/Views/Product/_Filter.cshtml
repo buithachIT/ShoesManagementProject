@@ -1,81 +1,63 @@
-<div class="filter-section w-50">
-    <form asp-action="Index" method="get">
-        <!-- Lọc theo Giá (Thanh trượt noUiSlider) -->
-        <div class="mb-5">
-            <label class="form-label mb-5">Khoảng giá: <span id="priceRangeLabel">0 - 100</span> (triệu VNĐ)</label>
-            <div id="priceSlider"></div>
-            <input type="hidden" id="minPriceInput" name="minPrice" value="0">
-            <input type="hidden" id="maxPriceInput" name="maxPrice" value="100">
-        </div>
+@{
+    var lines = ViewData["Lines"] as List<Line> ?? new List<Line>();
+    var brands = ViewData["Brands"] as List<Brand> ?? new List<Brand>();
+    var selectedLine = ViewData["SelectedLine"] as int?;
+    var selectedBrand = ViewData["SelectedBrand"] as int?;
+    var selectedMaterial = ViewData["SelectedMaterial"] as string;
+}
 
-        <div class="mb-3">
-            <label class="form-label">Tình trạng</label>
-            <select name="inStock" class="form-control">
-                <option value="">Tất cả</option>
-                <option value="true">Còn hàng</option>
-                <option value="false">Hết hàng</option>
-            </select>
-        </div>
+<form asp-controller="Product" asp-action="ByCategory" method="get" class="p-4 bg-light rounded shadow-sm">
+    <input type="hidden" name="id" value="@ViewData["CategoryId"]" />
 
-        <div class="mb-3">
-            <label for="releaseOrder" class="form-label">Ngày phát hành</label>
-            <select name="releaseOrder" class="form-control">
-                <option value="">Mặc định</option>
-                <option value="newest">Mới nhất</option>
-                <option value="oldest">Cũ nhất</option>
-            </select>
-        </div>
-
-        <!-- Lọc theo Chất liệu -->
-        <div class="mb-3">
-            <label for="material" class="form-label">Chất liệu</label>
-            <select name="material" class="form-control">
-                <option value="">Tất cả</option>
-                s
-                @foreach (var product in Model)
-                {
-                    <option value="@product.Material">@product.Material</option>
-                }
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-outline-secondary">Lọc</button>
-    </form>
-</div>
-<!-- Thêm thư viện noUiSlider -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var priceSlider = document.getElementById('priceSlider');
-        var minPriceInput = document.getElementById('minPriceInput');
-        var maxPriceInput = document.getElementById('maxPriceInput');
-        var priceRangeLabel = document.getElementById('priceRangeLabel');
-
-        noUiSlider.create(priceSlider, {
-            start: [0, 50],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 50
-            },
-            step: 1,
-            tooltips: [true, true],
-            format: {
-                to: function (value) {
-                    return Math.round(value);
-                },
-                from: function (value) {
-                    return Number(value);
-                }
+    <!-- Dòng sản phẩm -->
+    <div class="mb-3">
+        <label for="lineId" class="form-label fw-semibold">Chọn dòng</label>
+        <select name="lineId" id="lineId" class="form-select">
+            <option value="">Tất cả</option>
+            @foreach (var line in lines)
+            {
+                <option value="@line.Id" selected="@(line.Id == selectedLine ? "selected" : null)">
+                    @line.Name
+                </option>
             }
-        });
+        </select>
+    </div>
 
-        priceSlider.noUiSlider.on('update', function (values) {
-            minPriceInput.value = values[0];
-            maxPriceInput.value = values[1];
-            priceRangeLabel.innerText = values[0] + " - " + values[1];
-        });
-    });
-</script>
+    <!-- Thương hiệu -->
+    <div class="mb-3">
+        <label for="idBrand" class="form-label fw-semibold">Thương hiệu</label>
+        <select name="idBrand" id="idBrand" class="form-select">
+            <option value="">Tất cả</option>
+            @foreach (var brand in brands)
+            {
+                <option value="@brand.Id" selected="@(brand.Id == selectedBrand ? "selected" : null)">
+                    @brand.Name
+                </option>
+            }
+        </select>
+    </div>
+
+    @* <!-- Chất liệu -->
+    <div class="mb-3">
+        <label for="material">Chất liệu:</label>
+        <select id="material" name="material" class="form-select">
+            <option value="">Tất cả</option>
+            @foreach (var mat in ViewData["Materials"] as List<string> ?? new List<string>())
+            {
+                <option value="@mat" selected="@(ViewData["SelectedMaterial"]?.ToString() == mat ? "selected" : null)">
+                    @mat
+                </option>
+            }
+        </select>
+    </div> *@
+
+    <!-- Nút lọc & bỏ lọc -->
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-funnel"></i> Lọc
+        </button>
+        <a href="/Product/ByCategory/@ViewData["CategoryId"]" class="btn btn-outline-warning w-100">
+            <i class="bi bi-x-circle"></i> Bỏ lọc
+        </a>
+    </div>
+</form>

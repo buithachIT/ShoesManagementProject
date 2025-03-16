@@ -12,79 +12,75 @@ public class ProductController : Controller
     {
         _context = context;
     }
-[Route("Product/ByCategory/{id}")]
-[Route("Product/ByCategory/{id}/{lineId?}")]
-public async Task<IActionResult> ByCategory(int id, int? lineId)
+    [Route("Product/ByCategory/{id}/{lineId?}")]
+public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, string material)
 {
     var products = _context.Products
         .Include(p => p.Line)
         .ThenInclude(l => l.Category)
         .Where(p => p.Line.IdCategory == id);
 
-    string? lineName = null; // Khai báo biến để lưu tên dòng sản phẩm
-
+    // Lọc theo dòng sản phẩm
     if (lineId.HasValue)
     {
         products = products.Where(p => p.IdLine == lineId.Value);
-        lineName = await _context.Lines
-            .Where(l => l.Id == lineId.Value)
-            .Select(l => l.Name)
-            .FirstOrDefaultAsync();
     }
 
+    // Lọc theo thương hiệu
+    if (idBrand.HasValue)
+    {
+        products = products.Where(p => p.IdBrand == idBrand.Value);
+    }
+
+    // Lọc theo chất liệu
+    if (!string.IsNullOrEmpty(material?.Trim()))
+    {
+        var materialsList = material.Split(',').Select(m => m.Trim()).ToList();
+        products = products.Where(p => materialsList.Any(mat => p.Material.Contains(mat)));
+    }
+
+    // Lấy thông tin danh mục
     var categoryName = await _context.Categories
         .Where(c => c.Id == id)
         .Select(c => c.Name)
         .FirstOrDefaultAsync();
 
+    // Lấy danh sách dòng sản phẩm
     var lines = await _context.Lines
         .Where(l => l.IdCategory == id)
         .ToListAsync();
 
-    ViewData["Category"] = categoryName;
-    ViewData["Lines"] = lines;
+    // Lấy danh sách thương hiệu
+    var brands = await _context.Brands.ToListAsync();
+
+    // Lấy danh sách chất liệu
+    var materials = await _context.Products
+        .Select(p => p.Material)
+        .Distinct()
+        .ToListAsync();
+
+    // Đảm bảo dữ liệu không bị null
+    ViewData["Category"] = categoryName ?? "Không xác định";
+    ViewData["Lines"] = lines ?? new List<Line>();
+    ViewData["Brands"] = brands ?? new List<Brand>();
+    ViewData["Materials"] = materials ?? new List<string>();
     ViewData["SelectedLine"] = lineId;
-    ViewData["LineName"] = lineName; // Lưu tên dòng sản phẩm vào ViewData
-ViewData["Categories"] = _context.Categories.Include(c => c.Lines).ToList();
+    ViewData["SelectedBrand"] = idBrand;
+    ViewData["SelectedMaterial"] = material;
+     ViewData["CategoryId"] = id; 
 
     return View(await products.ToListAsync());
 }
-
-
-    [HttpGet]
-public IActionResult Index(decimal? minPrice, decimal? maxPrice, bool? inStock, DateTime? releaseDate, string material)
+public IActionResult Filter(int? id, int? idLine, int? idBrand, string material)
 {
-    var products = _context.Products.AsQueryable();
-
-    if (minPrice.HasValue)
+    return RedirectToAction("ByCategory", new
     {
-        products = products.Where(p => p.Price >= minPrice.Value);
-    }
-
-    if (maxPrice.HasValue)
-    {
-        products = products.Where(p => p.Price <= maxPrice.Value);
-    }
-
-    // if (inStock.HasValue)
-    // {
-    //     products = products.Where(p => p.Status == inStock.Value);
-    // }
-
-    // if (releaseDate.HasValue)
-    // {
-    //     products = products.Where(p => p.Releasedate.Date == releaseDate.Value.Date);
-    // }
-
-    if (!string.IsNullOrEmpty(material))
-    {
-        products = products.Where(p => p.Material.Contains(material));
-    }
-
-    var materials = _context.Products.Select(p => p.Material).Distinct().ToList();
-    ViewData["Materials"] = materials;
-
-    return View(products.ToList());
+        id = id,
+        lineId = idLine,
+        idBrand = idBrand,
+        material = material
+    });
 }
 
 }
+
