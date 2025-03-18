@@ -47,7 +47,11 @@
                         </div>
                     }
                 </div>
+                @await Html.PartialAsync("_Pagination", (PaginationModel)ViewBag.Pagination)
+
             </div>
         </div>
     </div>
+
+
 </div>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.data;
 using Shared.Models;
+
 public class ProductController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -12,75 +13,115 @@ public class ProductController : Controller
     {
         _context = context;
     }
-    [Route("Product/ByCategory/{id}/{lineId?}")]
-public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, string material)
+public IActionResult ByCategory(int page = 1)
 {
+    int pageSize = 10; 
+    var totalItems = _context.Products.Count();
+    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
     var products = _context.Products
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+
+    var paginationModel = new PaginationModel
+    {
+        CurrentPage = page,
+        TotalPages = totalPages
+    };
+
+    ViewData["Pagination"] = paginationModel;
+    return View(products);
+}
+
+    [Route("Product/ByCategory/{id}/{lineId?}")]
+public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, string material, int page = 1, int pageSize = 10)
+{
+ 
+    var productsQuery = _context.Products
         .Include(p => p.Line)
         .ThenInclude(l => l.Category)
-        .Where(p => p.Line.IdCategory == id);
+        .Where(p => p.Line.IdCategory == id)
+        .AsQueryable(); 
 
-    // Lọc theo dòng sản phẩm
     if (lineId.HasValue)
     {
-        products = products.Where(p => p.IdLine == lineId.Value);
+        productsQuery = productsQuery.Where(p => p.IdLine == lineId.Value);
     }
 
-    // Lọc theo thương hiệu
+
     if (idBrand.HasValue)
     {
-        products = products.Where(p => p.IdBrand == idBrand.Value);
+        productsQuery = productsQuery.Where(p => p.IdBrand == idBrand.Value);
     }
 
-    // Lọc theo chất liệu
+   
     if (!string.IsNullOrEmpty(material?.Trim()))
     {
         var materialsList = material.Split(',').Select(m => m.Trim()).ToList();
-        products = products.Where(p => materialsList.Any(mat => p.Material.Contains(mat)));
+        productsQuery = productsQuery.Where(p => materialsList.Any(mat => EF.Functions.Like(p.Material, $"%{mat}%")));
     }
 
-    // Lấy thông tin danh mục
+   
+    int totalProducts = await productsQuery.CountAsync();
+
+
+    var pagedProducts = await productsQuery
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
+
     var categoryName = await _context.Categories
         .Where(c => c.Id == id)
         .Select(c => c.Name)
-        .FirstOrDefaultAsync();
+        .FirstOrDefaultAsync() ?? "Không xác định";
 
-    // Lấy danh sách dòng sản phẩm
+
     var lines = await _context.Lines
         .Where(l => l.IdCategory == id)
         .ToListAsync();
 
-    // Lấy danh sách thương hiệu
     var brands = await _context.Brands.ToListAsync();
 
-    // Lấy danh sách chất liệu
+   
     var materials = await _context.Products
         .Select(p => p.Material)
+        .Where(m => !string.IsNullOrEmpty(m))
         .Distinct()
         .ToListAsync();
 
-    // Đảm bảo dữ liệu không bị null
-    ViewData["Category"] = categoryName ?? "Không xác định";
-    ViewData["Lines"] = lines ?? new List<Line>();
-    ViewData["Brands"] = brands ?? new List<Brand>();
-    ViewData["Materials"] = materials ?? new List<string>();
+    ViewData["Category"] = categoryName;
+    ViewData["Lines"] = lines;
+    ViewData["Brands"] = brands;
+    ViewData["Materials"] = materials;
     ViewData["SelectedLine"] = lineId;
     ViewData["SelectedBrand"] = idBrand;
     ViewData["SelectedMaterial"] = material;
-     ViewData["CategoryId"] = id; 
+    ViewData["CategoryId"] = id;
 
-    return View(await products.ToListAsync());
-}
-public IActionResult Filter(int? id, int? idLine, int? idBrand, string material)
+    ViewData["TotalPages"] = (int)Math.Ceiling((double)totalProducts / pageSize);
+    ViewData["CurrentPage"] = page;
+    ViewData["PageSize"] = pageSize;
+    var routeValues = new Dictionary<string, object>
 {
-    return RedirectToAction("ByCategory", new
+    { "id", id },
+    { "lineId", lineId ?? (object)DBNull.Value },
+    { "idBrand", idBrand ?? (object)DBNull.Value },
+    { "material", material ?? (object)DBNull.Value }
+};
+
+    return View(pagedProducts);
+}
+
+
+    public IActionResult Filter(int? id, int? idLine, int? idBrand, string material)
     {
-        id = id,
-        lineId = idLine,
-        idBrand = idBrand,
-        material = material
-    });
+        return RedirectToAction("ByCategory", new
+        {
+            id = id,
+            lineId = idLine,
+            idBrand = idBrand,
+            material = material
+        });
+    }
 }
-
-}
-
