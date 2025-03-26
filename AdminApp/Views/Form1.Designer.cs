@@ -30,28 +30,28 @@ partial class Form1
     {
         tabControl1 = new TabControl();
         tabProduct = new TabPage();
-        numericUpDown1 = new NumericUpDown();
-        dateTimePicker1 = new DateTimePicker();
-        comboBox3 = new ComboBox();
+        price_Prd = new NumericUpDown();
+        Releasedate_Prd = new DateTimePicker();
+        cbb_Status = new ComboBox();
         label10 = new Label();
         label9 = new Label();
         label7 = new Label();
-        textBox4 = new TextBox();
+        txt_Material = new TextBox();
         label6 = new Label();
         buttonAddImage = new Button();
-        textBox3 = new TextBox();
+        txt_Descrip = new TextBox();
         label5 = new Label();
-        comboBox2 = new ComboBox();
-        comboBox1 = new ComboBox();
+        cbbBrand = new ComboBox();
+        cbbLine = new ComboBox();
         label4 = new Label();
         label3 = new Label();
-        textBox2 = new TextBox();
+        txt_namePrd = new TextBox();
         label2 = new Label();
-        textBox1 = new TextBox();
+        txt_IDprd = new TextBox();
         label1 = new Label();
-        button3 = new Button();
-        button2 = new Button();
-        button1 = new Button();
+        Repair_Prd = new Button();
+        Deleted_Prd = new Button();
+        Add_Prd = new Button();
         tableProduct = new DataGridView();
         tabUser = new TabPage();
         comboBox5 = new ComboBox();
@@ -142,7 +142,7 @@ partial class Form1
         dataGridView9 = new DataGridView();
         tabControl1.SuspendLayout();
         tabProduct.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)price_Prd).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
         tabUser.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)tableUsers).BeginInit();
@@ -179,28 +179,28 @@ partial class Form1
         // 
         // tabProduct
         // 
-        tabProduct.Controls.Add(numericUpDown1);
-        tabProduct.Controls.Add(dateTimePicker1);
-        tabProduct.Controls.Add(comboBox3);
+        tabProduct.Controls.Add(price_Prd);
+        tabProduct.Controls.Add(Releasedate_Prd);
+        tabProduct.Controls.Add(cbb_Status);
         tabProduct.Controls.Add(label10);
         tabProduct.Controls.Add(label9);
         tabProduct.Controls.Add(label7);
-        tabProduct.Controls.Add(textBox4);
+        tabProduct.Controls.Add(txt_Material);
         tabProduct.Controls.Add(label6);
         tabProduct.Controls.Add(buttonAddImage);
-        tabProduct.Controls.Add(textBox3);
+        tabProduct.Controls.Add(txt_Descrip);
         tabProduct.Controls.Add(label5);
-        tabProduct.Controls.Add(comboBox2);
-        tabProduct.Controls.Add(comboBox1);
+        tabProduct.Controls.Add(cbbBrand);
+        tabProduct.Controls.Add(cbbLine);
         tabProduct.Controls.Add(label4);
         tabProduct.Controls.Add(label3);
-        tabProduct.Controls.Add(textBox2);
+        tabProduct.Controls.Add(txt_namePrd);
         tabProduct.Controls.Add(label2);
-        tabProduct.Controls.Add(textBox1);
+        tabProduct.Controls.Add(txt_IDprd);
         tabProduct.Controls.Add(label1);
-        tabProduct.Controls.Add(button3);
-        tabProduct.Controls.Add(button2);
-        tabProduct.Controls.Add(button1);
+        tabProduct.Controls.Add(Repair_Prd);
+        tabProduct.Controls.Add(Deleted_Prd);
+        tabProduct.Controls.Add(Add_Prd);
         tabProduct.Controls.Add(tableProduct);
         tabProduct.Location = new Point(4, 37);
         tabProduct.Name = "tabProduct";
@@ -210,28 +210,28 @@ partial class Form1
         tabProduct.Text = "Product";
         tabProduct.UseVisualStyleBackColor = true;
         // 
-        // numericUpDown1
+        // price_Prd
         // 
-        numericUpDown1.Location = new Point(580, 409);
-        numericUpDown1.Name = "numericUpDown1";
-        numericUpDown1.Size = new Size(207, 34);
-        numericUpDown1.TabIndex = 26;
+        price_Prd.Location = new Point(580, 409);
+        price_Prd.Name = "price_Prd";
+        price_Prd.Size = new Size(207, 34);
+        price_Prd.TabIndex = 26;
         // 
-        // dateTimePicker1
+        // Releasedate_Prd
         // 
-        dateTimePicker1.Location = new Point(468, 587);
-        dateTimePicker1.Name = "dateTimePicker1";
-        dateTimePicker1.Size = new Size(319, 34);
-        dateTimePicker1.TabIndex = 25;
+        Releasedate_Prd.Location = new Point(468, 587);
+        Releasedate_Prd.Name = "Releasedate_Prd";
+        Releasedate_Prd.Size = new Size(319, 34);
+        Releasedate_Prd.TabIndex = 25;
         // 
-        // comboBox3
+        // cbb_Status
         // 
-        comboBox3.FormattingEnabled = true;
-        comboBox3.Items.AddRange(new object[] { "Còn Hàng", "Hết Hàng" });
-        comboBox3.Location = new Point(580, 473);
-        comboBox3.Name = "comboBox3";
-        comboBox3.Size = new Size(207, 36);
-        comboBox3.TabIndex = 24;
+        cbb_Status.FormattingEnabled = true;
+        cbb_Status.Items.AddRange(new object[] { "Còn Hàng", "Hết Hàng" });
+        cbb_Status.Location = new Point(580, 473);
+        cbb_Status.Name = "cbb_Status";
+        cbb_Status.Size = new Size(207, 36);
+        cbb_Status.TabIndex = 24;
         // 
         // label10
         // 
@@ -260,12 +260,12 @@ partial class Form1
         label7.TabIndex = 17;
         label7.Text = "Price";
         // 
-        // textBox4
+        // txt_Material
         // 
-        textBox4.Location = new Point(580, 342);
-        textBox4.Name = "textBox4";
-        textBox4.Size = new Size(207, 34);
-        textBox4.TabIndex = 16;
+        txt_Material.Location = new Point(580, 342);
+        txt_Material.Name = "txt_Material";
+        txt_Material.Size = new Size(207, 34);
+        txt_Material.TabIndex = 16;
         // 
         // label6
         // 
@@ -285,12 +285,12 @@ partial class Form1
         buttonAddImage.Text = "Thêm ảnh";
         buttonAddImage.UseVisualStyleBackColor = true;
         // 
-        // textBox3
+        // txt_Descrip
         // 
-        textBox3.Location = new Point(131, 593);
-        textBox3.Name = "textBox3";
-        textBox3.Size = new Size(207, 34);
-        textBox3.TabIndex = 13;
+        txt_Descrip.Location = new Point(131, 593);
+        txt_Descrip.Name = "txt_Descrip";
+        txt_Descrip.Size = new Size(207, 34);
+        txt_Descrip.TabIndex = 13;
         // 
         // label5
         // 
@@ -301,21 +301,21 @@ partial class Form1
         label5.TabIndex = 12;
         label5.Text = "Description";
         // 
-        // comboBox2
+        // cbbBrand
         // 
-        comboBox2.FormattingEnabled = true;
-        comboBox2.Location = new Point(131, 535);
-        comboBox2.Name = "comboBox2";
-        comboBox2.Size = new Size(207, 36);
-        comboBox2.TabIndex = 11;
+        cbbBrand.FormattingEnabled = true;
+        cbbBrand.Location = new Point(131, 535);
+        cbbBrand.Name = "cbbBrand";
+        cbbBrand.Size = new Size(207, 36);
+        cbbBrand.TabIndex = 11;
         // 
-        // comboBox1
+        // cbbLine
         // 
-        comboBox1.FormattingEnabled = true;
-        comboBox1.Location = new Point(131, 473);
-        comboBox1.Name = "comboBox1";
-        comboBox1.Size = new Size(207, 36);
-        comboBox1.TabIndex = 10;
+        cbbLine.FormattingEnabled = true;
+        cbbLine.Location = new Point(131, 473);
+        cbbLine.Name = "cbbLine";
+        cbbLine.Size = new Size(207, 36);
+        cbbLine.TabIndex = 10;
         // 
         // label4
         // 
@@ -335,12 +335,12 @@ partial class Form1
         label3.TabIndex = 8;
         label3.Text = "Line";
         // 
-        // textBox2
+        // txt_namePrd
         // 
-        textBox2.Location = new Point(131, 408);
-        textBox2.Name = "textBox2";
-        textBox2.Size = new Size(207, 34);
-        textBox2.TabIndex = 7;
+        txt_namePrd.Location = new Point(131, 408);
+        txt_namePrd.Name = "txt_namePrd";
+        txt_namePrd.Size = new Size(207, 34);
+        txt_namePrd.TabIndex = 7;
         // 
         // label2
         // 
@@ -351,12 +351,14 @@ partial class Form1
         label2.TabIndex = 6;
         label2.Text = "Tên";
         // 
-        // textBox1
+        // txt_IDprd
         // 
-        textBox1.Location = new Point(131, 342);
-        textBox1.Name = "textBox1";
-        textBox1.Size = new Size(207, 34);
-        textBox1.TabIndex = 5;
+        txt_IDprd.Enabled = false;
+        txt_IDprd.Location = new Point(131, 342);
+        txt_IDprd.Name = "txt_IDprd";
+        txt_IDprd.ReadOnly = true;
+        txt_IDprd.Size = new Size(207, 34);
+        txt_IDprd.TabIndex = 5;
         // 
         // label1
         // 
@@ -367,32 +369,34 @@ partial class Form1
         label1.TabIndex = 4;
         label1.Text = "ID";
         // 
-        // button3
+        // Repair_Prd
         // 
-        button3.Location = new Point(1011, 444);
-        button3.Name = "button3";
-        button3.Size = new Size(107, 41);
-        button3.TabIndex = 3;
-        button3.Text = "Sửa";
-        button3.UseVisualStyleBackColor = true;
+        Repair_Prd.Location = new Point(1011, 444);
+        Repair_Prd.Name = "Repair_Prd";
+        Repair_Prd.Size = new Size(107, 41);
+        Repair_Prd.TabIndex = 3;
+        Repair_Prd.Text = "Sửa";
+        Repair_Prd.UseVisualStyleBackColor = true;
+        Repair_Prd.Click += Repair_Prd_Click;
         // 
-        // button2
+        // Deleted_Prd
         // 
-        button2.Location = new Point(1011, 509);
-        button2.Name = "button2";
-        button2.Size = new Size(107, 41);
-        button2.TabIndex = 2;
-        button2.Text = "Xóa";
-        button2.UseVisualStyleBackColor = true;
+        Deleted_Prd.Location = new Point(1011, 509);
+        Deleted_Prd.Name = "Deleted_Prd";
+        Deleted_Prd.Size = new Size(107, 41);
+        Deleted_Prd.TabIndex = 2;
+        Deleted_Prd.Text = "Xóa";
+        Deleted_Prd.UseVisualStyleBackColor = true;
         // 
-        // button1
+        // Add_Prd
         // 
-        button1.Location = new Point(1011, 380);
-        button1.Name = "button1";
-        button1.Size = new Size(107, 41);
-        button1.TabIndex = 1;
-        button1.Text = "Thêm";
-        button1.UseVisualStyleBackColor = true;
+        Add_Prd.Location = new Point(1011, 380);
+        Add_Prd.Name = "Add_Prd";
+        Add_Prd.Size = new Size(107, 41);
+        Add_Prd.TabIndex = 1;
+        Add_Prd.Text = "Thêm";
+        Add_Prd.UseVisualStyleBackColor = true;
+        Add_Prd.Click += Add_Prd_Click;
         // 
         // tableProduct
         // 
@@ -402,6 +406,7 @@ partial class Form1
         tableProduct.RowHeadersWidth = 51;
         tableProduct.Size = new Size(1102, 294);
         tableProduct.TabIndex = 0;
+        tableProduct.CellClick += tableProduct_CellClick;
         // 
         // tabUser
         // 
@@ -1244,7 +1249,7 @@ partial class Form1
         tabControl1.ResumeLayout(false);
         tabProduct.ResumeLayout(false);
         tabProduct.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+        ((System.ComponentModel.ISupportInitialize)price_Prd).EndInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).EndInit();
         tabUser.ResumeLayout(false);
         tabUser.PerformLayout();
@@ -1277,29 +1282,29 @@ partial class Form1
     private TabPage tabVariant;
     private TabPage tabPage10;
     private TabPage tabPage11;
-    private Button button1;
+    private Button Add_Prd;
     private DataGridView tableProduct;
     private Label label1;
-    private Button button3;
-    private Button button2;
+    private Button Repair_Prd;
+    private Button Deleted_Prd;
     private Label label2;
-    private TextBox textBox1;
-    private TextBox textBox2;
+    private TextBox txt_IDprd;
+    private TextBox txt_namePrd;
     private Label label4;
     private Label label3;
-    private TextBox textBox3;
+    private TextBox txt_Descrip;
     private Label label5;
-    private ComboBox comboBox2;
-    private ComboBox comboBox1;
+    private ComboBox cbbBrand;
+    private ComboBox cbbLine;
     private Label label7;
-    private TextBox textBox4;
+    private TextBox txt_Material;
     private Label label6;
     private Button buttonAddImage;
     private Label label10;
     private Label label9;
-    private DateTimePicker dateTimePicker1;
-    private ComboBox comboBox3;
-    private NumericUpDown numericUpDown1;
+    private DateTimePicker Releasedate_Prd;
+    private ComboBox cbb_Status;
+    private NumericUpDown price_Prd;
     private TextBox textBox9;
     private TextBox textBox8;
     private TextBox textBox5;

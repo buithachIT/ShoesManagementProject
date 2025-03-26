@@ -38,26 +38,6 @@ namespace AdminApp.Controllers
             }
             return dt;
         }
-        public DataTable GetProduct()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM product";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
-                }
-            }
-            return dt;
-        }
         public DataTable GetColor()
         {
             DataTable dt = new DataTable();
@@ -87,46 +67,6 @@ namespace AdminApp.Controllers
                 {
                     conn.Open();
                     string query = "SELECT * FROM size";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
-                }
-            }
-            return dt;
-        }
-        public DataTable GetBrand()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM brand";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
-                }
-            }
-            return dt;
-        }
-        public DataTable GetLine()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM line";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                     adapter.Fill(dt);
