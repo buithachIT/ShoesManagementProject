@@ -1,4 +1,6 @@
-﻿namespace AdminApp;
+﻿using AdminApp.Controllers;
+
+namespace AdminApp;
 
 public partial class Form1 : Form
 {
