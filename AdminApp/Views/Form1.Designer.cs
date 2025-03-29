@@ -54,25 +54,25 @@ partial class Form1
         Add_Prd = new Button();
         tableProduct = new DataGridView();
         tabUser = new TabPage();
-        comboBox5 = new ComboBox();
-        comboBox4 = new ComboBox();
-        textBox10 = new TextBox();
+        txt_Sdt = new NumericUpDown();
+        cbb_Active = new ComboBox();
+        cbb_Role = new ComboBox();
         label15 = new Label();
         label16 = new Label();
         label17 = new Label();
-        textBox9 = new TextBox();
-        textBox8 = new TextBox();
-        textBox5 = new TextBox();
+        txt_FullName = new TextBox();
+        txt_PassWord = new TextBox();
+        txt_Email = new TextBox();
         label8 = new Label();
         label11 = new Label();
         label12 = new Label();
-        textBox6 = new TextBox();
+        txt_nameUser = new TextBox();
         label13 = new Label();
-        textBox7 = new TextBox();
+        txt_idUser = new TextBox();
         label14 = new Label();
-        button5 = new Button();
-        button6 = new Button();
-        button7 = new Button();
+        Repair_User = new Button();
+        Delete_User = new Button();
+        add_User = new Button();
         tableUsers = new DataGridView();
         tabColorSize = new TabPage();
         textBox14 = new TextBox();
@@ -145,6 +145,7 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)price_Prd).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
         tabUser.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)txt_Sdt).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableUsers).BeginInit();
         tabColorSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)tableSize).BeginInit();
@@ -284,6 +285,7 @@ partial class Form1
         buttonAddImage.TabIndex = 14;
         buttonAddImage.Text = "Thêm ảnh";
         buttonAddImage.UseVisualStyleBackColor = true;
+        buttonAddImage.Click += buttonAddImage_Click;
         // 
         // txt_Descrip
         // 
@@ -387,6 +389,7 @@ partial class Form1
         Deleted_Prd.TabIndex = 2;
         Deleted_Prd.Text = "Xóa";
         Deleted_Prd.UseVisualStyleBackColor = true;
+        Deleted_Prd.Click += Deleted_Prd_Click;
         // 
         // Add_Prd
         // 
@@ -410,25 +413,25 @@ partial class Form1
         // 
         // tabUser
         // 
-        tabUser.Controls.Add(comboBox5);
-        tabUser.Controls.Add(comboBox4);
-        tabUser.Controls.Add(textBox10);
+        tabUser.Controls.Add(txt_Sdt);
+        tabUser.Controls.Add(cbb_Active);
+        tabUser.Controls.Add(cbb_Role);
         tabUser.Controls.Add(label15);
         tabUser.Controls.Add(label16);
         tabUser.Controls.Add(label17);
-        tabUser.Controls.Add(textBox9);
-        tabUser.Controls.Add(textBox8);
-        tabUser.Controls.Add(textBox5);
+        tabUser.Controls.Add(txt_FullName);
+        tabUser.Controls.Add(txt_PassWord);
+        tabUser.Controls.Add(txt_Email);
         tabUser.Controls.Add(label8);
         tabUser.Controls.Add(label11);
         tabUser.Controls.Add(label12);
-        tabUser.Controls.Add(textBox6);
+        tabUser.Controls.Add(txt_nameUser);
         tabUser.Controls.Add(label13);
-        tabUser.Controls.Add(textBox7);
+        tabUser.Controls.Add(txt_idUser);
         tabUser.Controls.Add(label14);
-        tabUser.Controls.Add(button5);
-        tabUser.Controls.Add(button6);
-        tabUser.Controls.Add(button7);
+        tabUser.Controls.Add(Repair_User);
+        tabUser.Controls.Add(Delete_User);
+        tabUser.Controls.Add(add_User);
         tabUser.Controls.Add(tableUsers);
         tabUser.Location = new Point(4, 37);
         tabUser.Name = "tabUser";
@@ -438,29 +441,29 @@ partial class Form1
         tabUser.Text = "User";
         tabUser.UseVisualStyleBackColor = true;
         // 
-        // comboBox5
+        // txt_Sdt
         // 
-        comboBox5.FormattingEnabled = true;
-        comboBox5.Items.AddRange(new object[] { "0", "1" });
-        comboBox5.Location = new Point(663, 479);
-        comboBox5.Name = "comboBox5";
-        comboBox5.Size = new Size(207, 36);
-        comboBox5.TabIndex = 31;
+        txt_Sdt.Location = new Point(663, 352);
+        txt_Sdt.Name = "txt_Sdt";
+        txt_Sdt.Size = new Size(207, 34);
+        txt_Sdt.TabIndex = 32;
         // 
-        // comboBox4
+        // cbb_Active
         // 
-        comboBox4.FormattingEnabled = true;
-        comboBox4.Location = new Point(663, 417);
-        comboBox4.Name = "comboBox4";
-        comboBox4.Size = new Size(207, 36);
-        comboBox4.TabIndex = 30;
+        cbb_Active.FormattingEnabled = true;
+        cbb_Active.Items.AddRange(new object[] { "0", "1" });
+        cbb_Active.Location = new Point(663, 479);
+        cbb_Active.Name = "cbb_Active";
+        cbb_Active.Size = new Size(207, 36);
+        cbb_Active.TabIndex = 31;
         // 
-        // textBox10
+        // cbb_Role
         // 
-        textBox10.Location = new Point(663, 351);
-        textBox10.Name = "textBox10";
-        textBox10.Size = new Size(207, 34);
-        textBox10.TabIndex = 29;
+        cbb_Role.FormattingEnabled = true;
+        cbb_Role.Location = new Point(663, 417);
+        cbb_Role.Name = "cbb_Role";
+        cbb_Role.Size = new Size(207, 36);
+        cbb_Role.TabIndex = 30;
         // 
         // label15
         // 
@@ -489,26 +492,26 @@ partial class Form1
         label17.TabIndex = 26;
         label17.Text = "Sđt";
         // 
-        // textBox9
+        // txt_FullName
         // 
-        textBox9.Location = new Point(125, 538);
-        textBox9.Name = "textBox9";
-        textBox9.Size = new Size(207, 34);
-        textBox9.TabIndex = 25;
+        txt_FullName.Location = new Point(125, 538);
+        txt_FullName.Name = "txt_FullName";
+        txt_FullName.Size = new Size(207, 34);
+        txt_FullName.TabIndex = 25;
         // 
-        // textBox8
+        // txt_PassWord
         // 
-        textBox8.Location = new Point(125, 479);
-        textBox8.Name = "textBox8";
-        textBox8.Size = new Size(207, 34);
-        textBox8.TabIndex = 24;
+        txt_PassWord.Location = new Point(125, 479);
+        txt_PassWord.Name = "txt_PassWord";
+        txt_PassWord.Size = new Size(207, 34);
+        txt_PassWord.TabIndex = 24;
         // 
-        // textBox5
+        // txt_Email
         // 
-        textBox5.Location = new Point(125, 602);
-        textBox5.Name = "textBox5";
-        textBox5.Size = new Size(207, 34);
-        textBox5.TabIndex = 23;
+        txt_Email.Location = new Point(125, 602);
+        txt_Email.Name = "txt_Email";
+        txt_Email.Size = new Size(207, 34);
+        txt_Email.TabIndex = 23;
         // 
         // label8
         // 
@@ -537,12 +540,12 @@ partial class Form1
         label12.TabIndex = 18;
         label12.Text = "PassWord";
         // 
-        // textBox6
+        // txt_nameUser
         // 
-        textBox6.Location = new Point(125, 417);
-        textBox6.Name = "textBox6";
-        textBox6.Size = new Size(207, 34);
-        textBox6.TabIndex = 17;
+        txt_nameUser.Location = new Point(125, 417);
+        txt_nameUser.Name = "txt_nameUser";
+        txt_nameUser.Size = new Size(207, 34);
+        txt_nameUser.TabIndex = 17;
         // 
         // label13
         // 
@@ -553,12 +556,14 @@ partial class Form1
         label13.TabIndex = 16;
         label13.Text = "UserName";
         // 
-        // textBox7
+        // txt_idUser
         // 
-        textBox7.Location = new Point(125, 351);
-        textBox7.Name = "textBox7";
-        textBox7.Size = new Size(207, 34);
-        textBox7.TabIndex = 15;
+        txt_idUser.Enabled = false;
+        txt_idUser.Location = new Point(125, 351);
+        txt_idUser.Name = "txt_idUser";
+        txt_idUser.ReadOnly = true;
+        txt_idUser.Size = new Size(207, 34);
+        txt_idUser.TabIndex = 15;
         // 
         // label14
         // 
@@ -569,32 +574,35 @@ partial class Form1
         label14.TabIndex = 14;
         label14.Text = "ID";
         // 
-        // button5
+        // Repair_User
         // 
-        button5.Location = new Point(1020, 474);
-        button5.Name = "button5";
-        button5.Size = new Size(107, 41);
-        button5.TabIndex = 6;
-        button5.Text = "Sửa";
-        button5.UseVisualStyleBackColor = true;
+        Repair_User.Location = new Point(1020, 474);
+        Repair_User.Name = "Repair_User";
+        Repair_User.Size = new Size(107, 41);
+        Repair_User.TabIndex = 6;
+        Repair_User.Text = "Sửa";
+        Repair_User.UseVisualStyleBackColor = true;
+        Repair_User.Click += Repair_User_Click;
         // 
-        // button6
+        // Delete_User
         // 
-        button6.Location = new Point(1020, 539);
-        button6.Name = "button6";
-        button6.Size = new Size(107, 41);
-        button6.TabIndex = 5;
-        button6.Text = "Xóa";
-        button6.UseVisualStyleBackColor = true;
+        Delete_User.Location = new Point(1020, 539);
+        Delete_User.Name = "Delete_User";
+        Delete_User.Size = new Size(107, 41);
+        Delete_User.TabIndex = 5;
+        Delete_User.Text = "Xóa";
+        Delete_User.UseVisualStyleBackColor = true;
+        Delete_User.Click += Delete_User_Click;
         // 
-        // button7
+        // add_User
         // 
-        button7.Location = new Point(1020, 410);
-        button7.Name = "button7";
-        button7.Size = new Size(107, 41);
-        button7.TabIndex = 4;
-        button7.Text = "Thêm";
-        button7.UseVisualStyleBackColor = true;
+        add_User.Location = new Point(1020, 410);
+        add_User.Name = "add_User";
+        add_User.Size = new Size(107, 41);
+        add_User.TabIndex = 4;
+        add_User.Text = "Thêm";
+        add_User.UseVisualStyleBackColor = true;
+        add_User.Click += add_User_Click;
         // 
         // tableUsers
         // 
@@ -604,6 +612,7 @@ partial class Form1
         tableUsers.RowHeadersWidth = 51;
         tableUsers.Size = new Size(1121, 328);
         tableUsers.TabIndex = 0;
+        tableUsers.CellClick += tableUsers_CellClick;
         // 
         // tabColorSize
         // 
@@ -1197,6 +1206,7 @@ partial class Form1
         tableVariant.RowHeadersWidth = 51;
         tableVariant.Size = new Size(1121, 321);
         tableVariant.TabIndex = 0;
+        tableVariant.CellClick += tableProduct_CellClick;
         // 
         // tabPage10
         // 
@@ -1253,6 +1263,7 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)tableProduct).EndInit();
         tabUser.ResumeLayout(false);
         tabUser.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)txt_Sdt).EndInit();
         ((System.ComponentModel.ISupportInitialize)tableUsers).EndInit();
         tabColorSize.ResumeLayout(false);
         tabColorSize.PerformLayout();
@@ -1305,23 +1316,22 @@ partial class Form1
     private DateTimePicker Releasedate_Prd;
     private ComboBox cbb_Status;
     private NumericUpDown price_Prd;
-    private TextBox textBox9;
-    private TextBox textBox8;
-    private TextBox textBox5;
+    private TextBox txt_FullName;
+    private TextBox txt_PassWord;
+    private TextBox txt_Email;
     private Label label8;
     private Label label11;
     private Label label12;
-    private TextBox textBox6;
+    private TextBox txt_nameUser;
     private Label label13;
-    private TextBox textBox7;
+    private TextBox txt_idUser;
     private Label label14;
-    private Button button5;
-    private Button button6;
-    private Button button7;
+    private Button Repair_User;
+    private Button Delete_User;
+    private Button add_User;
     private DataGridView tableUsers;
-    private ComboBox comboBox5;
-    private ComboBox comboBox4;
-    private TextBox textBox10;
+    private ComboBox cbb_Active;
+    private ComboBox cbb_Role;
     private Label label15;
     private Label label16;
     private Label label17;
@@ -1386,4 +1396,5 @@ partial class Form1
     private ComboBox comboBox8;
     private ComboBox comboBox7;
     private TextBox textBox21;
+    private NumericUpDown txt_Sdt;
 }

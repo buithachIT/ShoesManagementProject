@@ -18,85 +18,55 @@ namespace AdminApp.Controllers
             return new MySqlConnection(connectionString);
         }
 
-        public DataTable GetUsers()
+        // Hàm thực thi câu lệnh (Insert, Update, Delete)
+        public bool ExecuteNonQuery(string query, MySqlParameter[] parameters)
         {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
+            using (MySqlConnection conn = GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    string query = "SELECT * FROM user";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        if (parameters != null)
+                            cmd.Parameters.AddRange(parameters);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
+                    MessageBox.Show("Lỗi khi thực thi lệnh SQL: " + ex.Message);
+                    return false;
                 }
             }
-            return dt;
         }
-        public DataTable GetColor()
+        // Hàm lấy dữ liệu (SELECT)
+        public DataTable ExecuteQuery(string query, MySqlParameter[] parameters = null)
         {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
+            DataTable dataTable = new DataTable();
+            using (MySqlConnection conn = GetConnection())
             {
                 try
                 {
                     conn.Open();
-                    string query = "SELECT * FROM color";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        if (parameters != null)
+                            cmd.Parameters.AddRange(parameters);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dataTable);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
+                    MessageBox.Show("Lỗi khi lấy dữ liệu: " + ex.Message);
                 }
             }
-            return dt;
-        }
-        public DataTable GetSize()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM size";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
-                }
-            }
-            return dt;
-        }
-        public DataTable GetVariant()
-        {
-            DataTable dt = new DataTable();
-            using (var conn = GetConnection())
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT * FROM product_variant";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi kết nối MySQL: " + ex.Message);
-                }
-            }
-            return dt;
+            return dataTable;
         }
     }
 }
