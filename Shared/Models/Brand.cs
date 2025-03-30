@@ -8,13 +8,14 @@ namespace Shared.Models
     {
         [Key]
         [Column("id_brand")]
-        public int Id { get; set; }  // id_brand (Khóa chính, Auto Increment)
+        public int IdBrand { get; set; }  // id_brand (Khóa chính, Auto Increment)
 
         [Required]
         [StringLength(255)]
          [Column("name_brand")]
-        public string Name { get; set; } // name_brand (Không được null, tối đa 255 ký tự)
+        public string NameBrand { get; set; } // name_brand (Không được null, tối đa 255 ký tự)
         [Column("info_brand")]
-        public string? Info { get; set; } // info_brand (Có thể null)
+        public string? InfoBrand { get; set; } // info_brand (Có thể null)
+        public ICollection<Product>? Products { get; set; }
     }
 }

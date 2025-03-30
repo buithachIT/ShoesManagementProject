@@ -2,6 +2,7 @@
 using Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,28 +11,50 @@ namespace AdminApp.Controllers
 {
     class LineController
     {
-        private string connectionString = "Server=localhost;Database=shose_web;User Id=root;Password=;";
+        private DatabaseHelper db = new DatabaseHelper();
 
         public List<Line> GetAllLine()
         {
-            List<Line> products = new List<Line>();
-            using (var conn = new MySqlConnection(connectionString))
+            string query = "SELECT id_line, name_category, id_category FROM line";
+            var dt = db.ExecuteQuery(query);
+            List<Line> Line = new List<Line>();
+            foreach (DataRow row in dt.Rows)
             {
-                conn.Open();
-                string query = "SELECT id_line, name_category, id_category FROM line";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                Line.Add(new Line
                 {
-                    products.Add(new Line
-                    {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        IdCategory = reader.GetInt32(2)
-                    });
-                }
+                    IdLine = Convert.ToInt32(row["id_line"]),
+                    NameLine = row["name_category"].ToString(),
+                    IdCategory = Convert.ToInt32(row["id_category"])
+                });
             }
-            return products;
+            return Line;
+        }
+
+        public bool AddLine(Line line)
+        {
+            string query = "INSERT INTO line(name_line, name_category) VALUES(@name_line, @name_category)";
+            MySqlParameter[] parameters = new MySqlParameter[2];
+            parameters[0] = new MySqlParameter("@name_line", line.NameLine);
+            parameters[1] = new MySqlParameter("@name_category", line.IdCategory);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+
+        public bool RepairLine(Line line)
+        {
+            string query = "UPDATE line SET name_line = @name_line, name_category = @name_category WHERE id_line = @id_line";
+            MySqlParameter[] parameters = new MySqlParameter[3];
+            parameters[0] = new MySqlParameter("@name_line", line.NameLine);
+            parameters[1] = new MySqlParameter("@name_category", line.IdCategory);
+            parameters[2] = new MySqlParameter("@id_line", line.IdLine);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+
+        public bool DeleteLine(Line line)
+        {
+            string query = "DELETE FROM line WHERE id_line = @id_line";
+            MySqlParameter[] parameters = new MySqlParameter[1];
+            parameters[0] = new MySqlParameter("@id_line", line.IdLine);
+            return db.ExecuteNonQuery(query, parameters);
         }
     }
 }

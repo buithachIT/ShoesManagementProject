@@ -30,7 +30,7 @@ partial class Form1
     {
         tabControl1 = new TabControl();
         tabProduct = new TabPage();
-        price_Prd = new NumericUpDown();
+        price_Prd = new TextBox();
         Releasedate_Prd = new DateTimePicker();
         cbb_Status = new ComboBox();
         label10 = new Label();
@@ -54,7 +54,6 @@ partial class Form1
         Add_Prd = new Button();
         tableProduct = new DataGridView();
         tabUser = new TabPage();
-        txt_Sdt = new NumericUpDown();
         cbb_Active = new ComboBox();
         cbb_Role = new ComboBox();
         label15 = new Label();
@@ -75,7 +74,7 @@ partial class Form1
         add_User = new Button();
         tableUsers = new DataGridView();
         tabColorSize = new TabPage();
-        txt_TypeColor = new TextBox();
+        txt_TypeSize = new TextBox();
         txt_SizeValue = new TextBox();
         txt_IdSize = new TextBox();
         label23 = new Label();
@@ -99,21 +98,21 @@ partial class Form1
         tableColor = new DataGridView();
         tabBrandLine = new TabPage();
         buttonAddCategory = new Button();
-        comboBox6 = new ComboBox();
-        textBox20 = new TextBox();
+        cbb_Category = new ComboBox();
+        txt_IdLine = new TextBox();
         label32 = new Label();
         label31 = new Label();
-        button17 = new Button();
-        button18 = new Button();
-        button19 = new Button();
-        button16 = new Button();
-        button15 = new Button();
-        button14 = new Button();
-        textBox19 = new TextBox();
+        Delete_Line = new Button();
+        Repair_Line = new Button();
+        Add_Line = new Button();
+        Delete_Brand = new Button();
+        Repair_Brand = new Button();
+        Add_Brand = new Button();
+        txt_InfoBrand = new TextBox();
         label30 = new Label();
-        textBox18 = new TextBox();
+        txt_NameBrand = new TextBox();
         label29 = new Label();
-        textBox17 = new TextBox();
+        txt_IdBrand = new TextBox();
         label28 = new Label();
         label27 = new Label();
         label26 = new Label();
@@ -140,12 +139,14 @@ partial class Form1
         dataGridView8 = new DataGridView();
         tabPage11 = new TabPage();
         dataGridView9 = new DataGridView();
+        ResetButton = new Button();
+        txt_Sdt = new TextBox();
+        label39 = new Label();
+        txt_NameLine = new TextBox();
         tabControl1.SuspendLayout();
         tabProduct.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)price_Prd).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
         tabUser.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)txt_Sdt).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableUsers).BeginInit();
         tabColorSize.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)tableSize).BeginInit();
@@ -213,7 +214,7 @@ partial class Form1
         // 
         // price_Prd
         // 
-        price_Prd.Location = new Point(580, 409);
+        price_Prd.Location = new Point(580, 411);
         price_Prd.Name = "price_Prd";
         price_Prd.Size = new Size(207, 34);
         price_Prd.TabIndex = 26;
@@ -436,17 +437,10 @@ partial class Form1
         tabUser.Location = new Point(4, 37);
         tabUser.Name = "tabUser";
         tabUser.Padding = new Padding(3);
-        tabUser.Size = new Size(1133, 652);
+        tabUser.Size = new Size(1211, 652);
         tabUser.TabIndex = 1;
         tabUser.Text = "User";
         tabUser.UseVisualStyleBackColor = true;
-        // 
-        // txt_Sdt
-        // 
-        txt_Sdt.Location = new Point(663, 352);
-        txt_Sdt.Name = "txt_Sdt";
-        txt_Sdt.Size = new Size(207, 34);
-        txt_Sdt.TabIndex = 32;
         // 
         // cbb_Active
         // 
@@ -616,7 +610,7 @@ partial class Form1
         // 
         // tabColorSize
         // 
-        tabColorSize.Controls.Add(txt_TypeColor);
+        tabColorSize.Controls.Add(txt_TypeSize);
         tabColorSize.Controls.Add(txt_SizeValue);
         tabColorSize.Controls.Add(txt_IdSize);
         tabColorSize.Controls.Add(label23);
@@ -646,13 +640,13 @@ partial class Form1
         tabColorSize.Text = "Color & Size";
         tabColorSize.UseVisualStyleBackColor = true;
         // 
-        // txt_TypeColor
+        // txt_TypeSize
         // 
-        txt_TypeColor.BackColor = SystemColors.Window;
-        txt_TypeColor.Location = new Point(773, 515);
-        txt_TypeColor.Name = "txt_TypeColor";
-        txt_TypeColor.Size = new Size(339, 34);
-        txt_TypeColor.TabIndex = 21;
+        txt_TypeSize.BackColor = SystemColors.Window;
+        txt_TypeSize.Location = new Point(773, 515);
+        txt_TypeSize.Name = "txt_TypeSize";
+        txt_TypeSize.Size = new Size(339, 34);
+        txt_TypeSize.TabIndex = 21;
         // 
         // txt_SizeValue
         // 
@@ -756,15 +750,17 @@ partial class Form1
         DeleteSize.TabIndex = 9;
         DeleteSize.Text = "Xóa";
         DeleteSize.UseVisualStyleBackColor = true;
+        DeleteSize.Click += DeleteSize_Click;
         // 
         // RepairSize
         // 
-        RepairSize.Location = new Point(805, 585);
+        RepairSize.Location = new Point(815, 585);
         RepairSize.Name = "RepairSize";
         RepairSize.Size = new Size(110, 46);
         RepairSize.TabIndex = 8;
         RepairSize.Text = "Sửa";
         RepairSize.UseVisualStyleBackColor = true;
+        RepairSize.Click += RepairSize_Click;
         // 
         // AddSize
         // 
@@ -774,6 +770,7 @@ partial class Form1
         AddSize.TabIndex = 7;
         AddSize.Text = "Thêm";
         AddSize.UseVisualStyleBackColor = true;
+        AddSize.Click += AddSize_Click;
         // 
         // DeleteColor
         // 
@@ -783,6 +780,7 @@ partial class Form1
         DeleteColor.TabIndex = 6;
         DeleteColor.Text = "Xóa";
         DeleteColor.UseVisualStyleBackColor = true;
+        DeleteColor.Click += DeleteColor_Click;
         // 
         // RepairColor
         // 
@@ -792,6 +790,7 @@ partial class Form1
         RepairColor.TabIndex = 5;
         RepairColor.Text = "Sửa";
         RepairColor.UseVisualStyleBackColor = true;
+        RepairColor.Click += RepairColor_Click;
         // 
         // addColor
         // 
@@ -801,6 +800,7 @@ partial class Form1
         addColor.TabIndex = 4;
         addColor.Text = "Thêm";
         addColor.UseVisualStyleBackColor = true;
+        addColor.Click += add_Color_Click;
         // 
         // label19
         // 
@@ -819,6 +819,7 @@ partial class Form1
         tableSize.RowHeadersWidth = 51;
         tableSize.Size = new Size(489, 292);
         tableSize.TabIndex = 2;
+        tableSize.CellContentClick += tableSize_CellContentClick;
         // 
         // label18
         // 
@@ -837,25 +838,28 @@ partial class Form1
         tableColor.RowHeadersWidth = 51;
         tableColor.Size = new Size(489, 292);
         tableColor.TabIndex = 0;
+        tableColor.CellClick += tableColor_CellClick;
         // 
         // tabBrandLine
         // 
+        tabBrandLine.Controls.Add(txt_NameLine);
+        tabBrandLine.Controls.Add(label39);
         tabBrandLine.Controls.Add(buttonAddCategory);
-        tabBrandLine.Controls.Add(comboBox6);
-        tabBrandLine.Controls.Add(textBox20);
+        tabBrandLine.Controls.Add(cbb_Category);
+        tabBrandLine.Controls.Add(txt_IdLine);
         tabBrandLine.Controls.Add(label32);
         tabBrandLine.Controls.Add(label31);
-        tabBrandLine.Controls.Add(button17);
-        tabBrandLine.Controls.Add(button18);
-        tabBrandLine.Controls.Add(button19);
-        tabBrandLine.Controls.Add(button16);
-        tabBrandLine.Controls.Add(button15);
-        tabBrandLine.Controls.Add(button14);
-        tabBrandLine.Controls.Add(textBox19);
+        tabBrandLine.Controls.Add(Delete_Line);
+        tabBrandLine.Controls.Add(Repair_Line);
+        tabBrandLine.Controls.Add(Add_Line);
+        tabBrandLine.Controls.Add(Delete_Brand);
+        tabBrandLine.Controls.Add(Repair_Brand);
+        tabBrandLine.Controls.Add(Add_Brand);
+        tabBrandLine.Controls.Add(txt_InfoBrand);
         tabBrandLine.Controls.Add(label30);
-        tabBrandLine.Controls.Add(textBox18);
+        tabBrandLine.Controls.Add(txt_NameBrand);
         tabBrandLine.Controls.Add(label29);
-        tabBrandLine.Controls.Add(textBox17);
+        tabBrandLine.Controls.Add(txt_IdBrand);
         tabBrandLine.Controls.Add(label28);
         tabBrandLine.Controls.Add(label27);
         tabBrandLine.Controls.Add(label26);
@@ -872,27 +876,29 @@ partial class Form1
         // buttonAddCategory
         // 
         buttonAddCategory.FlatStyle = FlatStyle.System;
-        buttonAddCategory.Location = new Point(798, 527);
+        buttonAddCategory.Location = new Point(969, 468);
         buttonAddCategory.Name = "buttonAddCategory";
-        buttonAddCategory.Size = new Size(155, 48);
+        buttonAddCategory.Size = new Size(142, 38);
         buttonAddCategory.TabIndex = 20;
         buttonAddCategory.Text = "Add Category";
         buttonAddCategory.UseVisualStyleBackColor = true;
         // 
-        // comboBox6
+        // cbb_Category
         // 
-        comboBox6.FormattingEnabled = true;
-        comboBox6.Location = new Point(798, 468);
-        comboBox6.Name = "comboBox6";
-        comboBox6.Size = new Size(313, 36);
-        comboBox6.TabIndex = 19;
+        cbb_Category.FormattingEnabled = true;
+        cbb_Category.Location = new Point(798, 468);
+        cbb_Category.Name = "cbb_Category";
+        cbb_Category.Size = new Size(160, 36);
+        cbb_Category.TabIndex = 19;
         // 
-        // textBox20
+        // txt_IdLine
         // 
-        textBox20.Location = new Point(798, 402);
-        textBox20.Name = "textBox20";
-        textBox20.Size = new Size(313, 34);
-        textBox20.TabIndex = 18;
+        txt_IdLine.Enabled = false;
+        txt_IdLine.Location = new Point(798, 402);
+        txt_IdLine.Name = "txt_IdLine";
+        txt_IdLine.ReadOnly = true;
+        txt_IdLine.Size = new Size(313, 34);
+        txt_IdLine.TabIndex = 18;
         // 
         // label32
         // 
@@ -912,66 +918,66 @@ partial class Form1
         label31.TabIndex = 16;
         label31.Text = "ID";
         // 
-        // button17
+        // Delete_Line
         // 
-        button17.Location = new Point(991, 590);
-        button17.Name = "button17";
-        button17.Size = new Size(120, 47);
-        button17.TabIndex = 15;
-        button17.Text = "Xóa";
-        button17.UseVisualStyleBackColor = true;
+        Delete_Line.Location = new Point(991, 590);
+        Delete_Line.Name = "Delete_Line";
+        Delete_Line.Size = new Size(120, 47);
+        Delete_Line.TabIndex = 15;
+        Delete_Line.Text = "Xóa";
+        Delete_Line.UseVisualStyleBackColor = true;
         // 
-        // button18
+        // Repair_Line
         // 
-        button18.Location = new Point(820, 590);
-        button18.Name = "button18";
-        button18.Size = new Size(120, 47);
-        button18.TabIndex = 14;
-        button18.Text = "Sửa";
-        button18.UseVisualStyleBackColor = true;
+        Repair_Line.Location = new Point(820, 590);
+        Repair_Line.Name = "Repair_Line";
+        Repair_Line.Size = new Size(120, 47);
+        Repair_Line.TabIndex = 14;
+        Repair_Line.Text = "Sửa";
+        Repair_Line.UseVisualStyleBackColor = true;
         // 
-        // button19
+        // Add_Line
         // 
-        button19.Location = new Point(627, 590);
-        button19.Name = "button19";
-        button19.Size = new Size(120, 47);
-        button19.TabIndex = 13;
-        button19.Text = "Thêm";
-        button19.UseVisualStyleBackColor = true;
+        Add_Line.Location = new Point(627, 590);
+        Add_Line.Name = "Add_Line";
+        Add_Line.Size = new Size(120, 47);
+        Add_Line.TabIndex = 13;
+        Add_Line.Text = "Thêm";
+        Add_Line.UseVisualStyleBackColor = true;
         // 
-        // button16
+        // Delete_Brand
         // 
-        button16.Location = new Point(379, 590);
-        button16.Name = "button16";
-        button16.Size = new Size(120, 47);
-        button16.TabIndex = 12;
-        button16.Text = "Xóa";
-        button16.UseVisualStyleBackColor = true;
+        Delete_Brand.Location = new Point(379, 590);
+        Delete_Brand.Name = "Delete_Brand";
+        Delete_Brand.Size = new Size(120, 47);
+        Delete_Brand.TabIndex = 12;
+        Delete_Brand.Text = "Xóa";
+        Delete_Brand.UseVisualStyleBackColor = true;
         // 
-        // button15
+        // Repair_Brand
         // 
-        button15.Location = new Point(202, 590);
-        button15.Name = "button15";
-        button15.Size = new Size(120, 47);
-        button15.TabIndex = 11;
-        button15.Text = "Sửa";
-        button15.UseVisualStyleBackColor = true;
+        Repair_Brand.Location = new Point(202, 590);
+        Repair_Brand.Name = "Repair_Brand";
+        Repair_Brand.Size = new Size(120, 47);
+        Repair_Brand.TabIndex = 11;
+        Repair_Brand.Text = "Sửa";
+        Repair_Brand.UseVisualStyleBackColor = true;
         // 
-        // button14
+        // Add_Brand
         // 
-        button14.Location = new Point(15, 590);
-        button14.Name = "button14";
-        button14.Size = new Size(120, 47);
-        button14.TabIndex = 10;
-        button14.Text = "Thêm";
-        button14.UseVisualStyleBackColor = true;
+        Add_Brand.Location = new Point(15, 590);
+        Add_Brand.Name = "Add_Brand";
+        Add_Brand.Size = new Size(120, 47);
+        Add_Brand.TabIndex = 10;
+        Add_Brand.Text = "Thêm";
+        Add_Brand.UseVisualStyleBackColor = true;
         // 
-        // textBox19
+        // txt_InfoBrand
         // 
-        textBox19.Location = new Point(141, 537);
-        textBox19.Name = "textBox19";
-        textBox19.Size = new Size(358, 34);
-        textBox19.TabIndex = 9;
+        txt_InfoBrand.Location = new Point(141, 537);
+        txt_InfoBrand.Name = "txt_InfoBrand";
+        txt_InfoBrand.Size = new Size(358, 34);
+        txt_InfoBrand.TabIndex = 9;
         // 
         // label30
         // 
@@ -982,12 +988,12 @@ partial class Form1
         label30.TabIndex = 8;
         label30.Text = "Info";
         // 
-        // textBox18
+        // txt_NameBrand
         // 
-        textBox18.Location = new Point(141, 465);
-        textBox18.Name = "textBox18";
-        textBox18.Size = new Size(358, 34);
-        textBox18.TabIndex = 7;
+        txt_NameBrand.Location = new Point(141, 465);
+        txt_NameBrand.Name = "txt_NameBrand";
+        txt_NameBrand.Size = new Size(358, 34);
+        txt_NameBrand.TabIndex = 7;
         // 
         // label29
         // 
@@ -998,12 +1004,14 @@ partial class Form1
         label29.TabIndex = 6;
         label29.Text = "Name Brand";
         // 
-        // textBox17
+        // txt_IdBrand
         // 
-        textBox17.Location = new Point(141, 396);
-        textBox17.Name = "textBox17";
-        textBox17.Size = new Size(358, 34);
-        textBox17.TabIndex = 5;
+        txt_IdBrand.Enabled = false;
+        txt_IdBrand.Location = new Point(141, 396);
+        txt_IdBrand.Name = "txt_IdBrand";
+        txt_IdBrand.ReadOnly = true;
+        txt_IdBrand.Size = new Size(358, 34);
+        txt_IdBrand.TabIndex = 5;
         // 
         // label28
         // 
@@ -1049,6 +1057,7 @@ partial class Form1
         tableBrand.RowHeadersWidth = 51;
         tableBrand.Size = new Size(484, 308);
         tableBrand.TabIndex = 0;
+        tableBrand.CellClick += tableBrand_CellClick;
         // 
         // tabVariant
         // 
@@ -1071,7 +1080,7 @@ partial class Form1
         tabVariant.Location = new Point(4, 37);
         tabVariant.Name = "tabVariant";
         tabVariant.Padding = new Padding(3);
-        tabVariant.Size = new Size(1133, 652);
+        tabVariant.Size = new Size(1211, 652);
         tabVariant.TabIndex = 6;
         tabVariant.Text = "Variant";
         tabVariant.UseVisualStyleBackColor = true;
@@ -1218,7 +1227,7 @@ partial class Form1
         tabPage10.Location = new Point(4, 37);
         tabPage10.Name = "tabPage10";
         tabPage10.Padding = new Padding(3);
-        tabPage10.Size = new Size(1133, 652);
+        tabPage10.Size = new Size(1211, 652);
         tabPage10.TabIndex = 9;
         tabPage10.Text = "Bảo hành";
         tabPage10.UseVisualStyleBackColor = true;
@@ -1238,7 +1247,7 @@ partial class Form1
         tabPage11.Location = new Point(4, 37);
         tabPage11.Name = "tabPage11";
         tabPage11.Padding = new Padding(3);
-        tabPage11.Size = new Size(1133, 652);
+        tabPage11.Size = new Size(1211, 652);
         tabPage11.TabIndex = 10;
         tabPage11.Text = "Hóa đơn";
         tabPage11.UseVisualStyleBackColor = true;
@@ -1252,22 +1261,56 @@ partial class Form1
         dataGridView9.Size = new Size(1121, 304);
         dataGridView9.TabIndex = 0;
         // 
+        // ResetButton
+        // 
+        ResetButton.BackColor = Color.LightCoral;
+        ResetButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        ResetButton.Location = new Point(874, 711);
+        ResetButton.Name = "ResetButton";
+        ResetButton.Size = new Size(275, 48);
+        ResetButton.TabIndex = 1;
+        ResetButton.Text = "Reset All Data in Form";
+        ResetButton.UseVisualStyleBackColor = false;
+        ResetButton.Click += ResetButton_Click;
+        // 
+        // txt_Sdt
+        // 
+        txt_Sdt.Location = new Point(663, 351);
+        txt_Sdt.Name = "txt_Sdt";
+        txt_Sdt.Size = new Size(207, 34);
+        txt_Sdt.TabIndex = 32;
+        // 
+        // label39
+        // 
+        label39.AutoSize = true;
+        label39.Location = new Point(627, 537);
+        label39.Name = "label39";
+        label39.Size = new Size(104, 28);
+        label39.TabIndex = 21;
+        label39.Text = "Name Line";
+        // 
+        // txt_NameLine
+        // 
+        txt_NameLine.Location = new Point(798, 537);
+        txt_NameLine.Name = "txt_NameLine";
+        txt_NameLine.Size = new Size(313, 34);
+        txt_NameLine.TabIndex = 22;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1165, 717);
+        ClientSize = new Size(1243, 764);
+        Controls.Add(ResetButton);
         Controls.Add(tabControl1);
         Name = "Form1";
         Text = "Quản lý cửa hàng giày";
         tabControl1.ResumeLayout(false);
         tabProduct.ResumeLayout(false);
         tabProduct.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)price_Prd).EndInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).EndInit();
         tabUser.ResumeLayout(false);
         tabUser.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)txt_Sdt).EndInit();
         ((System.ComponentModel.ISupportInitialize)tableUsers).EndInit();
         tabColorSize.ResumeLayout(false);
         tabColorSize.PerformLayout();
@@ -1319,7 +1362,6 @@ partial class Form1
     private Label label9;
     private DateTimePicker Releasedate_Prd;
     private ComboBox cbb_Status;
-    private NumericUpDown price_Prd;
     private TextBox txt_FullName;
     private TextBox txt_PassWord;
     private TextBox txt_Email;
@@ -1355,7 +1397,7 @@ partial class Form1
     private Label label22;
     private Label label21;
     private Label label20;
-    private TextBox txt_TypeColor;
+    private TextBox txt_TypeSize;
     private TextBox txt_SizeValue;
     private TextBox txt_IdSize;
     private Label label23;
@@ -1364,23 +1406,23 @@ partial class Form1
     private DataGridView tableLine;
     private DataGridView tableBrand;
     private Label label31;
-    private Button button17;
-    private Button button18;
-    private Button button19;
-    private Button button16;
-    private Button button15;
-    private Button button14;
-    private TextBox textBox19;
+    private Button Delete_Line;
+    private Button Repair_Line;
+    private Button Add_Line;
+    private Button Delete_Brand;
+    private Button Repair_Brand;
+    private Button Add_Brand;
+    private TextBox txt_InfoBrand;
     private Label label30;
-    private TextBox textBox18;
+    private TextBox txt_NameBrand;
     private Label label29;
-    private TextBox textBox17;
+    private TextBox txt_IdBrand;
     private Label label28;
     private Label label27;
     private Label label26;
     private Button buttonAddCategory;
-    private ComboBox comboBox6;
-    private TextBox textBox20;
+    private ComboBox cbb_Category;
+    private TextBox txt_IdLine;
     private Label label32;
     private DataGridView tableVariant;
     private DataGridView dataGridView8;
@@ -1400,5 +1442,9 @@ partial class Form1
     private ComboBox comboBox8;
     private ComboBox comboBox7;
     private TextBox textBox21;
-    private NumericUpDown txt_Sdt;
+    private Button ResetButton;
+    private TextBox price_Prd;
+    private TextBox txt_Sdt;
+    private TextBox txt_NameLine;
+    private Label label39;
 }

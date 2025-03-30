@@ -25,5 +25,29 @@ namespace AdminApp.Controllers
             }
             return colors;
         }
+        public bool AddColor(Color color)
+        {
+            string query = "INSERT INTO color(color_name, color_code) VALUES(@color_name, @color_code)";
+            MySqlParameter[] parameters = new MySqlParameter[2];
+            parameters[0] = new MySqlParameter("@color_name", color.NameColor);
+            parameters[1] = new MySqlParameter("@color_code", color.ColorCode);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+        public bool UpdateColor(Color color)
+        {
+            string query = "UPDATE color SET color_name = @color_name, color_code = @color_code WHERE id_color = @id_color";
+            MySqlParameter[] parameters = new MySqlParameter[3];
+            parameters[0] = new MySqlParameter("@color_name", color.NameColor);
+            parameters[1] = new MySqlParameter("@color_code", color.ColorCode);
+            parameters[2] = new MySqlParameter("@id_color", color.IdColor);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+        public bool DeleteColor(int idColor)
+        {
+            string query = "DELETE FROM color WHERE id_color = @id_color";
+            MySqlParameter[] parameters = new MySqlParameter[1];
+            parameters[0] = new MySqlParameter("@id_color", idColor);
+            return db.ExecuteNonQuery(query, parameters);
+        }
     }
 }

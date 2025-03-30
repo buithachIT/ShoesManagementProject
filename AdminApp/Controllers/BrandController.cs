@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Shared.Models;
-using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,28 +10,47 @@ namespace AdminApp.Controllers
 {
     class BrandController
     {
-        private string connectionString = "Server=localhost;Database=shose_web;User Id=root;Password=;";
+        private DatabaseHelper db = new DatabaseHelper();
 
         public List<Brand> GetAllBrand()
         {
-            List<Brand> products = new List<Brand>();
-            using (var conn = new MySqlConnection(connectionString))
+            string query = "SELECT id_brand, name_brand, info_brand FROM brand";
+            var dt = db.ExecuteQuery(query);
+            List<Brand> Brand = new List<Brand>();
+            foreach (DataRow row in dt.Rows)
             {
-                conn.Open();
-                string query = "SELECT id_brand, name_brand, info_brand FROM brand";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                Brand.Add(new Brand
                 {
-                    products.Add(new Brand
-                    {
-                        Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
-                        Info = reader.GetString(2)
-                    });
-                }
+                    IdBrand = Convert.ToInt32(row["id_brand"]),
+                    NameBrand = row["name_brand"].ToString(),
+                    InfoBrand = row["info_brand"].ToString()
+                });
             }
-            return products;
+            return Brand;
+        }
+        public bool AddBrand(Brand brand)
+        {
+            string query = "INSERT INTO brand(name_brand, info_brand) VALUES(@name_brand, @info_brand)";
+            MySqlParameter[] parameters = new MySqlParameter[2];
+            parameters[0] = new MySqlParameter("@name_brand", brand.NameBrand);
+            parameters[1] = new MySqlParameter("@info_brand", brand.InfoBrand);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+        public bool UpdateBrand(Brand brand)
+        {
+            string query = "UPDATE brand SET name_brand = @name_brand, info_brand = @info_brand WHERE id_brand = @id_brand";
+            MySqlParameter[] parameters = new MySqlParameter[3];
+            parameters[0] = new MySqlParameter("@name_brand", brand.NameBrand);
+            parameters[1] = new MySqlParameter("@info_brand", brand.InfoBrand);
+            parameters[2] = new MySqlParameter("@id_brand", brand.IdBrand);
+            return db.ExecuteNonQuery(query, parameters);
+        }
+        public bool DeleteBrand(int brand)
+        {
+            string query = "DELETE FROM brand WHERE id_brand = @id_brand";
+            MySqlParameter[] parameters = new MySqlParameter[1];
+            parameters[0] = new MySqlParameter("@id_brand", brand);
+            return db.ExecuteNonQuery(query, parameters);
         }
     }
 }
