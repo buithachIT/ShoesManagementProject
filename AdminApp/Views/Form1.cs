@@ -13,6 +13,8 @@ public partial class Form1 : Form
     LineController lineController = new LineController();
     BrandController brandController = new BrandController();
     RoleController roleController = new RoleController();
+    ColorController colorController = new ColorController();
+    SizeController sizeController = new SizeController();
 
 
     DatabaseHelper dbHelper = new DatabaseHelper();
@@ -40,11 +42,11 @@ public partial class Form1 : Form
     }
     private void LoadDataColor()
     {
-        //tableColor.DataSource = dbHelper.GetColor();
+        tableColor.DataSource = colorController.GetAllColor();
     }
     private void LoadDataSize()
     {
-        //tableSize.DataSource = dbHelper.GetSize();
+        tableSize.DataSource = sizeController.GetAllSize();
     }
     private void LoadDataLine()
     {

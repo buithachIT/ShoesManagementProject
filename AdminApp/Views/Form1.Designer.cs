@@ -75,24 +75,24 @@ partial class Form1
         add_User = new Button();
         tableUsers = new DataGridView();
         tabColorSize = new TabPage();
-        textBox14 = new TextBox();
-        textBox15 = new TextBox();
-        textBox16 = new TextBox();
+        txt_TypeColor = new TextBox();
+        txt_SizeValue = new TextBox();
+        txt_IdSize = new TextBox();
         label23 = new Label();
         label24 = new Label();
         label25 = new Label();
-        textBox13 = new TextBox();
-        textBox12 = new TextBox();
-        textBox11 = new TextBox();
+        txt_ColorCode = new TextBox();
+        txt_NameColor = new TextBox();
+        txt_IdColor = new TextBox();
         label22 = new Label();
         label21 = new Label();
         label20 = new Label();
-        button11 = new Button();
-        button12 = new Button();
-        button13 = new Button();
-        button10 = new Button();
-        button9 = new Button();
-        button8 = new Button();
+        DeleteSize = new Button();
+        RepairSize = new Button();
+        AddSize = new Button();
+        DeleteColor = new Button();
+        RepairColor = new Button();
+        addColor = new Button();
         label19 = new Label();
         tableSize = new DataGridView();
         label18 = new Label();
@@ -616,24 +616,24 @@ partial class Form1
         // 
         // tabColorSize
         // 
-        tabColorSize.Controls.Add(textBox14);
-        tabColorSize.Controls.Add(textBox15);
-        tabColorSize.Controls.Add(textBox16);
+        tabColorSize.Controls.Add(txt_TypeColor);
+        tabColorSize.Controls.Add(txt_SizeValue);
+        tabColorSize.Controls.Add(txt_IdSize);
         tabColorSize.Controls.Add(label23);
         tabColorSize.Controls.Add(label24);
         tabColorSize.Controls.Add(label25);
-        tabColorSize.Controls.Add(textBox13);
-        tabColorSize.Controls.Add(textBox12);
-        tabColorSize.Controls.Add(textBox11);
+        tabColorSize.Controls.Add(txt_ColorCode);
+        tabColorSize.Controls.Add(txt_NameColor);
+        tabColorSize.Controls.Add(txt_IdColor);
         tabColorSize.Controls.Add(label22);
         tabColorSize.Controls.Add(label21);
         tabColorSize.Controls.Add(label20);
-        tabColorSize.Controls.Add(button11);
-        tabColorSize.Controls.Add(button12);
-        tabColorSize.Controls.Add(button13);
-        tabColorSize.Controls.Add(button10);
-        tabColorSize.Controls.Add(button9);
-        tabColorSize.Controls.Add(button8);
+        tabColorSize.Controls.Add(DeleteSize);
+        tabColorSize.Controls.Add(RepairSize);
+        tabColorSize.Controls.Add(AddSize);
+        tabColorSize.Controls.Add(DeleteColor);
+        tabColorSize.Controls.Add(RepairColor);
+        tabColorSize.Controls.Add(addColor);
         tabColorSize.Controls.Add(label19);
         tabColorSize.Controls.Add(tableSize);
         tabColorSize.Controls.Add(label18);
@@ -646,27 +646,29 @@ partial class Form1
         tabColorSize.Text = "Color & Size";
         tabColorSize.UseVisualStyleBackColor = true;
         // 
-        // textBox14
+        // txt_TypeColor
         // 
-        textBox14.BackColor = SystemColors.Window;
-        textBox14.Location = new Point(773, 515);
-        textBox14.Name = "textBox14";
-        textBox14.Size = new Size(339, 34);
-        textBox14.TabIndex = 21;
+        txt_TypeColor.BackColor = SystemColors.Window;
+        txt_TypeColor.Location = new Point(773, 515);
+        txt_TypeColor.Name = "txt_TypeColor";
+        txt_TypeColor.Size = new Size(339, 34);
+        txt_TypeColor.TabIndex = 21;
         // 
-        // textBox15
+        // txt_SizeValue
         // 
-        textBox15.Location = new Point(773, 450);
-        textBox15.Name = "textBox15";
-        textBox15.Size = new Size(339, 34);
-        textBox15.TabIndex = 20;
+        txt_SizeValue.Location = new Point(773, 450);
+        txt_SizeValue.Name = "txt_SizeValue";
+        txt_SizeValue.Size = new Size(339, 34);
+        txt_SizeValue.TabIndex = 20;
         // 
-        // textBox16
+        // txt_IdSize
         // 
-        textBox16.Location = new Point(773, 380);
-        textBox16.Name = "textBox16";
-        textBox16.Size = new Size(339, 34);
-        textBox16.TabIndex = 19;
+        txt_IdSize.Enabled = false;
+        txt_IdSize.Location = new Point(773, 380);
+        txt_IdSize.Name = "txt_IdSize";
+        txt_IdSize.ReadOnly = true;
+        txt_IdSize.Size = new Size(339, 34);
+        txt_IdSize.TabIndex = 19;
         // 
         // label23
         // 
@@ -695,27 +697,29 @@ partial class Form1
         label25.TabIndex = 16;
         label25.Text = "ID";
         // 
-        // textBox13
+        // txt_ColorCode
         // 
-        textBox13.BackColor = SystemColors.Window;
-        textBox13.Location = new Point(165, 515);
-        textBox13.Name = "textBox13";
-        textBox13.Size = new Size(339, 34);
-        textBox13.TabIndex = 15;
+        txt_ColorCode.BackColor = SystemColors.Window;
+        txt_ColorCode.Location = new Point(165, 515);
+        txt_ColorCode.Name = "txt_ColorCode";
+        txt_ColorCode.Size = new Size(339, 34);
+        txt_ColorCode.TabIndex = 15;
         // 
-        // textBox12
+        // txt_NameColor
         // 
-        textBox12.Location = new Point(165, 450);
-        textBox12.Name = "textBox12";
-        textBox12.Size = new Size(339, 34);
-        textBox12.TabIndex = 14;
+        txt_NameColor.Location = new Point(165, 450);
+        txt_NameColor.Name = "txt_NameColor";
+        txt_NameColor.Size = new Size(339, 34);
+        txt_NameColor.TabIndex = 14;
         // 
-        // textBox11
+        // txt_IdColor
         // 
-        textBox11.Location = new Point(165, 380);
-        textBox11.Name = "textBox11";
-        textBox11.Size = new Size(339, 34);
-        textBox11.TabIndex = 13;
+        txt_IdColor.Enabled = false;
+        txt_IdColor.Location = new Point(165, 380);
+        txt_IdColor.Name = "txt_IdColor";
+        txt_IdColor.ReadOnly = true;
+        txt_IdColor.Size = new Size(339, 34);
+        txt_IdColor.TabIndex = 13;
         // 
         // label22
         // 
@@ -744,59 +748,59 @@ partial class Form1
         label20.TabIndex = 10;
         label20.Text = "ID";
         // 
-        // button11
+        // DeleteSize
         // 
-        button11.Location = new Point(1002, 585);
-        button11.Name = "button11";
-        button11.Size = new Size(110, 46);
-        button11.TabIndex = 9;
-        button11.Text = "Xóa";
-        button11.UseVisualStyleBackColor = true;
+        DeleteSize.Location = new Point(1002, 585);
+        DeleteSize.Name = "DeleteSize";
+        DeleteSize.Size = new Size(110, 46);
+        DeleteSize.TabIndex = 9;
+        DeleteSize.Text = "Xóa";
+        DeleteSize.UseVisualStyleBackColor = true;
         // 
-        // button12
+        // RepairSize
         // 
-        button12.Location = new Point(805, 585);
-        button12.Name = "button12";
-        button12.Size = new Size(110, 46);
-        button12.TabIndex = 8;
-        button12.Text = "Sửa";
-        button12.UseVisualStyleBackColor = true;
+        RepairSize.Location = new Point(805, 585);
+        RepairSize.Name = "RepairSize";
+        RepairSize.Size = new Size(110, 46);
+        RepairSize.TabIndex = 8;
+        RepairSize.Text = "Sửa";
+        RepairSize.UseVisualStyleBackColor = true;
         // 
-        // button13
+        // AddSize
         // 
-        button13.Location = new Point(623, 585);
-        button13.Name = "button13";
-        button13.Size = new Size(110, 46);
-        button13.TabIndex = 7;
-        button13.Text = "Thêm";
-        button13.UseVisualStyleBackColor = true;
+        AddSize.Location = new Point(623, 585);
+        AddSize.Name = "AddSize";
+        AddSize.Size = new Size(110, 46);
+        AddSize.TabIndex = 7;
+        AddSize.Text = "Thêm";
+        AddSize.UseVisualStyleBackColor = true;
         // 
-        // button10
+        // DeleteColor
         // 
-        button10.Location = new Point(394, 585);
-        button10.Name = "button10";
-        button10.Size = new Size(110, 46);
-        button10.TabIndex = 6;
-        button10.Text = "Xóa";
-        button10.UseVisualStyleBackColor = true;
+        DeleteColor.Location = new Point(394, 585);
+        DeleteColor.Name = "DeleteColor";
+        DeleteColor.Size = new Size(110, 46);
+        DeleteColor.TabIndex = 6;
+        DeleteColor.Text = "Xóa";
+        DeleteColor.UseVisualStyleBackColor = true;
         // 
-        // button9
+        // RepairColor
         // 
-        button9.Location = new Point(197, 585);
-        button9.Name = "button9";
-        button9.Size = new Size(110, 46);
-        button9.TabIndex = 5;
-        button9.Text = "Sửa";
-        button9.UseVisualStyleBackColor = true;
+        RepairColor.Location = new Point(197, 585);
+        RepairColor.Name = "RepairColor";
+        RepairColor.Size = new Size(110, 46);
+        RepairColor.TabIndex = 5;
+        RepairColor.Text = "Sửa";
+        RepairColor.UseVisualStyleBackColor = true;
         // 
-        // button8
+        // addColor
         // 
-        button8.Location = new Point(15, 585);
-        button8.Name = "button8";
-        button8.Size = new Size(110, 46);
-        button8.TabIndex = 4;
-        button8.Text = "Thêm";
-        button8.UseVisualStyleBackColor = true;
+        addColor.Location = new Point(15, 585);
+        addColor.Name = "addColor";
+        addColor.Size = new Size(110, 46);
+        addColor.TabIndex = 4;
+        addColor.Text = "Thêm";
+        addColor.UseVisualStyleBackColor = true;
         // 
         // label19
         // 
@@ -1335,25 +1339,25 @@ partial class Form1
     private Label label15;
     private Label label16;
     private Label label17;
-    private Button button10;
-    private Button button9;
-    private Button button8;
+    private Button DeleteColor;
+    private Button RepairColor;
+    private Button addColor;
     private Label label19;
     private DataGridView tableSize;
     private Label label18;
     private DataGridView tableColor;
-    private Button button11;
-    private Button button12;
-    private Button button13;
-    private TextBox textBox13;
-    private TextBox textBox12;
-    private TextBox textBox11;
+    private Button DeleteSize;
+    private Button RepairSize;
+    private Button AddSize;
+    private TextBox txt_ColorCode;
+    private TextBox txt_NameColor;
+    private TextBox txt_IdColor;
     private Label label22;
     private Label label21;
     private Label label20;
-    private TextBox textBox14;
-    private TextBox textBox15;
-    private TextBox textBox16;
+    private TextBox txt_TypeColor;
+    private TextBox txt_SizeValue;
+    private TextBox txt_IdSize;
     private Label label23;
     private Label label24;
     private Label label25;
