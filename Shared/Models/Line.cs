@@ -9,12 +9,12 @@ namespace Shared.Models
     {
         [Key]
         [Column("id_line")]
-        public int IdLine { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Column("name_category")]
         [StringLength(255)]
-        public string NameLine { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         // Khóa ngoại liên kết với Category
         [Column("id_category")]

@@ -21,9 +21,9 @@ namespace AdminApp.Controllers
             {
                 Brand.Add(new Brand
                 {
-                    IdBrand = Convert.ToInt32(row["id_brand"]),
-                    NameBrand = row["name_brand"].ToString(),
-                    InfoBrand = row["info_brand"].ToString()
+                    Id = Convert.ToInt32(row["id_brand"]),
+                    Name = row["name_brand"].ToString(),
+                    Info = row["info_brand"].ToString()
                 });
             }
             return Brand;
@@ -32,17 +32,17 @@ namespace AdminApp.Controllers
         {
             string query = "INSERT INTO brand(name_brand, info_brand) VALUES(@name_brand, @info_brand)";
             MySqlParameter[] parameters = new MySqlParameter[2];
-            parameters[0] = new MySqlParameter("@name_brand", brand.NameBrand);
-            parameters[1] = new MySqlParameter("@info_brand", brand.InfoBrand);
+            parameters[0] = new MySqlParameter("@name_brand", brand.Name);
+            parameters[1] = new MySqlParameter("@info_brand", brand.Info);
             return db.ExecuteNonQuery(query, parameters);
         }
         public bool UpdateBrand(Brand brand)
         {
             string query = "UPDATE brand SET name_brand = @name_brand, info_brand = @info_brand WHERE id_brand = @id_brand";
             MySqlParameter[] parameters = new MySqlParameter[3];
-            parameters[0] = new MySqlParameter("@name_brand", brand.NameBrand);
-            parameters[1] = new MySqlParameter("@info_brand", brand.InfoBrand);
-            parameters[2] = new MySqlParameter("@id_brand", brand.IdBrand);
+            parameters[0] = new MySqlParameter("@name_brand", brand.Name);
+            parameters[1] = new MySqlParameter("@info_brand", brand.Info);
+            parameters[2] = new MySqlParameter("@id_brand", brand.Id);
             return db.ExecuteNonQuery(query, parameters);
         }
         public bool DeleteBrand(int brand)

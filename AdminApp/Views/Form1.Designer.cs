@@ -54,6 +54,7 @@ partial class Form1
         Add_Prd = new Button();
         tableProduct = new DataGridView();
         tabUser = new TabPage();
+        txt_Sdt = new TextBox();
         cbb_Active = new ComboBox();
         cbb_Role = new ComboBox();
         label15 = new Label();
@@ -97,6 +98,8 @@ partial class Form1
         label18 = new Label();
         tableColor = new DataGridView();
         tabBrandLine = new TabPage();
+        txt_NameLine = new TextBox();
+        label39 = new Label();
         buttonAddCategory = new Button();
         cbb_Category = new ComboBox();
         txt_IdLine = new TextBox();
@@ -120,29 +123,26 @@ partial class Form1
         tableBrand = new DataGridView();
         tabVariant = new TabPage();
         dateTimePicker2 = new DateTimePicker();
-        textBox22 = new TextBox();
-        comboBox9 = new ComboBox();
-        comboBox8 = new ComboBox();
-        comboBox7 = new ComboBox();
-        textBox21 = new TextBox();
+        txt_Quantity = new TextBox();
+        cbb_Color = new ComboBox();
+        cbb_Size = new ComboBox();
+        cbb_Product = new ComboBox();
+        idVariant = new TextBox();
         label38 = new Label();
         label37 = new Label();
         label36 = new Label();
         label35 = new Label();
         label34 = new Label();
         label33 = new Label();
-        button23 = new Button();
-        button22 = new Button();
-        button21 = new Button();
+        Delete_Variant = new Button();
+        Repair_Variant = new Button();
+        Add_Variant = new Button();
         tableVariant = new DataGridView();
         tabPage10 = new TabPage();
         dataGridView8 = new DataGridView();
         tabPage11 = new TabPage();
         dataGridView9 = new DataGridView();
         ResetButton = new Button();
-        txt_Sdt = new TextBox();
-        label39 = new Label();
-        txt_NameLine = new TextBox();
         tabControl1.SuspendLayout();
         tabProduct.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
@@ -218,6 +218,7 @@ partial class Form1
         price_Prd.Name = "price_Prd";
         price_Prd.Size = new Size(207, 34);
         price_Prd.TabIndex = 26;
+        price_Prd.KeyPress += price_Prd_KeyPress;
         // 
         // Releasedate_Prd
         // 
@@ -437,10 +438,18 @@ partial class Form1
         tabUser.Location = new Point(4, 37);
         tabUser.Name = "tabUser";
         tabUser.Padding = new Padding(3);
-        tabUser.Size = new Size(1211, 652);
+        tabUser.Size = new Size(1133, 652);
         tabUser.TabIndex = 1;
         tabUser.Text = "User";
         tabUser.UseVisualStyleBackColor = true;
+        // 
+        // txt_Sdt
+        // 
+        txt_Sdt.Location = new Point(663, 351);
+        txt_Sdt.Name = "txt_Sdt";
+        txt_Sdt.Size = new Size(207, 34);
+        txt_Sdt.TabIndex = 32;
+        txt_Sdt.KeyPress += txt_Sdt_KeyPress;
         // 
         // cbb_Active
         // 
@@ -873,6 +882,22 @@ partial class Form1
         tabBrandLine.Text = "Brand, Line & Category";
         tabBrandLine.UseVisualStyleBackColor = true;
         // 
+        // txt_NameLine
+        // 
+        txt_NameLine.Location = new Point(798, 537);
+        txt_NameLine.Name = "txt_NameLine";
+        txt_NameLine.Size = new Size(313, 34);
+        txt_NameLine.TabIndex = 22;
+        // 
+        // label39
+        // 
+        label39.AutoSize = true;
+        label39.Location = new Point(627, 537);
+        label39.Name = "label39";
+        label39.Size = new Size(104, 28);
+        label39.TabIndex = 21;
+        label39.Text = "Name Line";
+        // 
         // buttonAddCategory
         // 
         buttonAddCategory.FlatStyle = FlatStyle.System;
@@ -882,6 +907,7 @@ partial class Form1
         buttonAddCategory.TabIndex = 20;
         buttonAddCategory.Text = "Add Category";
         buttonAddCategory.UseVisualStyleBackColor = true;
+        buttonAddCategory.Click += buttonAddCategory_Click;
         // 
         // cbb_Category
         // 
@@ -926,6 +952,7 @@ partial class Form1
         Delete_Line.TabIndex = 15;
         Delete_Line.Text = "Xóa";
         Delete_Line.UseVisualStyleBackColor = true;
+        Delete_Line.Click += DeleteLine_Click;
         // 
         // Repair_Line
         // 
@@ -935,6 +962,7 @@ partial class Form1
         Repair_Line.TabIndex = 14;
         Repair_Line.Text = "Sửa";
         Repair_Line.UseVisualStyleBackColor = true;
+        Repair_Line.Click += RepairLine_Click;
         // 
         // Add_Line
         // 
@@ -944,6 +972,7 @@ partial class Form1
         Add_Line.TabIndex = 13;
         Add_Line.Text = "Thêm";
         Add_Line.UseVisualStyleBackColor = true;
+        Add_Line.Click += AddLine_Click;
         // 
         // Delete_Brand
         // 
@@ -1062,25 +1091,25 @@ partial class Form1
         // tabVariant
         // 
         tabVariant.Controls.Add(dateTimePicker2);
-        tabVariant.Controls.Add(textBox22);
-        tabVariant.Controls.Add(comboBox9);
-        tabVariant.Controls.Add(comboBox8);
-        tabVariant.Controls.Add(comboBox7);
-        tabVariant.Controls.Add(textBox21);
+        tabVariant.Controls.Add(txt_Quantity);
+        tabVariant.Controls.Add(cbb_Color);
+        tabVariant.Controls.Add(cbb_Size);
+        tabVariant.Controls.Add(cbb_Product);
+        tabVariant.Controls.Add(idVariant);
         tabVariant.Controls.Add(label38);
         tabVariant.Controls.Add(label37);
         tabVariant.Controls.Add(label36);
         tabVariant.Controls.Add(label35);
         tabVariant.Controls.Add(label34);
         tabVariant.Controls.Add(label33);
-        tabVariant.Controls.Add(button23);
-        tabVariant.Controls.Add(button22);
-        tabVariant.Controls.Add(button21);
+        tabVariant.Controls.Add(Delete_Variant);
+        tabVariant.Controls.Add(Repair_Variant);
+        tabVariant.Controls.Add(Add_Variant);
         tabVariant.Controls.Add(tableVariant);
         tabVariant.Location = new Point(4, 37);
         tabVariant.Name = "tabVariant";
         tabVariant.Padding = new Padding(3);
-        tabVariant.Size = new Size(1211, 652);
+        tabVariant.Size = new Size(1133, 652);
         tabVariant.TabIndex = 6;
         tabVariant.Text = "Variant";
         tabVariant.UseVisualStyleBackColor = true;
@@ -1092,43 +1121,46 @@ partial class Form1
         dateTimePicker2.Size = new Size(315, 34);
         dateTimePicker2.TabIndex = 15;
         // 
-        // textBox22
+        // txt_Quantity
         // 
-        textBox22.Location = new Point(565, 459);
-        textBox22.Name = "textBox22";
-        textBox22.Size = new Size(277, 34);
-        textBox22.TabIndex = 14;
+        txt_Quantity.Location = new Point(565, 459);
+        txt_Quantity.Name = "txt_Quantity";
+        txt_Quantity.Size = new Size(277, 34);
+        txt_Quantity.TabIndex = 14;
+        txt_Quantity.KeyPress += txt_Quantity_KeyPress;
         // 
-        // comboBox9
+        // cbb_Color
         // 
-        comboBox9.FormattingEnabled = true;
-        comboBox9.Location = new Point(565, 365);
-        comboBox9.Name = "comboBox9";
-        comboBox9.Size = new Size(277, 36);
-        comboBox9.TabIndex = 13;
+        cbb_Color.FormattingEnabled = true;
+        cbb_Color.Location = new Point(565, 365);
+        cbb_Color.Name = "cbb_Color";
+        cbb_Color.Size = new Size(277, 36);
+        cbb_Color.TabIndex = 13;
         // 
-        // comboBox8
+        // cbb_Size
         // 
-        comboBox8.FormattingEnabled = true;
-        comboBox8.Location = new Point(136, 548);
-        comboBox8.Name = "comboBox8";
-        comboBox8.Size = new Size(277, 36);
-        comboBox8.TabIndex = 12;
+        cbb_Size.FormattingEnabled = true;
+        cbb_Size.Location = new Point(136, 548);
+        cbb_Size.Name = "cbb_Size";
+        cbb_Size.Size = new Size(277, 36);
+        cbb_Size.TabIndex = 12;
         // 
-        // comboBox7
+        // cbb_Product
         // 
-        comboBox7.FormattingEnabled = true;
-        comboBox7.Location = new Point(136, 457);
-        comboBox7.Name = "comboBox7";
-        comboBox7.Size = new Size(277, 36);
-        comboBox7.TabIndex = 11;
+        cbb_Product.FormattingEnabled = true;
+        cbb_Product.Location = new Point(136, 457);
+        cbb_Product.Name = "cbb_Product";
+        cbb_Product.Size = new Size(277, 36);
+        cbb_Product.TabIndex = 11;
         // 
-        // textBox21
+        // idVariant
         // 
-        textBox21.Location = new Point(136, 365);
-        textBox21.Name = "textBox21";
-        textBox21.Size = new Size(277, 34);
-        textBox21.TabIndex = 10;
+        idVariant.Enabled = false;
+        idVariant.Location = new Point(136, 365);
+        idVariant.Name = "idVariant";
+        idVariant.ReadOnly = true;
+        idVariant.Size = new Size(277, 34);
+        idVariant.TabIndex = 10;
         // 
         // label38
         // 
@@ -1153,27 +1185,27 @@ partial class Form1
         label36.AutoSize = true;
         label36.Location = new Point(442, 365);
         label36.Name = "label36";
-        label36.Size = new Size(84, 28);
+        label36.Size = new Size(60, 28);
         label36.TabIndex = 7;
-        label36.Text = "ID Color";
+        label36.Text = "Color";
         // 
         // label35
         // 
         label35.AutoSize = true;
         label35.Location = new Point(6, 548);
         label35.Name = "label35";
-        label35.Size = new Size(71, 28);
+        label35.Size = new Size(47, 28);
         label35.TabIndex = 6;
-        label35.Text = "ID Size";
+        label35.Text = "Size";
         // 
         // label34
         // 
         label34.AutoSize = true;
         label34.Location = new Point(6, 457);
         label34.Name = "label34";
-        label34.Size = new Size(105, 28);
+        label34.Size = new Size(81, 28);
         label34.TabIndex = 5;
-        label34.Text = "ID Product";
+        label34.Text = "Product";
         // 
         // label33
         // 
@@ -1184,32 +1216,32 @@ partial class Form1
         label33.TabIndex = 4;
         label33.Text = "ID";
         // 
-        // button23
+        // Delete_Variant
         // 
-        button23.Location = new Point(920, 548);
-        button23.Name = "button23";
-        button23.Size = new Size(175, 53);
-        button23.TabIndex = 3;
-        button23.Text = "Xóa";
-        button23.UseVisualStyleBackColor = true;
+        Delete_Variant.Location = new Point(920, 548);
+        Delete_Variant.Name = "Delete_Variant";
+        Delete_Variant.Size = new Size(175, 53);
+        Delete_Variant.TabIndex = 3;
+        Delete_Variant.Text = "Xóa";
+        Delete_Variant.UseVisualStyleBackColor = true;
         // 
-        // button22
+        // Repair_Variant
         // 
-        button22.Location = new Point(920, 457);
-        button22.Name = "button22";
-        button22.Size = new Size(175, 53);
-        button22.TabIndex = 2;
-        button22.Text = "Sửa";
-        button22.UseVisualStyleBackColor = true;
+        Repair_Variant.Location = new Point(920, 457);
+        Repair_Variant.Name = "Repair_Variant";
+        Repair_Variant.Size = new Size(175, 53);
+        Repair_Variant.TabIndex = 2;
+        Repair_Variant.Text = "Sửa";
+        Repair_Variant.UseVisualStyleBackColor = true;
         // 
-        // button21
+        // Add_Variant
         // 
-        button21.Location = new Point(920, 365);
-        button21.Name = "button21";
-        button21.Size = new Size(175, 53);
-        button21.TabIndex = 1;
-        button21.Text = "Thêm";
-        button21.UseVisualStyleBackColor = true;
+        Add_Variant.Location = new Point(920, 365);
+        Add_Variant.Name = "Add_Variant";
+        Add_Variant.Size = new Size(175, 53);
+        Add_Variant.TabIndex = 1;
+        Add_Variant.Text = "Thêm";
+        Add_Variant.UseVisualStyleBackColor = true;
         // 
         // tableVariant
         // 
@@ -1227,7 +1259,7 @@ partial class Form1
         tabPage10.Location = new Point(4, 37);
         tabPage10.Name = "tabPage10";
         tabPage10.Padding = new Padding(3);
-        tabPage10.Size = new Size(1211, 652);
+        tabPage10.Size = new Size(1133, 652);
         tabPage10.TabIndex = 9;
         tabPage10.Text = "Bảo hành";
         tabPage10.UseVisualStyleBackColor = true;
@@ -1247,7 +1279,7 @@ partial class Form1
         tabPage11.Location = new Point(4, 37);
         tabPage11.Name = "tabPage11";
         tabPage11.Padding = new Padding(3);
-        tabPage11.Size = new Size(1211, 652);
+        tabPage11.Size = new Size(1133, 652);
         tabPage11.TabIndex = 10;
         tabPage11.Text = "Hóa đơn";
         tabPage11.UseVisualStyleBackColor = true;
@@ -1273,34 +1305,11 @@ partial class Form1
         ResetButton.UseVisualStyleBackColor = false;
         ResetButton.Click += ResetButton_Click;
         // 
-        // txt_Sdt
-        // 
-        txt_Sdt.Location = new Point(663, 351);
-        txt_Sdt.Name = "txt_Sdt";
-        txt_Sdt.Size = new Size(207, 34);
-        txt_Sdt.TabIndex = 32;
-        // 
-        // label39
-        // 
-        label39.AutoSize = true;
-        label39.Location = new Point(627, 537);
-        label39.Name = "label39";
-        label39.Size = new Size(104, 28);
-        label39.TabIndex = 21;
-        label39.Text = "Name Line";
-        // 
-        // txt_NameLine
-        // 
-        txt_NameLine.Location = new Point(798, 537);
-        txt_NameLine.Name = "txt_NameLine";
-        txt_NameLine.Size = new Size(313, 34);
-        txt_NameLine.TabIndex = 22;
-        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1243, 764);
+        ClientSize = new Size(1154, 764);
         Controls.Add(ResetButton);
         Controls.Add(tabControl1);
         Name = "Form1";
@@ -1433,15 +1442,15 @@ partial class Form1
     private Label label35;
     private Label label34;
     private Label label33;
-    private Button button23;
-    private Button button22;
-    private Button button21;
+    private Button Delete_Variant;
+    private Button Repair_Variant;
+    private Button Add_Variant;
     private DateTimePicker dateTimePicker2;
-    private TextBox textBox22;
-    private ComboBox comboBox9;
-    private ComboBox comboBox8;
-    private ComboBox comboBox7;
-    private TextBox textBox21;
+    private TextBox txt_Quantity;
+    private ComboBox cbb_Color;
+    private ComboBox cbb_Size;
+    private ComboBox cbb_Product;
+    private TextBox idVariant;
     private Button ResetButton;
     private TextBox price_Prd;
     private TextBox txt_Sdt;

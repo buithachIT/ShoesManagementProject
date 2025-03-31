@@ -17,6 +17,7 @@ public partial class Form1 : Form
     RoleController roleController = new RoleController();
     ColorController colorController = new ColorController();
     SizeController sizeController = new SizeController();
+    CategoryController categoryController = new CategoryController();
 
 
     DatabaseHelper dbHelper = new DatabaseHelper();
@@ -29,11 +30,11 @@ public partial class Form1 : Form
     {
         tableProduct.DataSource = productController.GetAllProducts();
         cbbLine.DataSource = lineController.GetAllLine();
-        cbbLine.DisplayMember = "NameLine";
-        cbbLine.ValueMember = "IdLine";
+        cbbLine.DisplayMember = "Name";
+        cbbLine.ValueMember = "Id";
         cbbBrand.DataSource = brandController.GetAllBrand();
-        cbbBrand.DisplayMember = "NameBrand";
-        cbbBrand.ValueMember = "IdBrand";
+        cbbBrand.DisplayMember = "Name";
+        cbbBrand.ValueMember = "Id";
     }
     private void LoadDataUser()
     {
@@ -53,6 +54,9 @@ public partial class Form1 : Form
     private void LoadDataLine()
     {
         tableLine.DataSource = lineController.GetAllLine();
+        cbb_Category.DataSource = categoryController.GetAllCategory();
+        cbb_Category.DisplayMember = "Name";
+        cbb_Category.ValueMember = "Id";
     }
     private void LoadDataBrand()
     {
@@ -80,6 +84,7 @@ public partial class Form1 : Form
         {
             LoadDataUser();
             ResetTextBoxes();
+            txt_Sdt.MaxLength = 11;
         }
         else if (tabControl1.SelectedTab == tabColorSize) // Kiểm tra nếu đang ở tab "Color"
         {
@@ -97,6 +102,90 @@ public partial class Form1 : Form
         {
             LoadDataVariant();
             ResetTextBoxes();
+        }
+    }
+
+    //////////////////////////////// Kiểm tra dữ liệu nhập vào ////////////////////////////////
+    private void price_Prd_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        TextBox textBox = (TextBox)sender;
+        string currentText = textBox.Text;
+        int selectionStart = textBox.SelectionStart;
+
+        // Cho phép phím Backspace
+        if (e.KeyChar == (char)Keys.Back)
+            return;
+
+        // Cho phép dấu chấm (chỉ 1 dấu chấm)
+        if (e.KeyChar == '.')
+        {
+            if (currentText.Contains(".") || currentText.Length == 0)
+            {
+                e.Handled = true;
+            }
+            return;
+        }
+
+        // Chuyển dấu phẩy thành dấu chấm nếu chưa có dấu chấm
+        if (e.KeyChar == ',')
+        {
+            if (!currentText.Contains("."))
+            {
+                e.KeyChar = '.';
+            }
+            else
+            {
+                e.Handled = true;
+            }
+            return;
+        }
+        // Chỉ cho phép nhập số 
+        if (!char.IsDigit(e.KeyChar))
+        {
+            e.Handled = true;
+            return;
+        }
+        // Ngăn chặn số 0 đầu tiên
+        if (currentText.Length == 0 && e.KeyChar == '0')
+        {
+            e.Handled = true;
+        }
+        // Kiểm tra phần thập phân
+        if (currentText.Contains("."))
+        {
+            int dotPosition = currentText.IndexOf('.');
+            if (selectionStart > dotPosition && currentText.Length - dotPosition > 2)
+            {
+                e.Handled = true;
+            }
+        }
+    }
+
+    private void txt_Sdt_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == (char)Keys.Back)
+            return;
+        if (!char.IsDigit(e.KeyChar))
+        {
+            e.Handled = true;
+        }
+        if (((TextBox)sender).Text.Length >= 11)
+        {
+            e.Handled = true;
+        }
+    }
+
+    private void txt_Quantity_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == (char)Keys.Back)
+            return;
+        if (!char.IsDigit(e.KeyChar))
+        {
+            e.Handled = true;
+        }
+        if (((TextBox)sender).Text.Length >= 11)
+        {
+            e.Handled = true;
         }
     }
 
@@ -125,7 +214,7 @@ public partial class Form1 : Form
         txt_TypeSize.Text = "";
         price_Prd.Text = "";
         Releasedate_Prd.Value = DateTime.Now;
-
+        txt_NameLine.Text = "";
 
     }
 
@@ -201,6 +290,17 @@ public partial class Form1 : Form
             txt_IdBrand.Text = row.Cells["IdBrand"].Value.ToString();
             txt_NameBrand.Text = row.Cells["NameBrand"].Value.ToString();
             txt_InfoBrand.Text = row.Cells["InfoBrand"].Value.ToString();
+        }
+    }
+
+    private void tableLine_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
+        {
+            DataGridViewRow row = tableLine.Rows[e.RowIndex];
+            txt_IdLine.Text = row.Cells["IdLine"].Value.ToString();
+            cbb_Category.SelectedValue = row.Cells["IdCategory"].Value;
+            txt_NameLine.Text = row.Cells["NameLine"].Value.ToString();
         }
     }
 
@@ -503,8 +603,8 @@ public partial class Form1 : Form
     {
         Brand brand = new Brand()
         {
-            NameBrand = txt_NameBrand.Text,
-            InfoBrand = txt_InfoBrand.Text
+            Name = txt_NameBrand.Text,
+            Info = txt_InfoBrand.Text
         };
         bool result = brandController.AddBrand(brand);
         if (result)
@@ -522,9 +622,9 @@ public partial class Form1 : Form
     {
         Brand brand = new Brand()
         {
-            IdBrand = Convert.ToInt32(txt_IdBrand.Text),
-            NameBrand = txt_NameBrand.Text,
-            InfoBrand = txt_InfoBrand.Text
+            Id = Convert.ToInt32(txt_IdBrand.Text),
+            Name = txt_NameBrand.Text,
+            Info = txt_InfoBrand.Text
         };
         bool result = brandController.UpdateBrand(brand);
         if (result)
@@ -563,5 +663,78 @@ public partial class Form1 : Form
         }
     }
 
-    
+    /////////////////////////////// Line//////////////////////////////////////
+
+    private void AddLine_Click(object sender, EventArgs e)
+    {
+        Line line = new Line()
+        {
+            Name = txt_NameLine.Text,
+            IdCategory = Convert.ToInt32(cbb_Category.SelectedValue)
+        };
+        bool result = lineController.AddLine(line);
+        if (result)
+        {
+            MessageBox.Show("Thêm dòng sản phẩm thành công!");
+            LoadDataLine(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Thêm dòng sản phẩm thất bại!");
+        }
+    }
+
+    private void RepairLine_Click(object sender, EventArgs e)
+    {
+        Line line = new Line()
+        {
+            Id = Convert.ToInt32(txt_IdLine.Text),
+            Name = txt_NameLine.Text,
+            IdCategory = Convert.ToInt32(cbb_Category.SelectedValue)
+        };
+        bool result = lineController.UpdateLine(line);
+        if (result)
+        {
+            MessageBox.Show("Sửa thông tin dòng sản phẩm thành công!");
+            LoadDataLine(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Sửa thông tin dòng sản phẩm thất bại!");
+        }
+    }
+
+    private void DeleteLine_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(txt_IdLine.Text))
+        {
+            MessageBox.Show("Vui lòng chọn dòng sản phẩm để xóa!");
+            return;
+        }
+        int idLine = int.Parse(txt_IdLine.Text);
+        DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa dòng sản phẩm này?",
+                                              "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        if (result == DialogResult.Yes)
+        {
+            bool resul = lineController.DeleteLine(idLine);
+            if (resul)
+            {
+                MessageBox.Show("Xóa dòng sản phẩm thành công!");
+                LoadDataLine(); // Cập nhật lại danh sách
+            }
+            else
+            {
+                MessageBox.Show("Xóa dòng sản phẩm thất bại!");
+            }
+        }
+    }
+
+    private void buttonAddCategory_Click(object sender, EventArgs e)
+    {
+        AddCategory category = new AddCategory();
+        category.ShowDialog();
+    }
+
+    ///////////////////////////////// Variant//////////////////////////////////////
+
 }
