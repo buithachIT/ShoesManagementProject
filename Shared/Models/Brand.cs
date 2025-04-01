@@ -14,7 +14,9 @@ namespace Shared.Models
         [StringLength(255)]
          [Column("name_brand")]
         public string Name { get; set; } // name_brand (Không được null, tối đa 255 ký tự)
+
         [Column("info_brand")]
         public string? Info { get; set; } // info_brand (Có thể null)
+        public ICollection<Product>? Products { get; set; }
     }
 }

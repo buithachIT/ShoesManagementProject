@@ -47,6 +47,9 @@ namespace Shared.Models
 
         [ForeignKey("IdLine")]
         public Line Line { get; set; }
+
+        [ForeignKey("IdBrand")]
+        public Brand Brand { get; set; }
     }
         
 }
