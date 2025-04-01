@@ -11,8 +11,8 @@ namespace Shared.Models
     public class ProductVariant
     {
         [Key]
-        [Column("id_product_variant")]
-        public int IdProductVariant { get; set; }
+        [Column("id_variant")]
+        public int IdVariant { get; set; }
 
         [Column("id_product")]
         public int IdProduct { get; set; }
@@ -26,8 +26,8 @@ namespace Shared.Models
         [Column("quantity")]
         public int Quantity { get; set; }
 
-        [Column("expaired_date")]
-        public double ExpairedDate { get; set; }
+        [Column("expired_date")]
+        public DateTime ExpiredDate { get; set; }
 
         [ForeignKey("IdProduct")]
         public Product Product { get; set; }
