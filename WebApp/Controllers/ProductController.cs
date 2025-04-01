@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.data;
 using Shared.Models;
-
 public class ProductController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -13,41 +12,24 @@ public class ProductController : Controller
     {
         _context = context;
     }
-public IActionResult ByCategory(int page = 1)
-{
-    int pageSize = 10; 
-    var totalItems = _context.Products.Count();
-    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-    var products = _context.Products
-        .Skip((page - 1) * pageSize)
-        .Take(pageSize)
-        .ToList();
-
-    var paginationModel = new PaginationModel
-    {
-        CurrentPage = page,
-        TotalPages = totalPages
-    };
-
-    ViewData["Pagination"] = paginationModel;
-    return View(products);
-}
-
-    [Route("Product/ByCategory/{id}/{lineId?}")]
-public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, string material, int page = 1, int pageSize = 10)
+[Route("Product/ByCategory/{id}/{lineId?}/{pageNumber:int?}")]
+public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, string material,[FromQuery] int pageSize = 9, [FromQuery] int pageNumber = 1)
 {
  
     var productsQuery = _context.Products
         .Include(p => p.Line)
         .ThenInclude(l => l.Category)
         .Where(p => p.Line.IdCategory == id)
-        .AsQueryable(); 
+        .AsQueryable();
+        
+    
+        
 
     if (lineId.HasValue)
-    {
-        productsQuery = productsQuery.Where(p => p.IdLine == lineId.Value);
-    }
+        {
+            productsQuery = productsQuery.Where(p => p.IdLine == lineId.Value);
+        }
 
 
     if (idBrand.HasValue)
@@ -62,14 +44,22 @@ public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, s
         productsQuery = productsQuery.Where(p => materialsList.Any(mat => EF.Functions.Like(p.Material, $"%{mat}%")));
     }
 
-   
-    int totalProducts = await productsQuery.CountAsync();
-
-
+    int skip = (pageNumber - 1) * pageSize;
     var pagedProducts = await productsQuery
-        .Skip((page - 1) * pageSize)
+        .Skip(skip)
         .Take(pageSize)
         .ToListAsync();
+
+     
+    var totalItems = await _context.Products.CountAsync(p => p.IdProduct == id);
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+    var viewModel = new PaginationViewModel<Product>
+    {
+        Items = pagedProducts,
+        PageNumber = pageNumber,
+        PageSize = pageSize,
+        TotalItems = totalItems
+    };
 
     var categoryName = await _context.Categories
         .Where(c => c.Id == id)
@@ -89,7 +79,9 @@ public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, s
         .Where(m => !string.IsNullOrEmpty(m))
         .Distinct()
         .ToListAsync();
-
+              
+    ViewData["Categories"] = _context.Categories.ToList();
+    ViewData["Lines"] = _context.Lines.ToList();
     ViewData["Category"] = categoryName;
     ViewData["Lines"] = lines;
     ViewData["Brands"] = brands;
@@ -99,9 +91,7 @@ public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, s
     ViewData["SelectedMaterial"] = material;
     ViewData["CategoryId"] = id;
 
-    ViewData["TotalPages"] = (int)Math.Ceiling((double)totalProducts / pageSize);
-    ViewData["CurrentPage"] = page;
-    ViewData["PageSize"] = pageSize;
+    
     var routeValues = new Dictionary<string, object>
 {
     { "id", id },
@@ -109,8 +99,7 @@ public async Task<IActionResult> ByCategory(int id, int? lineId, int? idBrand, s
     { "idBrand", idBrand ?? (object)DBNull.Value },
     { "material", material ?? (object)DBNull.Value }
 };
-
-    return View(pagedProducts);
+    return View(viewModel);
 }
 
 

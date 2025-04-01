@@ -1,0 +1,49 @@
+@model UserEditViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin";
+}
+
+<h2>Chỉnh sửa thông tin</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label>Họ và tên</label>
+        <input type="text" class="form-control" asp-for="Fullname" required />
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" asp-for="Email" required />
+    </div>
+
+    <div class="form-group">
+        <label>Số điện thoại</label>
+        <input type="number" class="form-control" asp-for="Phone" />
+    </div>
+
+    <div class="form-group">
+        <label>Mật khẩu mới (để trống nếu không đổi)</label>
+        <input type="password" class="form-control" asp-for="NewPassword" />
+    </div>
+
+    <div class="form-group">
+        <label>Trạng thái tài khoản</label>
+        <select class="form-control" asp-for="IsActive">
+            <option value="true">Hoạt động</option>
+            <option value="false">Bị khóa</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Xác thực Email</label>
+        <select class="form-control" asp-for="EmailValue">
+            <option value="true">Đã xác thực</option>
+            <option value="false">Chưa xác thực</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+</form>

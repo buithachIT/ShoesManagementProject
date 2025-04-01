@@ -1,8 +1,9 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model PaginationViewModel<Product>
 
-@model List<Shared.Models.Product>
+@* @model List<Shared.Models.Product> *@
 
 <head>
     <link rel="stylesheet" href="product.css">
@@ -15,6 +16,10 @@
                 @await Html.PartialAsync("_Filter")
             </div>
         </div>
+        @if (ViewData["Categories"] == null)
+        {
+            <p class="text-danger">Không có danh mục</p>
+        }
         <div class="col-md-8"> <!-- Sản phẩm -->
             <div class="product">
                 <h5 class="mb-4 mt-5">
@@ -25,7 +30,7 @@
                     }
                 </h5>
                 <div class="row g-3">
-                    @foreach (var product in Model)
+                    @foreach (var product in Model.Items)
                     {
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="card">
@@ -47,7 +52,45 @@
                         </div>
                     }
                 </div>
-                @await Html.PartialAsync("_Pagination", (PaginationModel)ViewBag.Pagination)
+
+
+                <ul class="pagination justify-content-center">
+    <!-- Previous -->
+    <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">
+        <a class="page-link" href="@Url.Action("ByCategory", new { 
+            id = ViewData["CategoryId"], 
+            lineId = ViewData["SelectedLine"], 
+            idBrand = ViewData["SelectedBrand"], 
+            material = ViewData["SelectedMaterial"], 
+            pageNumber = Model.PageNumber - 1 
+        })">Previous</a>
+    </li>
+
+    <!-- Số trang -->
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+            <a class="page-link" href="@Url.Action("ByCategory", new { 
+                id = ViewData["CategoryId"], 
+                lineId = ViewData["SelectedLine"], 
+                idBrand = ViewData["SelectedBrand"], 
+                material = ViewData["SelectedMaterial"], 
+                pageNumber = i
+            })">@i</a>
+        </li>
+    }
+
+    <!-- Next -->
+    <li class="page-item @(Model.PageNumber == Model.TotalPages ? "disabled" : "")">
+        <a class="page-link" href="@Url.Action("ByCategory", new { 
+            id = ViewData["CategoryId"], 
+            lineId = ViewData["SelectedLine"], 
+            idBrand = ViewData["SelectedBrand"], 
+            material = ViewData["SelectedMaterial"], 
+            pageNumber = Model.PageNumber + 1 
+        })">Next</a>
+    </li>
+</ul>
 
             </div>
         </div>
@@ -55,3 +98,21 @@
 
 
 </div>
+
+</div>
+</div>
+</div>
+
+
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let url = new URL(window.location.href);
+
+        // Nếu chưa có pageNumber trên URL, tự động thêm pageNumber=1
+        if (!url.searchParams.has("pageNumber")) {
+            url.searchParams.set("pageNumber", "1");
+            window.history.replaceState({}, '', url);
+        }
+    });
+</script>

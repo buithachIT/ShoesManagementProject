@@ -36,7 +36,7 @@
                                     @HttpContextAccessor.HttpContext.Session.GetString("Username")</span>
                                 <i class="fa fa-user ms-1 mb-1" aria-hidden="true"></i>
                                 <ul class="ul-hover-group">
-                                    <li><a href="">Profile</a></li>
+                                    <li><a href="../user-group">Profile</a></li>
                                     <li> <a class="nav-link text-danger" href="/Account/Logout">Log out</a></li>
                                 </ul>
                             }
@@ -58,11 +58,11 @@
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse navbarnebarrrrrr collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @{
                         var categories = ViewData["Categories"] as List<Shared.Models.Category>;
                     }
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav fl    ex-grow-1">
                         @if (categories != null)
                         {
                             @foreach (var category in categories)
@@ -95,12 +95,14 @@
 
                 <div class="search-cart-group d-flex">
                     <div class="input-group search mb-3 me-3" style="max-width: 250px;">
-                        <span class="input-group-text"><i class="fas fa-search me-1 ms-1"></i></span>
-                        <input type="text" class="form-control" placeholder="Search..">
+                        <a href="/Cart"><span class="input-group-text"><i
+                                    class="fas fa-search me-1 ms-1"></i></span></a>
+                        <input type="text" class="form-control" placeholder="Search.."></a>
                     </div>
                     <div class="cart me-5">
                         <a href="">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <span class="count-cart">2</span>
                         </a>
                     </div>
                 </div>

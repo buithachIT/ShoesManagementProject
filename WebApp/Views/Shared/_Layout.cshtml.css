@@ -113,3 +113,17 @@ button.accept-policy {
   width: 100%;
   margin-left: 120px;
 }
+
+.count-cart {
+  display: inline-block;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: #f10000;
+  color: #ddd;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  border-radius: 100%;
+
+}

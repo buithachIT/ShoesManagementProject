@@ -27,6 +27,8 @@ namespace WebApp.Controllers
         {
             return View();
         }
+    
+    
         [HttpPost]
         public IActionResult Register(User model)
         {
