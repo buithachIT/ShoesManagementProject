@@ -60,6 +60,18 @@ namespace AdminApp.Controllers
 
         public bool DeleteProductVariant(int productVariant)
         {
+            string checkQuery = "SELECT COUNT(*) FROM invoicedetail WHERE id_variant = @id_variant";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_variant", productVariant);
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa biến thể sản phẩm vì có đơn hàng chứa biến thể này!");
+                return false;
+            }
+
             string query = "DELETE FROM product_variant WHERE id_variant = @id_variant";
             MySqlParameter[] parameters = new MySqlParameter[1];
             parameters[0] = new MySqlParameter("@id_variant", productVariant);

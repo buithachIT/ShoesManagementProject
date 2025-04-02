@@ -70,6 +70,17 @@ namespace AdminApp.Controllers
         }
         public bool DeleteUser(int id)
         {
+            string checkQuery = "SELECT COUNT(*) FROM invoice WHERE id_user = @id_user";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_user", id);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa người dùng vì có hóa đơn thuộc người dùng này!");
+                return false;
+            }
+
             string query = "DELETE FROM user WHERE id_user = @id_user";
             MySqlParameter[] parameters =
             {

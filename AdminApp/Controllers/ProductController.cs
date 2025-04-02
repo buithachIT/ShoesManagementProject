@@ -76,6 +76,18 @@ namespace AdminApp.Controllers
         }
         public bool DeleteProduct(int idProduct)
         {
+            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_product = @id_product";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_product", idProduct);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa sản phẩm vì có biến thể thuộc sản phẩm này!");
+                return false;
+            }
+
+
+
             string query = "DELETE FROM product WHERE id_product = @id";
             MySqlParameter[] parameters =
             {

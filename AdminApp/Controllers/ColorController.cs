@@ -44,6 +44,16 @@ namespace AdminApp.Controllers
         }
         public bool DeleteColor(int idColor)
         {
+            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_color = @id_color";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_color", idColor);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa màu này vì có sản phẩm liên quan");
+                return false;
+            }
+
             string query = "DELETE FROM color WHERE id_color = @id_color";
             MySqlParameter[] parameters = new MySqlParameter[1];
             parameters[0] = new MySqlParameter("@id_color", idColor);

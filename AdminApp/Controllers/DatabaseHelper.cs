@@ -68,5 +68,33 @@ namespace AdminApp.Controllers
             }
             return dataTable;
         }
+
+        public object ExecuteScalar(string query, MySqlParameter[] parameters = null)
+        {
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open(); // Đảm bảo mở kết nối trước khi thực thi
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        if (parameters != null && parameters.Length > 0)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
+
+                        object result = cmd.ExecuteScalar();
+                        return result == DBNull.Value ? null : result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi nếu cần
+                Console.WriteLine($"ExecuteScalar error: {ex.Message}");
+                return null;
+            }
+        }
     }
 }

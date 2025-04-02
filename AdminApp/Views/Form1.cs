@@ -19,6 +19,7 @@ public partial class Form1 : Form
     SizeController sizeController = new SizeController();
     CategoryController categoryController = new CategoryController();
     ProductVariantController productVariantController = new ProductVariantController();
+    InvoiceController invoiceController = new InvoiceController();
 
 
     DatabaseHelper dbHelper = new DatabaseHelper();
@@ -76,9 +77,12 @@ public partial class Form1 : Form
         cbb_Size.DisplayMember = "SizeValue";
         cbb_Size.ValueMember = "IdSize";
     }
-    private void LoadDataCategory()
+    private void LoadDataInvoice()
     {
-        //tableCategory.DataSource = dbHelper.GetCategory();
+        tableInvoice.DataSource = invoiceController.GetAllInvoice();
+        cbb_User.DataSource = userController.GetAllUsers();
+        cbb_User.DisplayMember = "IdUser";
+        cbb_User.ValueMember = "IdUser";
     }
 
     //////////////////////// Load dữ liệu khi chuyển tab ////////////////////////
@@ -111,6 +115,11 @@ public partial class Form1 : Form
         else if (tabControl1.SelectedTab == tabVariant) // Kiểm tra nếu đang ở tab "Variant"
         {
             LoadDataVariant();
+            ResetTextBoxes();
+        }
+        else if (tabControl1.SelectedTab == tabInvoice) // Kiểm tra nếu đang ở tab "Category"
+        {
+            LoadDataInvoice();
             ResetTextBoxes();
         }
     }
@@ -281,13 +290,13 @@ public partial class Form1 : Form
         }
     }
 
-    private void tableSize_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    private void tableSize_CellClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableSize.Rows[e.RowIndex];
             txt_IdSize.Text = row.Cells["IdSize"].Value.ToString();
-            txt_SizeValue.Text = row.Cells["size_vlaue"].Value.ToString();
+            txt_SizeValue.Text = row.Cells["SizeValue"].Value.ToString();
             txt_TypeSize.Text = row.Cells["type"].Value.ToString();
         }
     }
@@ -297,9 +306,9 @@ public partial class Form1 : Form
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableBrand.Rows[e.RowIndex];
-            txt_IdBrand.Text = row.Cells["IdBrand"].Value.ToString();
-            txt_NameBrand.Text = row.Cells["NameBrand"].Value.ToString();
-            txt_InfoBrand.Text = row.Cells["InfoBrand"].Value.ToString();
+            txt_IdBrand.Text = row.Cells["Id"].Value.ToString();
+            txt_NameBrand.Text = row.Cells["Name"].Value.ToString();
+            txt_InfoBrand.Text = row.Cells["Info"].Value.ToString();
         }
     }
 
@@ -308,9 +317,9 @@ public partial class Form1 : Form
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableLine.Rows[e.RowIndex];
-            txt_IdLine.Text = row.Cells["IdLine"].Value.ToString();
+            txt_IdLine.Text = row.Cells["Id"].Value.ToString();
             cbb_Category.SelectedValue = row.Cells["IdCategory"].Value;
-            txt_NameLine.Text = row.Cells["NameLine"].Value.ToString();
+            txt_NameLine.Text = row.Cells["Name"].Value.ToString();
         }
     }
 
@@ -327,6 +336,22 @@ public partial class Form1 : Form
             expired_date.Value = Convert.ToDateTime(row.Cells["ExpiredDate"].Value);
         }
 
+    }
+
+    private void tableInvoice_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex >= 0)
+        { // Kiểm tra dòng hợp lệ
+            DataGridViewRow row = tableInvoice.Rows[e.RowIndex];
+            txt_IdInvoice.Text = row.Cells["IdInvoice"].Value.ToString();
+            cbb_User.SelectedValue = row.Cells["IdUser"].Value;
+            txt_NameInvoice.Text = row.Cells["CustomerName"].Value.ToString();
+            txxt_PhoneInvoice.Text = row.Cells["CustomerPhone"].Value.ToString();
+            AddressInvoice.Text = row.Cells["CustomerAddress"].Value.ToString();
+            TotalAmount.Text = row.Cells["TotalAmount"].Value.ToString();
+            cbb_STTIvoice.Text = row.Cells["Status"].Value.ToString();
+            DateInvoice.Value = Convert.ToDateTime(row.Cells["InvoiceDate"].Value);
+        }
     }
 
     //////////////////////// Product //////////////////////////
@@ -756,8 +781,12 @@ public partial class Form1 : Form
 
     private void buttonAddCategory_Click(object sender, EventArgs e)
     {
-        AddCategory category = new AddCategory();
-        category.ShowDialog();
+        this.Hide(); // Ẩn Form1
+        using (AddCategory category = new AddCategory())
+        {
+            category.ShowDialog();
+        }
+        this.Show();
     }
 
     ///////////////////////////////// Variant//////////////////////////////////////
@@ -833,5 +862,80 @@ public partial class Form1 : Form
         }
     }
 
-    
+    ///////////////////////////////// Invoice //////////////////////////////////////
+
+
+    private void AddInvoice_Click(object sender, EventArgs e)
+    {
+        Invoice invoice = new Invoice()
+        {
+            IdUser = Convert.ToInt32(cbb_User.SelectedValue),
+            CustomerName = Convert.ToString(txt_NameInvoice.Text),
+            CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
+            CustomerAddress = Convert.ToString(AddressInvoice.Text),
+            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            Status = cbb_STTIvoice.SelectedItem.ToString(),
+            InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
+        };
+        bool result = invoiceController.AddInvoice(invoice);
+        if (result)
+        {
+            MessageBox.Show("Thêm hóa đơn thành công!");
+            LoadDataInvoice(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Thêm hóa đơn thất bại!");
+        }
+    }
+
+    private void RepairInvoice_Click(object sender, EventArgs e)
+    {
+        Invoice invoice = new Invoice()
+        {
+            IdInvoice = Convert.ToInt32(txt_IdInvoice.Text),
+            IdUser = Convert.ToInt32(cbb_User.SelectedValue),
+            CustomerName = Convert.ToString(txt_NameInvoice.Text),
+            CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
+            CustomerAddress = Convert.ToString(AddressInvoice.Text),
+            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            Status = cbb_STTIvoice.SelectedItem.ToString(),
+            InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
+        };
+        bool result = invoiceController.UpdateInvoice(invoice);
+        if (result)
+        {
+            MessageBox.Show("Sửa thông tin hóa đơn thành công!");
+            LoadDataInvoice(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Sửa thông tin hóa đơn thất bại!");
+        }
+    }
+
+    private void DeleteInvoice_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(txt_IdInvoice.Text))
+        {
+            MessageBox.Show("Vui lòng chọn hóa đơn để xóa!");
+            return;
+        }
+        int idInvoice = int.Parse(txt_IdInvoice.Text);
+        DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa hóa đơn này?",
+                                              "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        if (result == DialogResult.Yes)
+        {
+            bool resul = invoiceController.DeleteInvoice(idInvoice);
+            if (resul)
+            {
+                MessageBox.Show("Xóa hóa đơn thành công!");
+                LoadDataInvoice(); // Cập nhật lại danh sách
+            }
+            else
+            {
+                MessageBox.Show("Xóa hóa đơn thất bại!");
+            }
+        }
+    }
 }
