@@ -12,6 +12,30 @@ namespace AdminApp.Controllers
     class UserController
     {
         private DatabaseHelper db = new DatabaseHelper();
+
+        public User GetUserById(int userId)
+        {
+            string query = "SELECT id_user, fullname, email, phone FROM user WHERE id_user = @userId";
+            MySqlParameter[] parameters = {
+            new MySqlParameter("@userId", userId)
+            };
+
+            DataTable dt = db.ExecuteQuery(query, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow row = dt.Rows[0];
+                return new User
+                {
+                    IdUser = Convert.ToInt32(row["id_user"]),
+                    FullName = row["fullname"].ToString(),
+                    Email = row["email"].ToString(),
+                    Phone = Convert.ToInt32(row["phone"]),
+                };
+            }
+            return null;
+        }
+
         public List<User> GetAllUsers()
         {
             string query = "SELECT id_user, username, passwordhash, fullname, email, phone, id_role, is_active FROM user";

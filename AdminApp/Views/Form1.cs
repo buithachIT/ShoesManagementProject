@@ -1,10 +1,12 @@
 ﻿using AdminApp.Controllers;
 using AdminApp.Views;
+using Microsoft.VisualBasic.ApplicationServices;
 using Org.BouncyCastle.Asn1.Cmp;
 using Shared.Models;
 using System.Xml.Linq;
 using Color = Shared.Models.Color;
 using Size = Shared.Models.Size;
+using User = Shared.Models.User;
 
 namespace AdminApp;
 
@@ -935,6 +937,40 @@ public partial class Form1 : Form
             else
             {
                 MessageBox.Show("Xóa hóa đơn thất bại!");
+            }
+        }
+    }
+
+    /////////////////////////////////// Load dữ liệu user khi chọn combobox trong hóa đơn //////////////////////////////
+
+
+    private void DisplayUserDetails(User user)
+    {
+        if (user != null)
+        {
+            txt_NameInvoice.Text = user.FullName;
+            txxt_PhoneInvoice.Text = user.Phone?.ToString();
+            AddressInvoice.Text = user.Email;
+        }
+        else
+        {
+            MessageBox.Show("User not found");
+        }
+    }
+
+    private void cbb_User_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (cbb_User.SelectedValue != null && int.TryParse(cbb_User.SelectedValue.ToString(), out int selectedId))
+        {
+            try
+            {
+                var user = userController.GetUserById(selectedId);
+                DisplayUserDetails(user);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải thông tin người dùng: {ex.Message}", "Lỗi",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

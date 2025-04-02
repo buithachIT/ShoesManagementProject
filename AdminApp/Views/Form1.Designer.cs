@@ -369,6 +369,7 @@ partial class Form1
         cbb_User.Name = "cbb_User";
         cbb_User.Size = new Size(277, 36);
         cbb_User.TabIndex = 17;
+        cbb_User.SelectedIndexChanged += cbb_User_SelectedIndexChanged;
         // 
         // label40
         // 
