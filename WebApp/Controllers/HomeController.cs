@@ -34,7 +34,7 @@ public class HomeController : Controller
     public IActionResult GetCategory()
         {
             var categories = _context.Categories
-                .Include(c => c.Lines) // Nếu có bảng Lines liên kết
+                .Include(c => c.Lines) 
                 .ToList();
 
             return View(categories);
