@@ -45,6 +45,16 @@ namespace AdminApp.Controllers
 
 
         public bool DeleteSize(int size) {
+            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_size = @id_size";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_size", size);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa size vì có sản phẩm thuộc size này!");
+                return false;
+            }
+
             string query = "DELETE FROM size WHERE id_size = @id_size";
             MySqlParameter[] parameters = new MySqlParameter[1];
             parameters[0] = new MySqlParameter("@id_size", size);

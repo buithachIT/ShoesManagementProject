@@ -1,10 +1,12 @@
 ﻿using AdminApp.Controllers;
 using AdminApp.Views;
+using Microsoft.VisualBasic.ApplicationServices;
 using Org.BouncyCastle.Asn1.Cmp;
 using Shared.Models;
 using System.Xml.Linq;
 using Color = Shared.Models.Color;
 using Size = Shared.Models.Size;
+using User = Shared.Models.User;
 
 namespace AdminApp;
 
@@ -18,6 +20,8 @@ public partial class Form1 : Form
     ColorController colorController = new ColorController();
     SizeController sizeController = new SizeController();
     CategoryController categoryController = new CategoryController();
+    ProductVariantController productVariantController = new ProductVariantController();
+    InvoiceController invoiceController = new InvoiceController();
 
 
     DatabaseHelper dbHelper = new DatabaseHelper();
@@ -64,11 +68,23 @@ public partial class Form1 : Form
     }
     private void LoadDataVariant()
     {
-        //tableVariant.DataSource = dbHelper.GetVariant();
+        tableVariant.DataSource = productVariantController.GetAllProductVariant();
+        cbb_Product.DataSource = productController.GetAllProducts();
+        cbb_Product.DisplayMember = "NameProduct";
+        cbb_Product.ValueMember = "IdProduct";
+        cbb_Color.DataSource = colorController.GetAllColor();
+        cbb_Color.DisplayMember = "NameColor";
+        cbb_Color.ValueMember = "IdColor";
+        cbb_Size.DataSource = sizeController.GetAllSize();
+        cbb_Size.DisplayMember = "SizeValue";
+        cbb_Size.ValueMember = "IdSize";
     }
-    private void LoadDataCategory()
+    private void LoadDataInvoice()
     {
-        //tableCategory.DataSource = dbHelper.GetCategory();
+        tableInvoice.DataSource = invoiceController.GetAllInvoice();
+        cbb_User.DataSource = userController.GetAllUsers();
+        cbb_User.DisplayMember = "IdUser";
+        cbb_User.ValueMember = "IdUser";
     }
 
     //////////////////////// Load dữ liệu khi chuyển tab ////////////////////////
@@ -101,6 +117,11 @@ public partial class Form1 : Form
         else if (tabControl1.SelectedTab == tabVariant) // Kiểm tra nếu đang ở tab "Variant"
         {
             LoadDataVariant();
+            ResetTextBoxes();
+        }
+        else if (tabControl1.SelectedTab == tabInvoice) // Kiểm tra nếu đang ở tab "Category"
+        {
+            LoadDataInvoice();
             ResetTextBoxes();
         }
     }
@@ -271,13 +292,13 @@ public partial class Form1 : Form
         }
     }
 
-    private void tableSize_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    private void tableSize_CellClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableSize.Rows[e.RowIndex];
             txt_IdSize.Text = row.Cells["IdSize"].Value.ToString();
-            txt_SizeValue.Text = row.Cells["size_vlaue"].Value.ToString();
+            txt_SizeValue.Text = row.Cells["SizeValue"].Value.ToString();
             txt_TypeSize.Text = row.Cells["type"].Value.ToString();
         }
     }
@@ -287,9 +308,9 @@ public partial class Form1 : Form
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableBrand.Rows[e.RowIndex];
-            txt_IdBrand.Text = row.Cells["IdBrand"].Value.ToString();
-            txt_NameBrand.Text = row.Cells["NameBrand"].Value.ToString();
-            txt_InfoBrand.Text = row.Cells["InfoBrand"].Value.ToString();
+            txt_IdBrand.Text = row.Cells["Id"].Value.ToString();
+            txt_NameBrand.Text = row.Cells["Name"].Value.ToString();
+            txt_InfoBrand.Text = row.Cells["Info"].Value.ToString();
         }
     }
 
@@ -298,9 +319,40 @@ public partial class Form1 : Form
         if (e.RowIndex >= 0) // Kiểm tra dòng hợp lệ
         {
             DataGridViewRow row = tableLine.Rows[e.RowIndex];
-            txt_IdLine.Text = row.Cells["IdLine"].Value.ToString();
+            txt_IdLine.Text = row.Cells["Id"].Value.ToString();
             cbb_Category.SelectedValue = row.Cells["IdCategory"].Value;
-            txt_NameLine.Text = row.Cells["NameLine"].Value.ToString();
+            txt_NameLine.Text = row.Cells["Name"].Value.ToString();
+        }
+    }
+
+    private void tableProductVariant_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex >= 0)
+        { // Kiểm tra dòng hợp lệ
+            DataGridViewRow row = tableVariant.Rows[e.RowIndex];
+            idVariant.Text = row.Cells["IdVariant"].Value.ToString();
+            cbb_Product.SelectedValue = row.Cells["IdProduct"].Value;
+            cbb_Color.SelectedValue = row.Cells["IdColor"].Value;
+            cbb_Size.SelectedValue = row.Cells["IdSize"].Value;
+            txt_Quantity.Text = row.Cells["Quantity"].Value.ToString();
+            expired_date.Value = Convert.ToDateTime(row.Cells["ExpiredDate"].Value);
+        }
+
+    }
+
+    private void tableInvoice_CellClick(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex >= 0)
+        { // Kiểm tra dòng hợp lệ
+            DataGridViewRow row = tableInvoice.Rows[e.RowIndex];
+            txt_IdInvoice.Text = row.Cells["IdInvoice"].Value.ToString();
+            cbb_User.SelectedValue = row.Cells["IdUser"].Value;
+            txt_NameInvoice.Text = row.Cells["CustomerName"].Value.ToString();
+            txxt_PhoneInvoice.Text = row.Cells["CustomerPhone"].Value.ToString();
+            AddressInvoice.Text = row.Cells["CustomerAddress"].Value.ToString();
+            TotalAmount.Text = row.Cells["TotalAmount"].Value.ToString();
+            cbb_STTIvoice.Text = row.Cells["Status"].Value.ToString();
+            DateInvoice.Value = Convert.ToDateTime(row.Cells["InvoiceDate"].Value);
         }
     }
 
@@ -731,10 +783,195 @@ public partial class Form1 : Form
 
     private void buttonAddCategory_Click(object sender, EventArgs e)
     {
-        AddCategory category = new AddCategory();
-        category.ShowDialog();
+        this.Hide(); // Ẩn Form1
+        using (AddCategory category = new AddCategory())
+        {
+            category.ShowDialog();
+        }
+        this.Show();
     }
 
     ///////////////////////////////// Variant//////////////////////////////////////
 
+    private void AddVariant_Click(object sender, EventArgs e)
+    {
+        ProductVariant productVariant = new ProductVariant()
+        {
+            IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
+            IdColor = Convert.ToInt32(cbb_Color.SelectedValue),
+            IdSize = Convert.ToInt32(cbb_Size.SelectedValue),
+            Quantity = Convert.ToInt32(txt_Quantity.Text),
+            ExpiredDate = Convert.ToDateTime(expired_date.Value)
+
+        };
+        bool result = productVariantController.AddProductVariant(productVariant);
+        if (result)
+        {
+            MessageBox.Show("Thêm biến thể sản phẩm thành công!");
+            LoadDataVariant(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Thêm biến thể sản phẩm thất bại!");
+        }
+    }
+
+    private void Repair_Variant_Click(object sender, EventArgs e)
+    {
+        ProductVariant productVariant = new ProductVariant()
+        {
+            IdVariant = Convert.ToInt32(idVariant.Text),
+            IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
+            IdColor = Convert.ToInt32(cbb_Color.SelectedValue),
+            IdSize = Convert.ToInt32(cbb_Size.SelectedValue),
+            Quantity = Convert.ToInt32(txt_Quantity.Text),
+            ExpiredDate = Convert.ToDateTime(expired_date.Value)
+        };
+        bool result = productVariantController.UpdateProductVariant(productVariant);
+        if (result)
+        {
+            MessageBox.Show("Sửa thông tin biến thể sản phẩm thành công!");
+            LoadDataVariant(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Sửa thông tin biến thể sản phẩm thất bại!");
+        }
+    }
+
+    private void Delete_Variant_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(idVariant.Text))
+        {
+            MessageBox.Show("Vui lòng chọn biến thể sản phẩm để xóa!");
+            return;
+        }
+        int idVariantValue = int.Parse(idVariant.Text);
+        DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa biến thể sản phẩm này?",
+                                              "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        if (result == DialogResult.Yes)
+        {
+            bool resul = productVariantController.DeleteProductVariant(idVariantValue);
+            if (resul)
+            {
+                MessageBox.Show("Xóa biến thể sản phẩm thành công!");
+                LoadDataVariant(); // Cập nhật lại danh sách
+            }
+            else
+            {
+                MessageBox.Show("Xóa biến thể sản phẩm thất bại!");
+            }
+        }
+    }
+
+    ///////////////////////////////// Invoice //////////////////////////////////////
+
+
+    private void AddInvoice_Click(object sender, EventArgs e)
+    {
+        Invoice invoice = new Invoice()
+        {
+            IdUser = Convert.ToInt32(cbb_User.SelectedValue),
+            CustomerName = Convert.ToString(txt_NameInvoice.Text),
+            CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
+            CustomerAddress = Convert.ToString(AddressInvoice.Text),
+            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            Status = cbb_STTIvoice.SelectedItem.ToString(),
+            InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
+        };
+        bool result = invoiceController.AddInvoice(invoice);
+        if (result)
+        {
+            MessageBox.Show("Thêm hóa đơn thành công!");
+            LoadDataInvoice(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Thêm hóa đơn thất bại!");
+        }
+    }
+
+    private void RepairInvoice_Click(object sender, EventArgs e)
+    {
+        Invoice invoice = new Invoice()
+        {
+            IdInvoice = Convert.ToInt32(txt_IdInvoice.Text),
+            IdUser = Convert.ToInt32(cbb_User.SelectedValue),
+            CustomerName = Convert.ToString(txt_NameInvoice.Text),
+            CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
+            CustomerAddress = Convert.ToString(AddressInvoice.Text),
+            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            Status = cbb_STTIvoice.SelectedItem.ToString(),
+            InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
+        };
+        bool result = invoiceController.UpdateInvoice(invoice);
+        if (result)
+        {
+            MessageBox.Show("Sửa thông tin hóa đơn thành công!");
+            LoadDataInvoice(); // Cập nhật lại danh sách
+        }
+        else
+        {
+            MessageBox.Show("Sửa thông tin hóa đơn thất bại!");
+        }
+    }
+
+    private void DeleteInvoice_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(txt_IdInvoice.Text))
+        {
+            MessageBox.Show("Vui lòng chọn hóa đơn để xóa!");
+            return;
+        }
+        int idInvoice = int.Parse(txt_IdInvoice.Text);
+        DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa hóa đơn này?",
+                                              "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        if (result == DialogResult.Yes)
+        {
+            bool resul = invoiceController.DeleteInvoice(idInvoice);
+            if (resul)
+            {
+                MessageBox.Show("Xóa hóa đơn thành công!");
+                LoadDataInvoice(); // Cập nhật lại danh sách
+            }
+            else
+            {
+                MessageBox.Show("Xóa hóa đơn thất bại!");
+            }
+        }
+    }
+
+    /////////////////////////////////// Load dữ liệu user khi chọn combobox trong hóa đơn //////////////////////////////
+
+
+    private void DisplayUserDetails(User user)
+    {
+        if (user != null)
+        {
+            txt_NameInvoice.Text = user.FullName;
+            txxt_PhoneInvoice.Text = user.Phone?.ToString();
+            AddressInvoice.Text = user.Email;
+        }
+        else
+        {
+            MessageBox.Show("User not found");
+        }
+    }
+
+    private void cbb_User_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (cbb_User.SelectedValue != null && int.TryParse(cbb_User.SelectedValue.ToString(), out int selectedId))
+        {
+            try
+            {
+                var user = userController.GetUserById(selectedId);
+                DisplayUserDetails(user);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải thông tin người dùng: {ex.Message}", "Lỗi",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }

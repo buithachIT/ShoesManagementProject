@@ -51,6 +51,19 @@ namespace AdminApp.Controllers
 
         public bool DeleteLine(int line)
         {
+            string checkQuery = "SELECT COUNT(*) FROM product WHERE id_line = @id_line";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_line", line);
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+
+            if (count > 0)
+            {
+                MessageBox.Show("Không thể xóa dòng vì có sản phẩm thuộc dòng này!");
+                return false;
+            }
+
+
             string query = "DELETE FROM line WHERE id_line = @id_line";
             MySqlParameter[] parameters = new MySqlParameter[1];
             parameters[0] = new MySqlParameter("@id_line", line);

@@ -46,12 +46,29 @@ namespace AdminApp.Controllers
             return db.ExecuteNonQuery(query, parameters);
         }
 
-        public bool DeleteCategory(int category)
+        public bool DeleteCategory(int categoryId)
         {
-            string query = "DELETE FROM category WHERE id_category = @id_category";
-            MySqlParameter[] parameters = new MySqlParameter[1];
-            parameters[0] = new MySqlParameter("@id_category", category);
-            return db.ExecuteNonQuery(query, parameters);
+            // Kiểm tra xem category có tồn tại trong bảng line không
+            string checkQuery = "SELECT COUNT(*) FROM line WHERE id_category = @id_category";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@id_category", categoryId);
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+
+            if (count > 0)
+            {
+                // Nếu có dòng liên quan, thông báo và không xóa
+                MessageBox.Show("Không thể xóa danh mục vì có sản phẩm thuộc danh mục này!",
+                              "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            // Nếu không có dòng liên quan, thực hiện xóa
+            string deleteQuery = "DELETE FROM category WHERE id_category = @id_category";
+            MySqlParameter[] deleteParams = new MySqlParameter[1];
+            deleteParams[0] = new MySqlParameter("@id_category", categoryId);
+
+            return db.ExecuteNonQuery(deleteQuery, deleteParams);
         }
     }
 }
