@@ -18,7 +18,7 @@ namespace Shared.Models
         [Column("imageUrl")]
         public string ImageUrl { get; set; }
 
-        [Column("is_primary")]
+        [Column("isPrimary")]
         public bool IsPrimary { get; set; }
 
         [Column("id_product")]
