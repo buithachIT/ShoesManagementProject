@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Shared.Models
 {
-    [Table("Images")]
+    [Table("Image")]
     public class Image
     {
         [Key]
         [Column("id_image")]
         public int IdImage { get; set; }
 
-        [Column("imageỦrl")]
+        [Column("imageUrl")]
         public string ImageUrl { get; set; }
 
         [Column("is_primary")]
