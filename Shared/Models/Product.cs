@@ -50,6 +50,7 @@ namespace Shared.Models
 
         [ForeignKey("IdBrand")]
         public Brand Brand { get; set; }
+        public virtual ICollection<ProductVariant> Variants { get; set; }
     }
         
 }

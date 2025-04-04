@@ -13,7 +13,8 @@ namespace WebApp.data
         public DbSet<Line> Lines { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
-
+        public DbSet<ProductVariant> ProductVariants { get; set; }
+        public DbSet<Image> Images { get; set; }
 
     }
 }

@@ -23,6 +23,7 @@ namespace Shared.Models
         [Column("id_size")]
         public int IdSize { get; set; }
 
+
         [Column("quantity")]
         public int Quantity { get; set; }
 
@@ -37,6 +38,8 @@ namespace Shared.Models
 
         [ForeignKey("IdSize")]
         public Size Size { get; set; }
+
+        public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     }
 }

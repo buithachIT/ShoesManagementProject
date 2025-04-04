@@ -40,7 +40,7 @@
                                     <p class="card-title fw-bold">@product.NameProduct</p>
                                     <p class="card-text">@product.Price <sup>đ</sup></p>
                                     <div class="group-btn-add-cart w-100 border-top  d-flex justify-content-evenly">
-                                        <a href="/Product/Detail/@product.IdProduct" title="Xem chi tiết">
+                                        <a href="@Url.Action("Detail", "Product", new { id = product.IdProduct })" title="Xem chi tiết">
                                             <i class="fa fa-eye fa-2x pt-3" aria-hidden="true"></i>
                                         </a>
                                         <span class="pt-3">|</span>
@@ -52,7 +52,6 @@
                         </div>
                     }
                 </div>
-
 
                 <ul class="pagination justify-content-center">
     <!-- Previous -->

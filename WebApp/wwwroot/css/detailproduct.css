@@ -1,0 +1,84 @@
+.scroll-images {
+    max-height: 620px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+.scroll-images img {
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.scroll-images img:hover {
+    transform: scale(1.05);
+}
+
+.btn-custom {
+    width: 400px !important;
+    height: 50px;
+    font-weight: bold;
+    justify-content: center;
+
+}
+
+.product-image.selected-color {
+    border: 2px solid #9f9f9f;
+
+}
+
+.product-image {
+    padding: 5px;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+}
+
+
+
+.size-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 300px;
+    gap: 10px;
+}
+
+.size-option {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+    flex: 1 1 30%;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.size-option:hover {
+    background-color: #f0f0f0;
+}
+
+.size-option.selected {
+    background-color: black;
+    color: white;
+}
+
+.size-btn {
+    padding: 10px 15px;
+    border: 1px solid #000;
+    margin: 5px;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+}
+
+.size-btn.available:hover {
+    background: #f5f5f5;
+}
+
+.size-btn.out-of-stock {
+    background: #e0e0e0;
+    color: #888;
+    text-decoration: line-through;
+    opacity: 0.5;
+    cursor: not-allowed;
+}

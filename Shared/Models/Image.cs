@@ -8,23 +8,30 @@ using System.Threading.Tasks;
 
 namespace Shared.Models
 {
-    [Table("Images")]
+    [Table("image")]
     public class Image
     {
         [Key]
-        [Column("id_image")]
+        [Column("id_image")]    
         public int IdImage { get; set; }
 
-        [Column("imageỦrl")]
-        public string ImageUrl { get; set; }
+        [Column("imageUrl")]
+        public required string ImageUrl { get; set; }
 
-        [Column("is_primary")]
+        [Column("isPrimary")]
         public bool IsPrimary { get; set; }
 
+        [Column("id_variant")]
+        public int IdVariant { get; set; }
+
         [Column("id_product")]
+
         public int IdProduct { get; set; }
 
         [ForeignKey("IdProduct")]
         public virtual Product Product { get; set; }
+
+        [ForeignKey("IdVariant")]
+        public virtual ProductVariant ProductVariant { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace AdminApp.Controllers
 {
     class DatabaseHelper
     {
-        private string connectionString = "Server=localhost;Database=shose_web;User=root;Password=;";
+        private string connectionString = "Server=localhost;Database=shoes_web;User=root;Password=;";
 
         public MySqlConnection GetConnection()
 

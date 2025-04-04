@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|d:\\source\\doancsharp\\shoesmanagementproject\\webapp\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|solutionrelative:webapp\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FB388894-24D2-44E0-B6AD-5C30455EFA08}|AdminApp\\AdminApp.csproj|d:\\source\\doancsharp\\shoesmanagementproject\\adminapp\\controllers\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB388894-24D2-44E0-B6AD-5C30455EFA08}|AdminApp\\AdminApp.csproj|solutionrelative:adminapp\\controllers\\databasehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|d:\\source\\doancsharp\\shoesmanagementproject\\webapp\\views\\home\\_newproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|solutionrelative:webapp\\views\\home\\_newproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|d:\\source\\doancsharp\\shoesmanagementproject\\webapp\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4B37A18-7712-4355-B832-DA27A7470AEA}|WebApp\\WebApp.csproj|solutionrelative:webapp\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FB388894-24D2-44E0-B6AD-5C30455EFA08}|AdminApp\\AdminApp.csproj|d:\\source\\doancsharp\\shoesmanagementproject\\adminapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB388894-24D2-44E0-B6AD-5C30455EFA08}|AdminApp\\AdminApp.csproj|solutionrelative:adminapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 229,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 11,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Product.cs",
-              "DocumentMoniker": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "WebApp\\Models\\Product.cs",
-              "ToolTip": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Models\\Product.cs",
-              "RelativeToolTip": "WebApp\\Models\\Product.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-13T16:03:41.646Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -83,28 +66,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_NewProducts.cshtml",
-              "DocumentMoniker": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Views\\Home\\_NewProducts.cshtml",
-              "RelativeDocumentMoniker": "WebApp\\Views\\Home\\_NewProducts.cshtml",
-              "ToolTip": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Views\\Home\\_NewProducts.cshtml",
-              "RelativeToolTip": "WebApp\\Views\\Home\\_NewProducts.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-13T16:01:51.778Z",
+              "DocumentIndex": 0,
+              "Title": "DatabaseHelper.cs",
+              "DocumentMoniker": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\AdminApp\\Controllers\\DatabaseHelper.cs",
+              "RelativeDocumentMoniker": "AdminApp\\Controllers\\DatabaseHelper.cs",
+              "ToolTip": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\AdminApp\\Controllers\\DatabaseHelper.cs",
+              "RelativeToolTip": "AdminApp\\Controllers\\DatabaseHelper.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T06:44:14.805Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "WebApp\\Controllers\\ProductController.cs",
-              "ToolTip": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\WebApp\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "WebApp\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCAAAAAxAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\AdminApp\\Program.cs",
+              "RelativeDocumentMoniker": "AdminApp\\Program.cs",
+              "ToolTip": "D:\\Source\\DoAnCSharp\\ShoesManagementProject\\AdminApp\\Program.cs",
+              "RelativeToolTip": "AdminApp\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-13T16:01:41.61Z",
+              "WhenOpened": "2025-04-04T06:43:26.347Z",
               "EditorCaption": ""
             }
           ]
