@@ -58,10 +58,11 @@
     </div>
 
     <!-- Bên phải: thông tin và biến thể -->
+
     <div class="product-info mt-5 me-5 pe-5">
-        <h4>Nike Air Max 90 LV8</h4>
-        <p>Women shoes</p>
-        <p>500.000 <sup>đ</sup></p>
+        <h4>@ViewData["ProductName"]</h4>
+        <p>@ViewData["ProductLine"]</p>
+        <p>@ViewData["ProductPrice"] <sup>đ</sup></p>
 
         <div class="product-variant">
             <!-- Màu -->
@@ -90,14 +91,19 @@
             </div>
         </div>
 
-        <div class="btn btn-custom btn-outline-dark mb-3" id="addToCartBtn" onclick="addToCart()">
+        <div class="btn btn-custom btn-outline-dark " id="addToCartBtn" onclick="addToCart()">
             Add to cart
         </div>
 
         <div id="cartMessage" class="mt-2 text-danger"></div><br>
         <div class="btn btn-custom btn-outline-dark">Buy now</div>
+        <div class="description mt-5">
+            <div>@ViewData["ProductDesc"]</div>
+        </div>
     </div>
 </div>
+
+
 @section Scripts {
     <script>
 
@@ -135,12 +141,12 @@
             selectedColor.sizes.forEach(size => {
                 if (size.quantity > 0) {
                     html += `<button class="size-btn available" data-size="${size.idSize}">
-                                                                        EU ${size.sizeValue}
-                                                                     </button>`;
+                                                                                                                                                                                                                    EU ${size.sizeValue}
+                                                                                                                                                                                                                 </button>`;
                 } else {
                     html += `<button class="size-btn out-of-stock" disabled>
-                                                                        EU ${size.sizeValue}
-                                                                     </button>`;
+                                                                                                                                                                                                                    EU ${size.sizeValue}
+                                                                                                                                                                                                                 </button>`;
                 }
             });
 

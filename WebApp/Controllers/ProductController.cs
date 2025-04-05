@@ -115,12 +115,24 @@ public class ProductController : Controller
     }
     public async Task<IActionResult> Detail(int id)
     {
+        
         var variants = _context.ProductVariants
         .Where(p => p.IdProduct == id)
         .Include(v => v.Images)
         .Include(v => v.Color)
         .Include(v => v.Size)
         .ToList();
+
+        var products = await _context.Products
+        .Include(l => l.Line)
+        .FirstOrDefaultAsync(p => p.IdProduct == id)
+        ;
+        ViewData["ProductName"] = products.NameProduct;
+        ViewData["ProductPrice"] = products.Price;
+        ViewData["ProductDesc"] = products.Description;
+        ViewData["ProductLine"] = products.Line.Name;
+
+
 
         var images = await _context.Images
        .Join(_context.ProductVariants,
