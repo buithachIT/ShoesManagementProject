@@ -72,12 +72,11 @@ namespace AdminApp.Views
             try
             {
                 int productId = (int)cbbProductName.SelectedValue;
-                bool isPrimary = primarycheck.Checked;
                 string imageName = Path.GetFileName(selectedImagePath);
 
                 // Chỉ lưu đường dẫn ảnh (không có imageData)
                 ImageController imageController = new ImageController();
-                imageController.AddImage(productId, imageName, isPrimary);
+                imageController.AddImage(productId, imageName);
 
                 MessageBox.Show("Thêm ảnh thành công!", "Thông báo",
                               MessageBoxButtons.OK, MessageBoxIcon.Information);

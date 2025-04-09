@@ -32,19 +32,19 @@ namespace AdminApp.Controllers
 
         public bool AddLine(Line line)
         {
-            string query = "INSERT INTO line(name_line, name_category) VALUES(@name_line, @name_category)";
+            string query = "INSERT INTO line(name_category, id_category) VALUES(@name_category, @id_category)";
             MySqlParameter[] parameters = new MySqlParameter[2];
-            parameters[0] = new MySqlParameter("@name_line", line.Name);
-            parameters[1] = new MySqlParameter("@name_category", line.IdCategory);
+            parameters[0] = new MySqlParameter("@name_category", line.Name);
+            parameters[1] = new MySqlParameter("@id_category", line.IdCategory);
             return db.ExecuteNonQuery(query, parameters);
         }
 
         public bool UpdateLine(Line line)
         {
-            string query = "UPDATE line SET name_line = @name_line, name_category = @name_category WHERE id_line = @id_line";
+            string query = "UPDATE line SET name_category = @name_category, id_category = @id_category WHERE id_line = @id_line";
             MySqlParameter[] parameters = new MySqlParameter[3];
-            parameters[0] = new MySqlParameter("@name_line", line.Name);
-            parameters[1] = new MySqlParameter("@name_category", line.IdCategory);
+            parameters[0] = new MySqlParameter("@name_category", line.Name);
+            parameters[1] = new MySqlParameter("@id_category", line.IdCategory);
             parameters[2] = new MySqlParameter("@id_line", line.Id);
             return db.ExecuteNonQuery(query, parameters);
         }
