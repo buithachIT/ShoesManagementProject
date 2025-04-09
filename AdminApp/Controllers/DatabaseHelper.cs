@@ -96,5 +96,11 @@ namespace AdminApp.Controllers
                 return null;
             }
         }
+
+        public int GetLastInsertId()
+        {
+            string query = "SELECT LAST_INSERT_ID()";
+            return Convert.ToInt32(ExecuteScalar(query, null));
+        }
     }
 }

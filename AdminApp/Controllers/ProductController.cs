@@ -48,7 +48,21 @@ namespace AdminApp.Controllers
             parameters[7] = new MySqlParameter("releasedate", product.Releasedate);
             parameters[8] = new MySqlParameter("status", product.Status);
 
-            return db.ExecuteNonQuery(query, parameters);
+            bool result = db.ExecuteNonQuery(query, parameters);
+            if (result)
+            {
+                // Lấy ID sản phẩm vừa thêm
+                int productId = db.GetLastInsertId();
+                // Thêm ảnh vào bảng image
+                string queryImage = "INSERT INTO image (id_product, imageUrl, isPrimary) VALUES (@id_product, @imageUrl, 1)";
+                MySqlParameter[] imageParams = new MySqlParameter[2];
+                imageParams[0] = new MySqlParameter("id_product", productId);
+                imageParams[1] = new MySqlParameter("imageUrl", product.ImageUrl);
+
+                return db.ExecuteNonQuery(queryImage, imageParams);
+            }
+
+            return false;
         }
         public bool UpdateProduct(Product product)
         {
@@ -82,7 +96,6 @@ namespace AdminApp.Controllers
             string query = "DELETE FROM product WHERE id_product = @id";
             return db.ExecuteNonQuery(query, parameters);
         }
-
 
     }
 }

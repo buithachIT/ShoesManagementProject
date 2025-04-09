@@ -32,8 +32,12 @@
             upload = new Button();
             cbbProductName = new ComboBox();
             label1 = new Label();
-            primarycheck = new CheckBox();
             addImg = new Button();
+            label2 = new Label();
+            cbb_Variant = new ComboBox();
+            label3 = new Label();
+            cbb_Color = new ComboBox();
+            delete = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -76,17 +80,6 @@
             label1.TabIndex = 3;
             label1.Text = "Product";
             // 
-            // primarycheck
-            // 
-            primarycheck.AutoSize = true;
-            primarycheck.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            primarycheck.Location = new Point(430, 118);
-            primarycheck.Name = "primarycheck";
-            primarycheck.Size = new Size(196, 35);
-            primarycheck.TabIndex = 4;
-            primarycheck.Text = "Primary Picture";
-            primarycheck.UseVisualStyleBackColor = true;
-            // 
             // addImg
             // 
             addImg.BackColor = Color.Aquamarine;
@@ -99,13 +92,66 @@
             addImg.UseVisualStyleBackColor = false;
             addImg.Click += addImg_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(430, 105);
+            label2.Name = "label2";
+            label2.Size = new Size(87, 31);
+            label2.TabIndex = 7;
+            label2.Text = "Variant";
+            // 
+            // cbb_Variant
+            // 
+            cbb_Variant.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cbb_Variant.FormattingEnabled = true;
+            cbb_Variant.Location = new Point(430, 148);
+            cbb_Variant.Name = "cbb_Variant";
+            cbb_Variant.Size = new Size(229, 39);
+            cbb_Variant.TabIndex = 6;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(430, 205);
+            label3.Name = "label3";
+            label3.Size = new Size(71, 31);
+            label3.TabIndex = 9;
+            label3.Text = "Color";
+            // 
+            // cbb_Color
+            // 
+            cbb_Color.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cbb_Color.FormattingEnabled = true;
+            cbb_Color.Location = new Point(430, 248);
+            cbb_Color.Name = "cbb_Color";
+            cbb_Color.Size = new Size(229, 39);
+            cbb_Color.TabIndex = 8;
+            // 
+            // delete
+            // 
+            delete.BackColor = Color.Red;
+            delete.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            delete.Location = new Point(430, 317);
+            delete.Name = "delete";
+            delete.Size = new Size(229, 51);
+            delete.TabIndex = 10;
+            delete.Text = "Delete Image";
+            delete.UseVisualStyleBackColor = false;
+            // 
             // add_Image
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(671, 455);
+            Controls.Add(delete);
+            Controls.Add(label3);
+            Controls.Add(cbb_Color);
+            Controls.Add(label2);
+            Controls.Add(cbb_Variant);
             Controls.Add(addImg);
-            Controls.Add(primarycheck);
             Controls.Add(label1);
             Controls.Add(cbbProductName);
             Controls.Add(upload);
@@ -123,7 +169,11 @@
         private Button upload;
         private ComboBox cbbProductName;
         private Label label1;
-        private CheckBox primarycheck;
         private Button addImg;
+        private Label label2;
+        private ComboBox cbb_Variant;
+        private Label label3;
+        private ComboBox cbb_Color;
+        private Button delete;
     }
 }
