@@ -6,30 +6,6 @@
 
 <head>
     <link rel="stylesheet" href="~/css/detailproduct.css" />
-    <style>
-        .selected-color {
-            border: 2px solid black;
-        }
-
-        .color-img {
-            display: none;
-        }
-
-        .available {
-            background-color: #e0ffe0;
-            cursor: pointer;
-        }
-
-        .out-of-stock {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .size-btn {
-            margin: 5px;
-            padding: 5px 10px;
-        }
-    </style>
 </head>
 
 <div class="container w-100 d-flex justify-content-center">
@@ -56,8 +32,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Bên phải: thông tin và biến thể -->
 
     <div class="product-info mt-5 me-5 pe-5">
         <h4>@ViewData["ProductName"]</h4>
@@ -91,9 +65,11 @@
             </div>
         </div>
 
-        <div class="btn btn-custom btn-outline-dark " id="addToCartBtn" onclick="addToCart()">
-            Add to cart
-        </div>
+        <a id="addToCartLink" href="#">
+            <div class="btn btn-custom btn-outline-dark" id="addToCartBtn" onclick="addToCart()">
+                Add to cart
+            </div>
+        </a>
 
         <div id="cartMessage" class="mt-2 text-danger"></div><br>
         <div class="btn btn-custom btn-outline-dark">Buy now</div>
@@ -106,6 +82,10 @@
 
 @section Scripts {
     <script>
+        let selectedColorId = null;
+        let selectedSizeId = null;
+        let selectedVariantId = null;
+
 
         const colorSizes = @Html.Raw(Json.Serialize(ViewData["ColorSizes"]));
 
@@ -140,13 +120,10 @@
 
             selectedColor.sizes.forEach(size => {
                 if (size.quantity > 0) {
-                    html += `<button class="size-btn available" data-size="${size.idSize}">
-                                                                                                                                                                                                                    EU ${size.sizeValue}
-                                                                                                                                                                                                                 </button>`;
+
+                    html += `<button class="size-btn available" class="size-btn" data-size="${size.idSize}" onclick="selectSize('${colorId}', '${size.idSize}', this)"">EU ${size.sizeValue}</button>`;
                 } else {
-                    html += `<button class="size-btn out-of-stock" disabled>
-                                                                                                                                                                                                                    EU ${size.sizeValue}
-                                                                                                                                                                                                                 </button>`;
+                    html += `<button class="size-btn out-of-stock" disabled>EU ${size.sizeValue}</button>`;
                 }
             });
 
@@ -154,14 +131,15 @@
             sizeContainer.innerHTML = html;
         }
 
-
         function selectColor(colorId) {
+            selectedColorId = colorId;
+            selectedSizeId = null;
+            selectedVariantId = null;
 
             document.querySelectorAll('.product-color').forEach(dot => {
                 dot.classList.remove('selected-color');
             });
             document.querySelector(`.product-color[data-color="${colorId}"]`).classList.add('selected-color');
-
 
             document.querySelectorAll('.color-img').forEach(img => {
                 img.style.display = 'none';
@@ -170,10 +148,8 @@
                 img.style.display = 'block';
             });
 
-
             updateSizeOptions(colorId);
         }
-
 
         document.addEventListener("DOMContentLoaded", function () {
             if (colorSizes && colorSizes.length > 0) {
@@ -181,7 +157,74 @@
             }
         });
 
+        function addToCart() {
+            if (!selectedVariantId) {
+                document.getElementById("cartMessage").innerText = "Vui lòng chọn màu và size trước.";
+                return;
+            }
+
+            const link = document.getElementById("addToCartLink");
+            link.href = `/Cart/AddToCart?idVariant=${selectedVariantId}&quantity=1`;
+            link.click();
+
+            // Lưu vào localStorage
+            let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+            const index = cart.findIndex(item => item.variantId === selectedVariantId);
+
+            if (index !== -1) {
+                cart[index].quantity += 1;
+            } else {
+                cart.push({ variantId: selectedVariantId, quantity: 1 });
+            }
+
+            localStorage.setItem("cartItems", JSON.stringify(cart));
+            updateCartCount(); // Cập nhật số hiển thị
+        }
+
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+            let total = 0;
+            cart.forEach(item => {
+                total += item.quantity;
+            });
+
+            const cartCountEl = document.querySelector(".count-cart");
+            if (cartCountEl) {
+                cartCountEl.innerText = total;
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            updateCartCount();
+            if (colorSizes && colorSizes.length > 0) {
+                selectColor(colorSizes[0].colorId);
+            }
+        });
+
         ///Xử lý đặt hàng
+        function selectSize(colorId, sizeId, buttonElement) {
+            selectedSizeId = sizeId;
+
+            const selectedColor = colorSizes.find(c => c.colorId == colorId);
+            if (!selectedColor) return;
+
+            const sizeData = selectedColor.sizes.find(s => s.idSize == sizeId);
+            if (!sizeData) return;
+
+            selectedVariantId = sizeData.variantId;
+
+            // Xoá class đã chọn khỏi tất cả size-btn
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected-size');
+            });
+
+            // Thêm class vào button đang được click
+            buttonElement.classList.add('selected-size');
+
+            console.log("Selected variantId:", selectedVariantId);
+        }
+
+
 
     </script>
 

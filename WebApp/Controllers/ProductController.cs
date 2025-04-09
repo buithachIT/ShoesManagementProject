@@ -115,7 +115,7 @@ public class ProductController : Controller
     }
     public async Task<IActionResult> Detail(int id)
     {
-        
+
         var variants = _context.ProductVariants
         .Where(p => p.IdProduct == id)
         .Include(v => v.Images)
@@ -145,24 +145,24 @@ public class ProductController : Controller
 
         //Lấy ảnh dựa theo màu
         var colorSizeList = variants
-    .GroupBy(v => v.IdColor)
-    .Select(group => new
-    {
-        ColorId = group.Key,
-        ColorName = group.First().Color.NameColor,
-        ColorHex = group.First().Color.ColorCode,
-
-        Sizes = group.Select(v => new
+        .GroupBy(v => v.IdColor)
+        .Select(group => new
         {
-            v.IdSize,
-            v.Size.SizeValue,
-            Quantity = v.Quantity,
-            VariantId = v.IdVariant
-        }).ToList(),
+            ColorId = group.Key,
+            ColorName = group.First().Color.NameColor,
+            ColorHex = group.First().Color.ColorCode,
 
-        Images = group.SelectMany(v => v.Images.Select(img => img.ImageUrl)).Distinct().ToList()
-    })
-    .ToList();
+            Sizes = group.Select(v => new
+            {
+                v.IdSize,
+                v.Size.SizeValue,
+                Quantity = v.Quantity,
+                VariantId = v.IdVariant
+            }).ToList(),
+
+            Images = group.SelectMany(v => v.Images.Select(img => img.ImageUrl)).Distinct().ToList()
+        })
+        .ToList();
 
 
         ViewData["ColorSizes"] = colorSizeList;
@@ -175,7 +175,7 @@ public class ProductController : Controller
         return View(variants);
     }
 
-   
+
 
 }
 

@@ -1,15 +1,18 @@
-@* <div>Cart Page</div>
-@model Cart
+@model List<Shared.Models.Cart>
 
 @{
-    ViewData["Title"] = "Giỏ hàng";
+    ViewData["Title"] = "Giỏ hàng của bạn";
 }
 
+<head>
+    <link rel="stylesheet" href="~/css/cart.css">
+
+</head>
 <h2>Giỏ hàng của bạn</h2>
 
-@if (Model.CartItems.Count == 0)
+@if (!Model.Any())
 {
-    <p>Giỏ hàng trống.</p>
+    <p>Giỏ hàng đang trống.</p>
 }
 else
 {
@@ -17,36 +20,40 @@ else
         <thead>
             <tr>
                 <th>Sản phẩm</th>
-                <th>Giá</th>
+                <th>Màu</th>
+                <th>Ảnh</th>
+                <th>Size</th>
                 <th>Số lượng</th>
+                <th>Giá</th>
                 <th>Tổng</th>
-                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.CartItems)
+            @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Product.Name</td>
-                    <td>@item.Product.Price.ToString("C")</td>
-                    <td>
-                        <form asp-action="UpdateQuantity" method="post">
-                            <input type="hidden" name="cartItemId" value="@item.Id" />
-                            <input type="number" name="quantity" value="@item.Quantity" min="1" />
-                            <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        </form>
+                    <td>@item.Variant.Product.NameProduct</td>
+                    <td>@item.Variant.Color.NameColor</td>
+                    <td><img src="@Url.Content("~/image/image_product/" + )" width="80" style="padding: 0; margin:0;" alt="">
                     </td>
-                    <td>@(item.Quantity* item.Product.Price)</td>
-                    <td>
-                        <form asp-action="RemoveFromCart" method="post">
-                            <input type="hidden" name="cartItemId" value="@item.Id" />
-                            <button type="submit" class="btn btn-danger">Xóa</button>
-                        </form>
-                    </td>
+                    <td>@item.Variant.Size.SizeValue</td>
+                    <td>@item.Quantity</td>
+                    <td>@string.Format("{0:N0}", item.Variant.Product.Price)đ</td>
+                    <td>@string.Format("{0:N0}", item.Quantity * item.Variant.Product.Price)đ</td>
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"><strong>Tổng cộng:</strong></td>
+                <td>
+                    <strong>
+                        @string.Format("{0:N0}", Model.Sum(i => i.Quantity * i.Variant.Product.Price))đ
+                    </strong>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 
-    <h4>Tổng tiền: @Model.CartItems.Sum(i => i.Quantity * i.Product.Price).ToString("C")</h4>
-} *@
+    <a href="/Checkout" class="btn btn-secondary">Thanh toán</a>
+}

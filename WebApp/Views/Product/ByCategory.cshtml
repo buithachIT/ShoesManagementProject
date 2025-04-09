@@ -43,16 +43,13 @@
                                         <a href="@Url.Action("Detail", "Product", new { id = product.IdProduct })" title="Xem chi tiết">
                                             <i class="fa fa-eye fa-2x pt-3" aria-hidden="true"></i>
                                         </a>
-                                        <span class="pt-3">|</span>
-                                        <i class="fa fa-shopping-bag pt-3 fa-2x" aria-hidden="true"
-                                            title="Thêm vào giỏ hàng"></i>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     }
                 </div>
-
                 <ul class="pagination justify-content-center">
     <!-- Previous -->
     <li class="page-item @(Model.PageNumber == 1 ? "disabled" : "")">

@@ -82,3 +82,50 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.selected-size {
+    background-color: #000;
+    color: white;
+    border: 2px solid #333;
+}
+
+.selected-color {
+    border: 2px solid black;
+}
+
+.color-img {
+    display: none;
+}
+
+.available {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.out-of-stock {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.size-btn {
+    margin: 5px;
+    padding: 5px 10px;
+}
+
+.loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid black;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

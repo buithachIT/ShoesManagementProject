@@ -13,8 +13,25 @@
     <script src="https://kit.fontawesome.com/63d7753d28.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/product.css">
-
 </head>
+<script>
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+        let total = 0;
+        cart.forEach(item => {
+            total += item.quantity;
+        });
+
+        const cartCountEl = document.querySelector(".count-cart");
+        if (cartCountEl) {
+            cartCountEl.innerText = total;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        updateCartCount();
+    });
+</script>
 
 <body>
     <header>
@@ -100,9 +117,9 @@
                         <input type="text" class="form-control" placeholder="Search.."></a>
                     </div>
                     <div class="cart me-5">
-                        <a href="">
+                        <a href="/Cart/Index">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            <span class="count-cart">2</span>
+                            <span class="count-cart">0</span>
                         </a>
                     </div>
                 </div>
@@ -122,6 +139,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Giả sử cart được lưu localStorage với dạng mảng các item
+            const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+            let total = 0;
+
+            cart.forEach(item => {
+                total += item.quantity;
+            });
+
+            document.getElementById("cartCount").innerText = total;
+        });
+    </script>
+
 </body>
 
 </html>
