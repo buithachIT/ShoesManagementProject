@@ -34,65 +34,52 @@ namespace AdminApp.Controllers
         }
         public bool AddProduct(Product product)
         {
-            string query = "INSERT INTO product (id_product, name_product, id_line, id_brand, description, material, price, imageUrl, releasedate, status) " +
-                           "VALUES (@id_product, @name_product, @id_line, @id_brand, @description, @material, @price, @imageUrl, @releasedate, @status)";
+            string query = "INSERT INTO product (name_product, id_line, id_brand, description, material, price, imageUrl, releasedate, status) " +
+                           "VALUES (@name_product, @id_line, @id_brand, @description, @material, @price, @imageUrl, @releasedate, @status)";
 
-            MySqlParameter[] parameters =
-            {
-                new MySqlParameter("@id", product.IdProduct),
-                new MySqlParameter("@name", product.NameProduct),
-                new MySqlParameter("@line", product.IdLine),
-                new MySqlParameter("@brand", product.IdBrand),
-                new MySqlParameter("@desc", product.Description),
-                new MySqlParameter("@material", product.Material),
-                new MySqlParameter("@price", product.Price),
-                new MySqlParameter("@image", product.ImageUrl),
-                new MySqlParameter("@date", product.Releasedate),
-                new MySqlParameter("@status", product.Status)
-            };
+            MySqlParameter[] parameters = new MySqlParameter[9];
+            parameters[0] = new MySqlParameter("name_product", product.NameProduct);
+            parameters[1] = new MySqlParameter("id_line", product.IdLine);
+            parameters[2] = new MySqlParameter("id_brand", product.IdBrand);
+            parameters[3] = new MySqlParameter("description", product.Description);
+            parameters[4] = new MySqlParameter("material", product.Material);
+            parameters[5] = new MySqlParameter("price", product.Price);
+            parameters[6] = new MySqlParameter("imageUrl", product.ImageUrl);
+            parameters[7] = new MySqlParameter("releasedate", product.Releasedate);
+            parameters[8] = new MySqlParameter("status", product.Status);
+
             return db.ExecuteNonQuery(query, parameters);
         }
         public bool UpdateProduct(Product product)
         {
             string query = @"UPDATE product
-                            SET name_product = @name, id_line = @line, id_brand = @brand, 
-                                description = @desc, material = @material, price = @price, 
-                                imageUrl = @image, releasedate = @date, status = @status 
-                            WHERE id_product = @id";
-            MySqlParameter[] parameters =
-            {
-                new MySqlParameter("@id", product.IdProduct),
-                new MySqlParameter("@name", product.NameProduct),
-                new MySqlParameter("@line", product.IdLine),
-                new MySqlParameter("@brand", product.IdBrand),
-                new MySqlParameter("@desc", product.Description),
-                new MySqlParameter("@material", product.Material),
-                new MySqlParameter("@price", product.Price),
-                new MySqlParameter("@image", product.ImageUrl),
-                new MySqlParameter("@date", product.Releasedate),
-                new MySqlParameter("@status", product.Status)
-            };
+                            SET name_product = @name_product, id_line = @id_line, id_brand = @id_brand, 
+                                description = @description, material = @material, price = @price, 
+                                releasedate = @releasedate, status = @status , imageUrl = @imageUrl
+                            WHERE id_product = @id_product";
+            MySqlParameter[] parameters = new MySqlParameter[10];
+            parameters[0] = new MySqlParameter("@name_product", product.NameProduct);
+            parameters[1] = new MySqlParameter("@id_line", product.IdLine);
+            parameters[2] = new MySqlParameter("@id_brand", product.IdBrand);
+            parameters[3] = new MySqlParameter("@description", product.Description);
+            parameters[4] = new MySqlParameter("@material", product.Material);
+            parameters[5] = new MySqlParameter("@price", product.Price);
+            parameters[6] = new MySqlParameter("@releasedate", product.Releasedate);
+            parameters[7] = new MySqlParameter("@status", product.Status);
+            parameters[8] = new MySqlParameter("@id_product", product.IdProduct);
+            parameters[9] = new MySqlParameter("@imageUrl", product.ImageUrl);
             return db.ExecuteNonQuery(query, parameters);
         }
         public bool DeleteProduct(int idProduct)
         {
-            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_product = @id_product";
-            MySqlParameter[] checkParams = new MySqlParameter[1];
-            checkParams[0] = new MySqlParameter("@id_product", idProduct);
-            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
-            if (count > 0)
-            {
-                MessageBox.Show("Không thể xóa sản phẩm vì có biến thể thuộc sản phẩm này!");
-                return false;
-            }
-
-
-
-            string query = "DELETE FROM product WHERE id_product = @id";
+            string deleteVariantsQuery = "DELETE FROM product_variant WHERE id_product = @id";
             MySqlParameter[] parameters =
             {
-                new MySqlParameter("@id", idProduct)
-            };
+            new MySqlParameter("@id", idProduct)
+        };
+            db.ExecuteNonQuery(deleteVariantsQuery, parameters);
+
+            string query = "DELETE FROM product WHERE id_product = @id";
             return db.ExecuteNonQuery(query, parameters);
         }
 

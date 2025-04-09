@@ -31,7 +31,6 @@ partial class Form1
         ResetButton = new Button();
         tabInvoice = new TabPage();
         Detail_Invoice = new Button();
-        Delete_Invoice = new Button();
         Repair_Invoice = new Button();
         Add_Invoice = new Button();
         DateInvoice = new DateTimePicker();
@@ -93,6 +92,8 @@ partial class Form1
         tableLine = new DataGridView();
         tableBrand = new DataGridView();
         tabColorSize = new TabPage();
+        panel1 = new Panel();
+        pickcolor = new Button();
         txt_TypeSize = new TextBox();
         txt_SizeValue = new TextBox();
         txt_IdSize = new TextBox();
@@ -137,6 +138,8 @@ partial class Form1
         add_User = new Button();
         tableUsers = new DataGridView();
         tabProduct = new TabPage();
+        upload = new Button();
+        pictureBox1 = new PictureBox();
         price_Prd = new TextBox();
         txt_Material = new TextBox();
         txt_Descrip = new TextBox();
@@ -174,6 +177,7 @@ partial class Form1
         tabUser.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)tableUsers).BeginInit();
         tabProduct.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).BeginInit();
         tabControl1.SuspendLayout();
         SuspendLayout();
@@ -193,7 +197,6 @@ partial class Form1
         // tabInvoice
         // 
         tabInvoice.Controls.Add(Detail_Invoice);
-        tabInvoice.Controls.Add(Delete_Invoice);
         tabInvoice.Controls.Add(Repair_Invoice);
         tabInvoice.Controls.Add(Add_Invoice);
         tabInvoice.Controls.Add(DateInvoice);
@@ -223,26 +226,16 @@ partial class Form1
         // 
         // Detail_Invoice
         // 
-        Detail_Invoice.Location = new Point(975, 593);
+        Detail_Invoice.Location = new Point(975, 581);
         Detail_Invoice.Name = "Detail_Invoice";
         Detail_Invoice.Size = new Size(151, 53);
         Detail_Invoice.TabIndex = 33;
         Detail_Invoice.Text = "Detail";
         Detail_Invoice.UseVisualStyleBackColor = true;
         // 
-        // Delete_Invoice
-        // 
-        Delete_Invoice.Location = new Point(975, 518);
-        Delete_Invoice.Name = "Delete_Invoice";
-        Delete_Invoice.Size = new Size(151, 53);
-        Delete_Invoice.TabIndex = 32;
-        Delete_Invoice.Text = "Xóa";
-        Delete_Invoice.UseVisualStyleBackColor = true;
-        Delete_Invoice.Click += DeleteInvoice_Click;
-        // 
         // Repair_Invoice
         // 
-        Repair_Invoice.Location = new Point(975, 427);
+        Repair_Invoice.Location = new Point(975, 458);
         Repair_Invoice.Name = "Repair_Invoice";
         Repair_Invoice.Size = new Size(151, 53);
         Repair_Invoice.TabIndex = 31;
@@ -252,7 +245,7 @@ partial class Form1
         // 
         // Add_Invoice
         // 
-        Add_Invoice.Location = new Point(975, 335);
+        Add_Invoice.Location = new Point(975, 333);
         Add_Invoice.Name = "Add_Invoice";
         Add_Invoice.Size = new Size(151, 53);
         Add_Invoice.TabIndex = 30;
@@ -732,6 +725,7 @@ partial class Form1
         Delete_Brand.TabIndex = 12;
         Delete_Brand.Text = "Xóa";
         Delete_Brand.UseVisualStyleBackColor = true;
+        Delete_Brand.Click += DeleteBrand_Click;
         // 
         // Repair_Brand
         // 
@@ -741,6 +735,7 @@ partial class Form1
         Repair_Brand.TabIndex = 11;
         Repair_Brand.Text = "Sửa";
         Repair_Brand.UseVisualStyleBackColor = true;
+        Repair_Brand.Click += RepairBrand_Click;
         // 
         // Add_Brand
         // 
@@ -750,6 +745,7 @@ partial class Form1
         Add_Brand.TabIndex = 10;
         Add_Brand.Text = "Thêm";
         Add_Brand.UseVisualStyleBackColor = true;
+        Add_Brand.Click += AddBrand_Click;
         // 
         // label30
         // 
@@ -818,6 +814,8 @@ partial class Form1
         // 
         // tabColorSize
         // 
+        tabColorSize.Controls.Add(panel1);
+        tabColorSize.Controls.Add(pickcolor);
         tabColorSize.Controls.Add(txt_TypeSize);
         tabColorSize.Controls.Add(txt_SizeValue);
         tabColorSize.Controls.Add(txt_IdSize);
@@ -848,6 +846,23 @@ partial class Form1
         tabColorSize.Text = "Color & Size";
         tabColorSize.UseVisualStyleBackColor = true;
         // 
+        // panel1
+        // 
+        panel1.Location = new Point(422, 515);
+        panel1.Name = "panel1";
+        panel1.Size = new Size(82, 34);
+        panel1.TabIndex = 23;
+        // 
+        // pickcolor
+        // 
+        pickcolor.Location = new Point(394, 585);
+        pickcolor.Name = "pickcolor";
+        pickcolor.Size = new Size(110, 46);
+        pickcolor.TabIndex = 22;
+        pickcolor.Text = "Pick Color";
+        pickcolor.UseVisualStyleBackColor = true;
+        pickcolor.Click += pickcolor_Click;
+        // 
         // txt_TypeSize
         // 
         txt_TypeSize.BackColor = SystemColors.Window;
@@ -875,9 +890,11 @@ partial class Form1
         // txt_ColorCode
         // 
         txt_ColorCode.BackColor = SystemColors.Window;
+        txt_ColorCode.Enabled = false;
         txt_ColorCode.Location = new Point(165, 515);
         txt_ColorCode.Name = "txt_ColorCode";
-        txt_ColorCode.Size = new Size(339, 34);
+        txt_ColorCode.ReadOnly = true;
+        txt_ColorCode.Size = new Size(251, 34);
         txt_ColorCode.TabIndex = 15;
         // 
         // txt_NameColor
@@ -982,7 +999,7 @@ partial class Form1
         // 
         // DeleteColor
         // 
-        DeleteColor.Location = new Point(394, 585);
+        DeleteColor.Location = new Point(271, 585);
         DeleteColor.Name = "DeleteColor";
         DeleteColor.Size = new Size(110, 46);
         DeleteColor.TabIndex = 6;
@@ -992,7 +1009,7 @@ partial class Form1
         // 
         // RepairColor
         // 
-        RepairColor.Location = new Point(197, 585);
+        RepairColor.Location = new Point(145, 585);
         RepairColor.Name = "RepairColor";
         RepairColor.Size = new Size(110, 46);
         RepairColor.TabIndex = 5;
@@ -1254,6 +1271,8 @@ partial class Form1
         // 
         // tabProduct
         // 
+        tabProduct.Controls.Add(upload);
+        tabProduct.Controls.Add(pictureBox1);
         tabProduct.Controls.Add(price_Prd);
         tabProduct.Controls.Add(txt_Material);
         tabProduct.Controls.Add(txt_Descrip);
@@ -1284,6 +1303,26 @@ partial class Form1
         tabProduct.TabIndex = 0;
         tabProduct.Text = "Product";
         tabProduct.UseVisualStyleBackColor = true;
+        // 
+        // upload
+        // 
+        upload.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        upload.Location = new Point(813, 515);
+        upload.Name = "upload";
+        upload.Size = new Size(173, 51);
+        upload.TabIndex = 28;
+        upload.Text = "Upload Image";
+        upload.UseVisualStyleBackColor = true;
+        upload.Click += upload_Click;
+        // 
+        // pictureBox1
+        // 
+        pictureBox1.BackColor = Color.LightBlue;
+        pictureBox1.Location = new Point(813, 340);
+        pictureBox1.Name = "pictureBox1";
+        pictureBox1.Size = new Size(173, 161);
+        pictureBox1.TabIndex = 27;
+        pictureBox1.TabStop = false;
         // 
         // price_Prd
         // 
@@ -1530,6 +1569,7 @@ partial class Form1
         ((System.ComponentModel.ISupportInitialize)tableUsers).EndInit();
         tabProduct.ResumeLayout(false);
         tabProduct.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ((System.ComponentModel.ISupportInitialize)tableProduct).EndInit();
         tabControl1.ResumeLayout(false);
         ResumeLayout(false);
@@ -1666,7 +1706,10 @@ partial class Form1
     private Label label44;
     private Label label45;
     private Button Detail_Invoice;
-    private Button Delete_Invoice;
     private Button Repair_Invoice;
     private Button Add_Invoice;
+    private Button pickcolor;
+    private Panel panel1;
+    private PictureBox pictureBox1;
+    private Button upload;
 }

@@ -29,6 +29,7 @@ public partial class Form1 : Form
     {
         InitializeComponent();
         LoadDataProduct();
+        SetupControls();
     }
     private void LoadDataProduct()
     {
@@ -262,6 +263,34 @@ public partial class Form1 : Form
             price_Prd.Text = row.Cells["Price"].Value.ToString();
             Releasedate_Prd.Value = Convert.ToDateTime(row.Cells["Releasedate"].Value);
             cbb_Status.Text = row.Cells["Status"].Value.ToString();
+            // Lấy tên ảnh từ DataGridView
+            string imageName = row.Cells["ImageUrl"].Value.ToString();
+            // Xây đường dẫn đầy đủ tới thư mục chứa ảnh
+            string solutionRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\..\.."));
+            string imageFullPath = Path.Combine(solutionRoot, "WebApp", "wwwroot", "image", "image_product", imageName);
+
+            // Kiểm tra xem ảnh có tồn tại không
+            if (File.Exists(imageFullPath))
+            {
+                try
+                {
+                    pictureBox1.Image = System.Drawing.Image.FromFile(imageFullPath);
+                }
+                catch (OutOfMemoryException)
+                {
+                    MessageBox.Show("Ảnh bị hỏng hoặc không đúng định dạng!", "Lỗi ảnh");
+                    pictureBox1.Image = null; // hoặc load ảnh mặc định
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khác: " + ex.Message);
+                    pictureBox1.Image = null;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ảnh không tồn tại: ");
+            }
         }
     }
     private void tableUsers_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -368,14 +397,14 @@ public partial class Form1 : Form
             Description = txt_Descrip.Text,
             Material = txt_Material.Text,
             Price = Convert.ToDecimal(price_Prd.Text),
-            //ImageUrl = txtImageUrl.Text,
-            ImageUrl = "chưa làm tới",
+            ImageUrl = Path.GetFileName(selectedImagePath),
             Releasedate = Releasedate_Prd.Value,  // DateTimePicker
             Status = cbb_Status.SelectedItem.ToString()
         };
         bool result = productController.AddProduct(product);
         if (result)
         {
+            CopyImageToWebApp(product.ImageUrl);
             MessageBox.Show("Thêm sản phẩm thành công!");
             LoadDataProduct(); // Cập nhật lại danh sách
         }
@@ -389,20 +418,21 @@ public partial class Form1 : Form
     {
         Product product = new Product()
         {
+            IdProduct = Convert.ToInt32(txt_IDprd.Text),
             NameProduct = txt_namePrd.Text,
             IdLine = Convert.ToInt32(cbbLine.SelectedValue),
             IdBrand = Convert.ToInt32(cbbBrand.SelectedValue),
             Description = txt_Descrip.Text,
             Material = txt_Material.Text,
             Price = Convert.ToDecimal(price_Prd.Text),
-            //ImageUrl = txtImageUrl.Text,
-            ImageUrl = "chưa làm tới",
-            Releasedate = Releasedate_Prd.Value,  // DateTimePicker
+            Releasedate = Releasedate_Prd.Value,
+            ImageUrl = Path.GetFileName(selectedImagePath),
             Status = cbb_Status.SelectedItem.ToString()
         };
         bool result = productController.UpdateProduct(product);
         if (result)
         {
+            CopyImageToWebApp(product.ImageUrl);
             MessageBox.Show("Cập nhật sản phẩm thành công!");
             LoadDataProduct(); // Cập nhật lại danh sách
         }
@@ -583,6 +613,19 @@ public partial class Form1 : Form
             else
             {
                 MessageBox.Show("Xóa màu thất bại!");
+            }
+        }
+    }
+
+    private void pickcolor_Click(object sender, EventArgs e)
+    {
+        using (ColorDialog colorDialog = new ColorDialog())
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                System.Drawing.Color selectedColor = colorDialog.Color;
+                panel1.BackColor = selectedColor;
+                txt_ColorCode.Text = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
             }
         }
     }
@@ -916,30 +959,6 @@ public partial class Form1 : Form
         }
     }
 
-    private void DeleteInvoice_Click(object sender, EventArgs e)
-    {
-        if (string.IsNullOrEmpty(txt_IdInvoice.Text))
-        {
-            MessageBox.Show("Vui lòng chọn hóa đơn để xóa!");
-            return;
-        }
-        int idInvoice = int.Parse(txt_IdInvoice.Text);
-        DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa hóa đơn này?",
-                                              "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-        if (result == DialogResult.Yes)
-        {
-            bool resul = invoiceController.DeleteInvoice(idInvoice);
-            if (resul)
-            {
-                MessageBox.Show("Xóa hóa đơn thành công!");
-                LoadDataInvoice(); // Cập nhật lại danh sách
-            }
-            else
-            {
-                MessageBox.Show("Xóa hóa đơn thất bại!");
-            }
-        }
-    }
 
     /////////////////////////////////// Load dữ liệu user khi chọn combobox trong hóa đơn //////////////////////////////
 
@@ -974,4 +993,59 @@ public partial class Form1 : Form
             }
         }
     }
+    /////////////////////////////// ảnh //////////////////////////////////////
+    ///
+    string selectedImagePath;
+    OpenFileDialog openFileDialog = new OpenFileDialog();
+
+    private void SetupControls()
+    {
+        // Thiết lập PictureBox
+        pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+        pictureBox1.BorderStyle = BorderStyle.FixedSingle;
+
+        // Thiết lập OpenFileDialog
+        openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+        openFileDialog.Title = "Select an Image";
+    }
+
+    private void CopyImageToWebApp(string imageName)
+    {
+        // Lấy đường dẫn gốc của solution
+        string solutionRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\..\.."));
+
+        // Trỏ đến thư mục chứa ảnh trong WebApp
+        string imageFolderPath = Path.Combine(solutionRoot, "WebApp", "wwwroot", "image", "image_product");
+
+        // Đường dẫn đích đầy đủ đến ảnh cần copy vào WebApp
+        if (string.IsNullOrEmpty(imageName))
+        {
+            MessageBox.Show("Tên ảnh (imageName) đang bị null hoặc trống.");
+            return;
+        }
+        string destPath = Path.Combine(imageFolderPath, imageName);
+
+        try
+        {
+            if (!File.Exists(destPath))
+            {
+                File.Copy(selectedImagePath, destPath, true); // Ghi đè nếu cần
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Lỗi khi sao chép ảnh: " + ex.Message);
+        }
+    }
+
+    private void upload_Click(object sender, EventArgs e)
+    {
+        if (openFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            selectedImagePath = openFileDialog.FileName;
+            pictureBox1.ImageLocation = selectedImagePath;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+    }
+
 }

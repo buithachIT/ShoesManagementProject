@@ -16,7 +16,7 @@ namespace AdminApp.Controllers
 
         public List<Image> GetAllImages()
         {
-            string query = "SELECT id_image, imageUrl, isPrimary, id_product FROM image";
+            string query = "SELECT id_image, imageUrl, isPrimary, id_product, id_variant, id_color FROM image";
             var dt = db.ExecuteQuery(query);
             List<Image> images = new List<Image>();
             foreach (DataRow row in dt.Rows)
