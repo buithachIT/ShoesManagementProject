@@ -1,3 +1,7 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 @model IEnumerable<Shared.Models.ProductVariant>
 @using System.Text.Json
 @{
@@ -21,7 +25,6 @@
                 }
             }
         </div>
-
         <div class="image-large">
             <div id="main-img">
                 @if (Model.Any() && Model.First().Images.Any())
@@ -37,7 +40,6 @@
         <h4>@ViewData["ProductName"]</h4>
         <p>@ViewData["ProductLine"]</p>
         <p>@ViewData["ProductPrice"] <sup>đ</sup></p>
-
         <div class="product-variant">
             <!-- Màu -->
             <div class="pv-color d-flex mb-3">
@@ -48,10 +50,10 @@
                             style="background-color: @color.ColorHex; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; border: 1px solid;"
                             onclick="selectColor('@color.ColorId')" data-color="@color.ColorId">
                         </div>
-                        @foreach (var img in color.Images)
+                        @if (color.Images.Count > 0)
                         {
-                            <img src="@Url.Content("~/image/image_product/" + img)" width="80" alt="Ảnh" class="color-img"
-                                data-color="@color.ColorId">
+                            <img src="@Url.Content("~/image/image_product/" + color.Images[0])" width="80" alt="Ảnh"
+                                class="color-img" data-color="@color.ColorId">
                         }
                     </div>
                 }
@@ -63,14 +65,25 @@
                     <p>Chọn màu để xem size</p>
                 </div>
             </div>
+
+            <div class="quantity d-flex">
+                <p style="font-size: 12px; margin-right: 5px">Kho:</p>
+                <p style="font-size: 12px;" id="quantity">1</p>
+            </div>
+            <div class="quantity d-flex align-items-center mb-2">
+                <label for="inputQuantity" style="font-size: 15px; margin-right: 5px;">Số lượng:</label>
+                <input type="number" id="inputQuantity" class="form-control" value="1" min="1" style="width: 70px;">
+            </div>
+
         </div>
 
-        <a id="addToCartLink" href="#">
-            <div class="btn btn-custom btn-outline-dark" id="addToCartBtn" onclick="addToCart()">
+        <form id="cartForm" method="get" action="/Cart/AddToCart">
+            <input type="hidden" name="idVariant" id="hiddenVariantId" />
+            <input type="hidden" name="quantity" id="hiddenQuantity" />
+            <button type="button" class="btn btn-custom btn-outline-dark" onclick="addToCart()">
                 Add to cart
-            </div>
-        </a>
-
+            </button>
+        </form>
         <div id="cartMessage" class="mt-2 text-danger"></div><br>
         <div class="btn btn-custom btn-outline-dark">Buy now</div>
         <div class="description mt-5">
@@ -85,25 +98,25 @@
         let selectedColorId = null;
         let selectedSizeId = null;
         let selectedVariantId = null;
+        let quantity = null;
 
-
-        const colorSizes = @Html.Raw(Json.Serialize(ViewData["ColorSizes"]));
-
-
-        console.log("ColorSizes data:", colorSizes);
-
-
+        //update ảnh khi click
         const mainImage = document.getElementById('main-image');
         document.querySelectorAll('.sub-img').forEach(img => {
             img.addEventListener('click', function () {
                 mainImage.src = this.src;
             });
         });
+        //Xử lý ColorSize
+        const colorSizes = @Html.Raw(Json.Serialize(ViewData["ColorSizes"]));
 
+        console.log("ColorSizes data:", colorSizes);
 
         function updateSizeOptions(colorId) {
             const sizeContainer = document.getElementById("size-options");
             sizeContainer.innerHTML = "";
+            const quantityContainer = document.getElementById("quantity")
+            quantityContainer.innerHTML = "";
 
             if (!colorId) {
                 sizeContainer.innerHTML = "<p>Vui lòng chọn màu trước</p>";
@@ -120,6 +133,7 @@
 
             selectedColor.sizes.forEach(size => {
                 if (size.quantity > 0) {
+                    console.log("check quantity>>", size.quantity);
 
                     html += `<button class="size-btn available" class="size-btn" data-size="${size.idSize}" onclick="selectSize('${colorId}', '${size.idSize}', this)"">EU ${size.sizeValue}</button>`;
                 } else {
@@ -127,8 +141,10 @@
                 }
             });
 
+
             html += "</div>";
             sizeContainer.innerHTML = html;
+
         }
 
         function selectColor(colorId) {
@@ -147,10 +163,8 @@
             document.querySelectorAll(`.color-img[data-color="${colorId}"]`).forEach(img => {
                 img.style.display = 'block';
             });
-
             updateSizeOptions(colorId);
         }
-
         document.addEventListener("DOMContentLoaded", function () {
             if (colorSizes && colorSizes.length > 0) {
                 selectColor(colorSizes[0].colorId);
@@ -163,24 +177,31 @@
                 return;
             }
 
-            const link = document.getElementById("addToCartLink");
-            link.href = `/Cart/AddToCart?idVariant=${selectedVariantId}&quantity=1`;
-            link.click();
+            const quantityInput = document.getElementById("inputQuantity");
+            const quantityValue = parseInt(quantityInput.value) || 1;
+            const maxQuantity = parseInt(quantityInput.max);
+
+            if (quantityValue > maxQuantity) {
+                alert("Số lượng đặt vượt quá số lượng còn lại trong kho.");
+                return;
+            }
+            document.getElementById("hiddenVariantId").value = selectedVariantId;
+            document.getElementById("hiddenQuantity").value = quantityValue;
+            document.getElementById("cartForm").submit();
 
             // Lưu vào localStorage
             let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
             const index = cart.findIndex(item => item.variantId === selectedVariantId);
 
             if (index !== -1) {
-                cart[index].quantity += 1;
+                cart[index].quantity += quantityValue;
             } else {
-                cart.push({ variantId: selectedVariantId, quantity: 1 });
+                cart.push({ variantId: selectedVariantId, quantity: quantityValue });
             }
 
             localStorage.setItem("cartItems", JSON.stringify(cart));
-            updateCartCount(); // Cập nhật số hiển thị
+            updateCartCount();
         }
-
 
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -217,15 +238,18 @@
             document.querySelectorAll('.size-btn').forEach(btn => {
                 btn.classList.remove('selected-size');
             });
+            const quantityContainer = document.getElementById("quantity");
+            quantityContainer.innerText = sizeData.quantity;
+            document.getElementById("inputQuantity").max = sizeData.quantity;
 
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected-size');
+            });
             // Thêm class vào button đang được click
             buttonElement.classList.add('selected-size');
 
             console.log("Selected variantId:", selectedVariantId);
         }
-
-
-
     </script>
 
 

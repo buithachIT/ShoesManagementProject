@@ -35,29 +35,8 @@ namespace WebApp.Controllers
 
 
 
-            var colorSizeList = cartItems
-       .GroupBy(v => v.IdColor)
-       .Select(group => new
-       {
-           ColorId = group.Key,
-           ColorName = group.First().Color.NameColor,
-           ColorHex = group.First().Color.ColorCode,
-
-           Sizes = group.Select(v => new
-           {
-               v.IdSize,
-               v.Size.SizeValue,
-               Quantity = v.Quantity,
-               VariantId = v.IdVariant
-           }).ToList(),
-
-           Images = group.SelectMany(v => v.Images.Select(img => img.ImageUrl)).Distinct().ToList()
-       })
-       .ToList();
-
             return View(cartItems);
         }
-
 
 
         public async Task<IActionResult> AddToCart(int idVariant, int quantity)
@@ -93,82 +72,5 @@ namespace WebApp.Controllers
 
             return RedirectToAction("Index"); // hoặc chuyển hướng tới trang giỏ hàng
         }
-
-
-        // GET: api/cart - Lấy giỏ hàng
-        // [HttpGet]
-        // public async Task<IActionResult> GetCart(string userId)
-        // {
-        //     var cart = await _context.Carts
-        //         .Include(c => c.CartItems)
-        //         .ThenInclude(ci => ci.Product)
-        //         .FirstOrDefaultAsync(c => c.UserId == userId);
-
-        //     if (cart == null)
-        //         return NotFound(new { message = "Giỏ hàng trống" });
-
-        //     return Ok(cart);
-        // }
-
-        // POST: api/cart - Thêm sản phẩm vào giỏ hàng
-        // [HttpPost]
-        // public async Task<IActionResult> AddToCart(string userId, int productId, int quantity)
-        // {
-        //     var cart = await _context.Carts
-        //         .Include(c => c.CartItems)
-        //         .FirstOrDefaultAsync(c => c.UserId == userId);
-
-        //     if (cart == null)
-        //     {
-        //         cart = new Cart { UserId = userId };
-        //         _context.Carts.Add(cart);
-        //         await _context.SaveChangesAsync();
-        //     }
-
-        //     var product = await _context.Products.FindAsync(productId);
-        //     if (product == null)
-        //         return NotFound(new { message = "Sản phẩm không tồn tại" });
-
-        //     var cartItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
-        //     if (cartItem != null)
-        //     {
-        //         cartItem.Quantity += quantity;
-        //     }
-        //     else
-        //     {
-        //         cart.CartItems.Add(new CartItem { ProductId = productId, Quantity = quantity });
-        //     }
-
-        //     await _context.SaveChangesAsync();
-        //     return Ok(cart);
-        // }
-
-        // PUT: api/cart/{id} - Cập nhật số lượng sản phẩm
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> UpdateCartItem(int id, int quantity)
-        // {
-        //     var cartItem = await _context.CartItems.FindAsync(id);
-        //     if (cartItem == null)
-        //         return NotFound(new { message = "Không tìm thấy sản phẩm trong giỏ hàng" });
-
-        //     cartItem.Quantity = quantity;
-        //     await _context.SaveChangesAsync();
-
-        //     return Ok(cartItem);
-        // }
-
-        // DELETE: api/cart/{id} - Xóa sản phẩm khỏi giỏ hàng
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> RemoveFromCart(int id)
-        // {
-        //     var cartItem = await _context.CartItems.FindAsync(id);
-        //     if (cartItem == null)
-        //         return NotFound(new { message = "Không tìm thấy sản phẩm trong giỏ hàng" });
-
-        //     _context.CartItems.Remove(cartItem);
-        //     await _context.SaveChangesAsync();
-
-        //     return Ok(new { message = "Đã xóa sản phẩm khỏi giỏ hàng" });
-        // }
     }
 }

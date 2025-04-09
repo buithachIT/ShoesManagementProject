@@ -8,52 +8,58 @@
     <link rel="stylesheet" href="~/css/cart.css">
 
 </head>
-<h2>Giỏ hàng của bạn</h2>
+<section class="cart">
+    <h2>Giỏ hàng của bạn</h2>
 
-@if (!Model.Any())
-{
-    <p>Giỏ hàng đang trống.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Sản phẩm</th>
-                <th>Màu</th>
-                <th>Ảnh</th>
-                <th>Size</th>
-                <th>Số lượng</th>
-                <th>Giá</th>
-                <th>Tổng</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    @if (!Model.Any())
+    {
+        <p>Giỏ hàng đang trống.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Variant.Product.NameProduct</td>
-                    <td>@item.Variant.Color.NameColor</td>
-                    <td><img src="@Url.Content("~/image/image_product/" + )" width="80" style="padding: 0; margin:0;" alt="">
-                    </td>
-                    <td>@item.Variant.Size.SizeValue</td>
-                    <td>@item.Quantity</td>
-                    <td>@string.Format("{0:N0}", item.Variant.Product.Price)đ</td>
-                    <td>@string.Format("{0:N0}", item.Quantity * item.Variant.Product.Price)đ</td>
+                    <th>Sản phẩm</th>
+                    <th>Màu</th>
+                    <th>Ảnh</th>
+                    <th>Size</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Tổng</th>
                 </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="6"><strong>Tổng cộng:</strong></td>
-                <td>
-                    <strong>
-                        @string.Format("{0:N0}", Model.Sum(i => i.Quantity * i.Variant.Product.Price))đ
-                    </strong>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+            </thead>
 
-    <a href="/Checkout" class="btn btn-secondary">Thanh toán</a>
-}
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@item.Variant.Product.NameProduct</td>
+                        <td>@item.Variant.Color.NameColor</td>
+
+                        <td><img src="@Url.Content("~/image/image_product/" + item.Variant.Images.FirstOrDefault()?.ImageUrl)"
+                                style="padding: 0; margin:0;" width="80" alt="">
+                        </td>
+                        <td>@item.Variant.Size.SizeValue</td>
+                        <td>@item.Quantity</td>
+                        <td>@string.Format("{0:N0}", item.Variant.Product.Price)đ</td>
+                        <td>@string.Format("{0:N0}", item.Quantity * item.Variant.Product.Price)đ</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6"><strong>Tổng cộng:</strong></td>
+                    <td>
+                        <strong>
+                            @string.Format("{0:N0}", Model.Sum(i => i.Quantity * i.Variant.Product.Price))đ
+                        </strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <a href="/Checkout" class="btn btn-secondary">Thanh toán</a>
+    }
+</section>

@@ -85,8 +85,8 @@
 
 .selected-size {
     background-color: #000;
-    color: white;
-    border: 2px solid #333;
+    color: rgb(65, 65, 65);
+    border: 4px solid #a5e5ab;
 }
 
 .selected-color {

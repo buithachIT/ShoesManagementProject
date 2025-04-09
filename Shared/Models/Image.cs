@@ -12,7 +12,7 @@ namespace Shared.Models
     public class Image
     {
         [Key]
-        [Column("id_image")]    
+        [Column("id_image")]
         public int IdImage { get; set; }
 
         [Column("imageUrl")]
@@ -28,8 +28,15 @@ namespace Shared.Models
 
         public int IdProduct { get; set; }
 
+        [Column("id_color")]
+
+        public int IdColor { get; set; }
+
         [ForeignKey("IdProduct")]
         public virtual Product Product { get; set; }
+        [ForeignKey("IdColor")]
+        public virtual Color Color { get; set; }
+
 
         [ForeignKey("IdVariant")]
         public virtual ProductVariant ProductVariant { get; set; }

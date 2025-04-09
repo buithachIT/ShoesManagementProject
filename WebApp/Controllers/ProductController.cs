@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.data;
 using Shared.Models;
-public class ProductController : Controller
+public class ProductController : BaseController
 {
     private readonly ApplicationDbContext _context;
 
-    public ProductController(ApplicationDbContext context)
+    public ProductController(ApplicationDbContext context) : base(context)
     {
         _context = context;
     }
@@ -23,20 +23,15 @@ public class ProductController : Controller
             .Where(p => p.Line.IdCategory == id)
             .AsQueryable();
 
-
-
-
         if (lineId.HasValue)
         {
             productsQuery = productsQuery.Where(p => p.IdLine == lineId.Value);
         }
 
-
         if (idBrand.HasValue)
         {
             productsQuery = productsQuery.Where(p => p.IdBrand == idBrand.Value);
         }
-
 
         if (!string.IsNullOrEmpty(material?.Trim()))
         {
@@ -73,7 +68,6 @@ public class ProductController : Controller
 
         var brands = await _context.Brands.ToListAsync();
 
-
         var materials = await _context.Products
             .Select(p => p.Material)
             .Where(m => !string.IsNullOrEmpty(m))
@@ -91,7 +85,6 @@ public class ProductController : Controller
         ViewData["SelectedMaterial"] = material;
         ViewData["CategoryId"] = id;
 
-
         var routeValues = new Dictionary<string, object>
 {
     { "id", id },
@@ -101,8 +94,6 @@ public class ProductController : Controller
 };
         return View(viewModel);
     }
-
-
     public IActionResult Filter(int? id, int? idLine, int? idBrand, string material)
     {
         return RedirectToAction("ByCategory", new
@@ -131,8 +122,6 @@ public class ProductController : Controller
         ViewData["ProductPrice"] = products.Price;
         ViewData["ProductDesc"] = products.Description;
         ViewData["ProductLine"] = products.Line.Name;
-
-
 
         var images = await _context.Images
        .Join(_context.ProductVariants,
@@ -164,18 +153,12 @@ public class ProductController : Controller
         })
         .ToList();
 
-
         ViewData["ColorSizes"] = colorSizeList;
-
         ViewData["ColorImages"] = colorSizeList;
-
         // Truyền hình ảnh vào ViewData
         ViewData["Images"] = images;
 
         return View(variants);
     }
-
-
-
 }
 
