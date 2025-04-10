@@ -51,11 +51,13 @@ partial class Form1
         label42 = new Label();
         tableInvoice = new DataGridView();
         tabVariant = new TabPage();
+        FakeComboSize = new TextBox();
+        checkedListBox2 = new CheckedListBox();
+        checkedListBox1 = new CheckedListBox();
+        FakeComboColor = new TextBox();
         expired_date = new DateTimePicker();
         txt_Quantity = new TextBox();
         idVariant = new TextBox();
-        cbb_Color = new ComboBox();
-        cbb_Size = new ComboBox();
         cbb_Product = new ComboBox();
         label38 = new Label();
         label37 = new Label();
@@ -403,11 +405,13 @@ partial class Form1
         // 
         // tabVariant
         // 
+        tabVariant.Controls.Add(FakeComboSize);
+        tabVariant.Controls.Add(checkedListBox2);
+        tabVariant.Controls.Add(checkedListBox1);
+        tabVariant.Controls.Add(FakeComboColor);
         tabVariant.Controls.Add(expired_date);
         tabVariant.Controls.Add(txt_Quantity);
         tabVariant.Controls.Add(idVariant);
-        tabVariant.Controls.Add(cbb_Color);
-        tabVariant.Controls.Add(cbb_Size);
         tabVariant.Controls.Add(cbb_Product);
         tabVariant.Controls.Add(label38);
         tabVariant.Controls.Add(label37);
@@ -427,6 +431,44 @@ partial class Form1
         tabVariant.Text = "Variant";
         tabVariant.UseVisualStyleBackColor = true;
         // 
+        // FakeComboSize
+        // 
+        FakeComboSize.Location = new Point(569, 454);
+        FakeComboSize.Name = "FakeComboSize";
+        FakeComboSize.ReadOnly = true;
+        FakeComboSize.Size = new Size(277, 34);
+        FakeComboSize.TabIndex = 19;
+        FakeComboSize.Click += textBox1_Click;
+        // 
+        // checkedListBox2
+        // 
+        checkedListBox2.FormattingEnabled = true;
+        checkedListBox2.Location = new Point(239, 210);
+        checkedListBox2.Name = "checkedListBox2";
+        checkedListBox2.Size = new Size(297, 149);
+        checkedListBox2.TabIndex = 18;
+        checkedListBox2.Visible = false;
+        checkedListBox2.MouseLeave += checkedListBox2_MouseLeave;
+        // 
+        // checkedListBox1
+        // 
+        checkedListBox1.FormattingEnabled = true;
+        checkedListBox1.Location = new Point(569, 210);
+        checkedListBox1.Name = "checkedListBox1";
+        checkedListBox1.Size = new Size(277, 149);
+        checkedListBox1.TabIndex = 17;
+        checkedListBox1.Visible = false;
+        checkedListBox1.MouseLeave += checkedListBox1_MouseLeave;
+        // 
+        // FakeComboColor
+        // 
+        FakeComboColor.Location = new Point(569, 365);
+        FakeComboColor.Name = "FakeComboColor";
+        FakeComboColor.ReadOnly = true;
+        FakeComboColor.Size = new Size(277, 34);
+        FakeComboColor.TabIndex = 16;
+        FakeComboColor.Click += FakeComboColor_Click;
+        // 
         // expired_date
         // 
         expired_date.Location = new Point(569, 550);
@@ -436,7 +478,7 @@ partial class Form1
         // 
         // txt_Quantity
         // 
-        txt_Quantity.Location = new Point(565, 459);
+        txt_Quantity.Location = new Point(136, 552);
         txt_Quantity.Name = "txt_Quantity";
         txt_Quantity.Size = new Size(277, 34);
         txt_Quantity.TabIndex = 14;
@@ -450,22 +492,6 @@ partial class Form1
         idVariant.ReadOnly = true;
         idVariant.Size = new Size(277, 34);
         idVariant.TabIndex = 10;
-        // 
-        // cbb_Color
-        // 
-        cbb_Color.FormattingEnabled = true;
-        cbb_Color.Location = new Point(565, 365);
-        cbb_Color.Name = "cbb_Color";
-        cbb_Color.Size = new Size(277, 36);
-        cbb_Color.TabIndex = 13;
-        // 
-        // cbb_Size
-        // 
-        cbb_Size.FormattingEnabled = true;
-        cbb_Size.Location = new Point(136, 548);
-        cbb_Size.Name = "cbb_Size";
-        cbb_Size.Size = new Size(277, 36);
-        cbb_Size.TabIndex = 12;
         // 
         // cbb_Product
         // 
@@ -487,7 +513,7 @@ partial class Form1
         // label37
         // 
         label37.AutoSize = true;
-        label37.Location = new Point(442, 457);
+        label37.Location = new Point(13, 550);
         label37.Name = "label37";
         label37.Size = new Size(88, 28);
         label37.TabIndex = 8;
@@ -505,7 +531,7 @@ partial class Form1
         // label35
         // 
         label35.AutoSize = true;
-        label35.Location = new Point(6, 548);
+        label35.Location = new Point(442, 457);
         label35.Name = "label35";
         label35.Size = new Size(47, 28);
         label35.TabIndex = 6;
@@ -1583,8 +1609,6 @@ partial class Form1
     private DateTimePicker expired_date;
     private TextBox txt_Quantity;
     private TextBox idVariant;
-    private ComboBox cbb_Color;
-    private ComboBox cbb_Size;
     private ComboBox cbb_Product;
     private Label label38;
     private Label label37;
@@ -1712,4 +1736,8 @@ partial class Form1
     private Panel panel1;
     private PictureBox pictureBox1;
     private Button upload;
+    private CheckedListBox checkedListBox1;
+    private TextBox FakeComboColor;
+    private TextBox FakeComboSize;
+    private CheckedListBox checkedListBox2;
 }

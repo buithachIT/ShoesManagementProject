@@ -21,6 +21,11 @@ namespace Shared.Models
         public string Type { get; set; }
 
         public ICollection<ProductVariant>? ProductVariants { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Type} - {SizeValue:0.##}";
+        }
     }
 }
 
