@@ -26,6 +26,20 @@ namespace AdminApp.Controllers
 
         public bool AddSize(Size size)
         {
+            // Kiểm tra xem size đã tồn tại chưa
+            string checkQuery = "SELECT COUNT(*) FROM size WHERE size_value = @size_value AND type = @type";
+            MySqlParameter[] checkParams = {
+            new MySqlParameter("@size_value", size.SizeValue),
+            new MySqlParameter("@type", size.Type)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Size với loại này đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO size(size_value, type) VALUES(@size_value, @type)";
             MySqlParameter[] parameters = new MySqlParameter[2];
             parameters[0] = new MySqlParameter("@size_value", size.SizeValue);
@@ -35,6 +49,21 @@ namespace AdminApp.Controllers
 
         public bool UpdateSize(Size size)
         {
+            // Kiểm tra xem size_value và type đã tồn tại ở bản ghi khác chưa
+            string checkQuery = "SELECT COUNT(*) FROM size WHERE size_value = @size_value AND type = @type AND id_size != @id_size";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@size_value", size.SizeValue),
+                new MySqlParameter("@type", size.Type),
+                new MySqlParameter("@id_size", size.IdSize)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Size với loại này đã tồn tại!");
+                return false;
+            }
+
             string query = "UPDATE size SET size_value = @size_value, type = @type WHERE id_size = @id_size";
             MySqlParameter[] parameters = new MySqlParameter[3];
             parameters[0] = new MySqlParameter("@size_value", size.SizeValue);

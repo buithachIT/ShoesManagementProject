@@ -30,6 +30,18 @@ namespace AdminApp.Controllers
         }
         public bool AddBrand(Brand brand)
         {
+            string checkQuery = "SELECT COUNT(*) FROM brand WHERE name_brand = @name_brand";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@name_brand", brand.Name)
+            };
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                // Nếu đã tồn tại, thông báo và không thêm
+                MessageBox.Show("Tên thương hiệu đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO brand(name_brand, info_brand) VALUES(@name_brand, @info_brand)";
             MySqlParameter[] parameters = new MySqlParameter[2];
             parameters[0] = new MySqlParameter("@name_brand", brand.Name);
@@ -38,6 +50,19 @@ namespace AdminApp.Controllers
         }
         public bool UpdateBrand(Brand brand)
         {
+            string checkQuery = "SELECT COUNT(*) FROM brand WHERE name_brand = @name_brand AND id_brand != @id_brand";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@name_brand", brand.Name),
+                new MySqlParameter("@id_brand", brand.Id)
+            };
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                // Nếu đã tồn tại, thông báo và không cập nhật
+                MessageBox.Show("Tên thương hiệu đã tồn tại!");
+                return false;
+            }
+
             string query = "UPDATE brand SET name_brand = @name_brand, info_brand = @info_brand WHERE id_brand = @id_brand";
             MySqlParameter[] parameters = new MySqlParameter[3];
             parameters[0] = new MySqlParameter("@name_brand", brand.Name);

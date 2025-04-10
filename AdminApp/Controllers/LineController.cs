@@ -32,6 +32,17 @@ namespace AdminApp.Controllers
 
         public bool AddLine(Line line)
         {
+            string checkQuery = "SELECT COUNT(*) FROM line WHERE name_category = @name_category AND id_category = @id_category";
+            MySqlParameter[] checkParams = new MySqlParameter[2];
+            checkParams[0] = new MySqlParameter("@name_category", line.Name);
+            checkParams[1] = new MySqlParameter("@id_category", line.IdCategory);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Tên dòng đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO line(name_category, id_category) VALUES(@name_category, @id_category)";
             MySqlParameter[] parameters = new MySqlParameter[2];
             parameters[0] = new MySqlParameter("@name_category", line.Name);
@@ -41,6 +52,18 @@ namespace AdminApp.Controllers
 
         public bool UpdateLine(Line line)
         {
+            string checkQuery = "SELECT COUNT(*) FROM line WHERE name_category = @name_category AND id_category = @id_category AND id_line != @id_line";
+            MySqlParameter[] checkParams = new MySqlParameter[3];
+            checkParams[0] = new MySqlParameter("@name_category", line.Name);
+            checkParams[1] = new MySqlParameter("@id_category", line.IdCategory);
+            checkParams[2] = new MySqlParameter("@id_line", line.Id);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Tên dòng đã tồn tại!");
+                return false;
+            }
+
             string query = "UPDATE line SET name_category = @name_category, id_category = @id_category WHERE id_line = @id_line";
             MySqlParameter[] parameters = new MySqlParameter[3];
             parameters[0] = new MySqlParameter("@name_category", line.Name);

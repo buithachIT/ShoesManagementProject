@@ -38,24 +38,26 @@
             label3 = new Label();
             cbb_Color = new ComboBox();
             delete = new Button();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.LightBlue;
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(9, 359);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(412, 356);
+            pictureBox1.Size = new Size(209, 181);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // upload
             // 
             upload.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            upload.Location = new Point(12, 393);
+            upload.Location = new Point(12, 558);
             upload.Name = "upload";
-            upload.Size = new Size(412, 51);
+            upload.Size = new Size(441, 58);
             upload.TabIndex = 1;
             upload.Text = "Upload Image";
             upload.UseVisualStyleBackColor = true;
@@ -65,16 +67,16 @@
             // 
             cbbProductName.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbbProductName.FormattingEnabled = true;
-            cbbProductName.Location = new Point(430, 55);
+            cbbProductName.Location = new Point(231, 402);
             cbbProductName.Name = "cbbProductName";
-            cbbProductName.Size = new Size(229, 39);
+            cbbProductName.Size = new Size(222, 39);
             cbbProductName.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(430, 12);
+            label1.Location = new Point(224, 359);
             label1.Name = "label1";
             label1.Size = new Size(96, 31);
             label1.TabIndex = 3;
@@ -84,9 +86,9 @@
             // 
             addImg.BackColor = Color.Aquamarine;
             addImg.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addImg.Location = new Point(430, 393);
+            addImg.Location = new Point(520, 558);
             addImg.Name = "addImg";
-            addImg.Size = new Size(229, 51);
+            addImg.Size = new Size(222, 58);
             addImg.TabIndex = 5;
             addImg.Text = "Add Image";
             addImg.UseVisualStyleBackColor = false;
@@ -96,7 +98,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(430, 105);
+            label2.Location = new Point(231, 458);
             label2.Name = "label2";
             label2.Size = new Size(87, 31);
             label2.TabIndex = 7;
@@ -106,16 +108,16 @@
             // 
             cbb_Variant.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbb_Variant.FormattingEnabled = true;
-            cbb_Variant.Location = new Point(430, 148);
+            cbb_Variant.Location = new Point(231, 501);
             cbb_Variant.Name = "cbb_Variant";
-            cbb_Variant.Size = new Size(229, 39);
+            cbb_Variant.Size = new Size(222, 39);
             cbb_Variant.TabIndex = 6;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(430, 205);
+            label3.Location = new Point(520, 359);
             label3.Name = "label3";
             label3.Size = new Size(71, 31);
             label3.TabIndex = 9;
@@ -125,27 +127,39 @@
             // 
             cbb_Color.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cbb_Color.FormattingEnabled = true;
-            cbb_Color.Location = new Point(430, 248);
+            cbb_Color.Location = new Point(520, 402);
             cbb_Color.Name = "cbb_Color";
-            cbb_Color.Size = new Size(229, 39);
+            cbb_Color.Size = new Size(222, 39);
             cbb_Color.TabIndex = 8;
             // 
             // delete
             // 
             delete.BackColor = Color.Red;
             delete.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            delete.Location = new Point(430, 317);
+            delete.Location = new Point(520, 482);
             delete.Name = "delete";
-            delete.Size = new Size(229, 51);
+            delete.Size = new Size(222, 58);
             delete.TabIndex = 10;
             delete.Text = "Delete Image";
             delete.UseVisualStyleBackColor = false;
+            delete.Click += delete_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(746, 341);
+            dataGridView1.TabIndex = 11;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // add_Image
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(671, 455);
+            ClientSize = new Size(770, 649);
+            Controls.Add(dataGridView1);
             Controls.Add(delete);
             Controls.Add(label3);
             Controls.Add(cbb_Color);
@@ -159,6 +173,7 @@
             Name = "add_Image";
             Text = "add_Image";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -175,5 +190,6 @@
         private Label label3;
         private ComboBox cbb_Color;
         private Button delete;
+        private DataGridView dataGridView1;
     }
 }

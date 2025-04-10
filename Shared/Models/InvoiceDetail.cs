@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Models
 {
-    [Table("invoice_detail")]
+    [Table("invoicedetail")]
     public class InvoiceDetail
     {
         [Key]

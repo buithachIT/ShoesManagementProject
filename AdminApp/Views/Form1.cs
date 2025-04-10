@@ -318,6 +318,8 @@ public partial class Form1 : Form
             txt_IdColor.Text = row.Cells["IdColor"].Value.ToString();
             txt_NameColor.Text = row.Cells["NameColor"].Value.ToString();
             txt_ColorCode.Text = row.Cells["ColorCode"].Value.ToString();
+            panel1.BackColor = System.Drawing.ColorTranslator.FromHtml(txt_ColorCode.Text);
+
         }
     }
 
