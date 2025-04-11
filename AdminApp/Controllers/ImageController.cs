@@ -23,11 +23,14 @@ namespace AdminApp.Controllers
             {
                 images.Add(new Image
                 {
-                    IdImage = Convert.ToInt32(row["id_image"]),
-                    ImageUrl = row["imageUrl"].ToString(),
-                    IsPrimary = Convert.ToBoolean(row["isPrimary"]),
-                    IdProduct = Convert.ToInt32(row["id_product"])
+                    IdImage = row["id_image"] != DBNull.Value ? Convert.ToInt32(row["id_image"]) : 0,
+                    ImageUrl = row["imageUrl"]?.ToString(),
+                    IsPrimary = row["isPrimary"] != DBNull.Value ? Convert.ToBoolean(row["isPrimary"]) : false,
+                    IdProduct = row["id_product"] != DBNull.Value ? Convert.ToInt32(row["id_product"]) : 0,
+                    IdVariant = row["id_variant"] != DBNull.Value ? Convert.ToInt32(row["id_variant"]) : 0,
+                    IdColor = row["id_color"] != DBNull.Value ? Convert.ToInt32(row["id_color"]) : 0
                 });
+
             }
             return images;
         }

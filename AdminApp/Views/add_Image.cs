@@ -130,6 +130,7 @@ namespace AdminApp.Views
 
         private void delete_Click(object sender, EventArgs e)
         {
+
             int id_image = (int)dataGridView1.SelectedRows[0].Cells["IdImage"].Value;
             if (id_image == 0)
             {
@@ -162,11 +163,40 @@ namespace AdminApp.Views
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
+                // Chọn dòng khi người dùng click vào bất kỳ ô nào
+                dataGridView1.ClearSelection();
+                dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
                 string imagePath = row.Cells["ImageUrl"].Value.ToString();
-                selectedImagePath = imagePath;
-                pictureBox1.ImageLocation = imagePath;
+
+                string solutionRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\..\.."));
+                string imageFullPath = Path.Combine(solutionRoot, "WebApp", "wwwroot", "image", "image_product", imagePath);
+
+                if (File.Exists(imageFullPath))
+                {
+                    try
+                    {
+                        pictureBox1.Image = System.Drawing.Image.FromFile(imageFullPath);
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                        MessageBox.Show("Ảnh bị hỏng hoặc không đúng định dạng!", "Lỗi ảnh");
+                        pictureBox1.Image = null; // hoặc load ảnh mặc định
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khác: " + ex.Message);
+                        pictureBox1.Image = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ảnh không tồn tại: ");
+                }
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                // Lấy thông tin sản phẩm, biến thể và màu từ dòng đã chọn
                 cbbProductName.SelectedValue = row.Cells["IdProduct"].Value;
                 cbb_Variant.SelectedValue = row.Cells["IdVariant"].Value;
                 cbb_Color.SelectedValue = row.Cells["IdColor"].Value;

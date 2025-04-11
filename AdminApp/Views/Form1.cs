@@ -913,7 +913,7 @@ public partial class Form1 : Form
             CustomerName = Convert.ToString(txt_NameInvoice.Text),
             CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
             CustomerAddress = Convert.ToString(AddressInvoice.Text),
-            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            TotalAmount = decimal.TryParse(TotalAmount?.Text ?? "0", out decimal total) ? total : 0m,
             Status = cbb_STTIvoice.SelectedItem.ToString(),
             InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
         };
@@ -938,7 +938,7 @@ public partial class Form1 : Form
             CustomerName = Convert.ToString(txt_NameInvoice.Text),
             CustomerPhone = Convert.ToString(txxt_PhoneInvoice.Text),
             CustomerAddress = Convert.ToString(AddressInvoice.Text),
-            TotalAmount = double.TryParse(TotalAmount?.Text ?? "0", out double total) ? total : 0.0,
+            TotalAmount = decimal.TryParse(TotalAmount?.Text ?? "0", out decimal total) ? total : 0m,
             Status = cbb_STTIvoice.SelectedItem.ToString(),
             InvoiceDate = Convert.ToDateTime(DateInvoice.Value)
         };

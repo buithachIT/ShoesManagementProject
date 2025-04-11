@@ -27,7 +27,7 @@ namespace AdminApp.Controllers
                     CustomerName = row["customerName"].ToString(),
                     CustomerPhone = row["customerPhone"].ToString(),
                     InvoiceDate = Convert.ToDateTime(row["InvoiceDate"]),
-                    TotalAmount = Convert.ToDouble(row["totalAmount"]),
+                    TotalAmount = Convert.ToDecimal(row["totalAmount"]),
                     Status = row["status"].ToString(),
                     CustomerAddress = row["customerAddress"].ToString()
                 });
