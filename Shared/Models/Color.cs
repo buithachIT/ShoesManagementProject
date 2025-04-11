@@ -19,5 +19,10 @@ namespace Shared.Models
         [Column("color_code")]
         public string ColorCode { get; set; }
         public ICollection<ProductVariant>? ProductVariant { get; set; }
+
+        public override string ToString()
+        {
+            return $"{NameColor} - {ColorCode}";
+        }
     }
 }

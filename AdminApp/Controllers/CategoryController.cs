@@ -31,6 +31,16 @@ namespace AdminApp.Controllers
 
         public bool AddCategory(Category category)
         {
+            string checkQuery = "SELECT COUNT(*) FROM category WHERE name_category = @name_category";
+            MySqlParameter[] checkParams = new MySqlParameter[1];
+            checkParams[0] = new MySqlParameter("@name_category", category.Name);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Tên danh mục đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO category(name_category) VALUES(@name_category)";
             MySqlParameter[] parameters = new MySqlParameter[1];
             parameters[0] = new MySqlParameter("@name_category", category.Name);
@@ -39,6 +49,17 @@ namespace AdminApp.Controllers
 
         public bool UpdateCategory(Category category)
         {
+            string checkQuery = "SELECT COUNT(*) FROM category WHERE name_category = @name_category AND id_category != @id_category";
+            MySqlParameter[] checkParams = new MySqlParameter[2];
+            checkParams[0] = new MySqlParameter("@name_category", category.Name);
+            checkParams[1] = new MySqlParameter("@id_category", category.Id);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Tên danh mục đã tồn tại!");
+                return false;
+            }
+
             string query = "UPDATE category SET name_category = @name_category WHERE id_category = @id_category";
             MySqlParameter[] parameters = new MySqlParameter[2];
             parameters[0] = new MySqlParameter("@name_category", category.Name);

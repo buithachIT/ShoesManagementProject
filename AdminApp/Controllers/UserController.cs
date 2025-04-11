@@ -3,6 +3,7 @@ using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,20 @@ namespace AdminApp.Controllers
         }
         public bool AddUser(User user)
         {
+            // Kiểm tra xem user đã tồn tại ở bản ghi khác chưa
+            string checkQuery = "SELECT COUNT(*) FROM user WHERE username = @username";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@username", user.Username),
+                new MySqlParameter("@phone", user.Phone)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("user đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO user (id_user, username, passwordhash, fullname, email, phone, id_role, is_active) " +
                            "VALUES (@id_user, @username, @passwordhash, @fullname, @email, @phone, @id_role, @is_active)";
             MySqlParameter[] parameters =
@@ -76,6 +91,19 @@ namespace AdminApp.Controllers
         }
         public bool UpdateUser(User user)
         {
+            // Kiểm tra xem username đã tồn tại ở bản ghi khác chưa
+            string checkQuery = "SELECT COUNT(*) FROM user WHERE username = @username AND id_user != @id_user";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@username", user.Username),
+                new MySqlParameter("@id_user", user.IdUser)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Username đã tồn tại!");
+                return false;
+            }
             string query = @"UPDATE user
                             SET username = @username, passwordhash = @passwordhash, fullname = @fullname, email = @email, phone = @phone, id_role = @id_role, is_active = @is_active
                             WHERE id_user = @id_user";

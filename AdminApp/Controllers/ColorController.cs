@@ -27,6 +27,19 @@ namespace AdminApp.Controllers
         }
         public bool AddColor(Color color)
         {
+            // Kiểm tra xem color_code đã tồn tại chưa
+            string checkQuery = "SELECT COUNT(*) FROM color WHERE color_code = @color_code";
+            MySqlParameter[] checkParams = {
+            new MySqlParameter("@color_code", color.ColorCode)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Mã màu đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO color(color_name, color_code) VALUES(@color_name, @color_code)";
             MySqlParameter[] parameters = new MySqlParameter[2];
             parameters[0] = new MySqlParameter("@color_name", color.NameColor);
@@ -35,6 +48,20 @@ namespace AdminApp.Controllers
         }
         public bool UpdateColor(Color color)
         {
+            // Kiểm tra xem color_code đã tồn tại ở bản ghi khác chưa
+            string checkQuery = "SELECT COUNT(*) FROM color WHERE color_code = @color_code AND id_color != @id_color";
+            MySqlParameter[] checkParams = {
+                new MySqlParameter("@color_code", color.ColorCode),
+                new MySqlParameter("@id_color", color.IdColor)
+            };
+
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Mã màu đã tồn tại cho màu khác!");
+                return false;
+            }
+
             string query = "UPDATE color SET color_name = @color_name, color_code = @color_code WHERE id_color = @id_color";
             MySqlParameter[] parameters = new MySqlParameter[3];
             parameters[0] = new MySqlParameter("@color_name", color.NameColor);

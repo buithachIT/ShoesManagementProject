@@ -73,12 +73,9 @@ public partial class Form1 : Form
         cbb_Product.DataSource = productController.GetAllProducts();
         cbb_Product.DisplayMember = "NameProduct";
         cbb_Product.ValueMember = "IdProduct";
-        cbb_Color.DataSource = colorController.GetAllColor();
-        cbb_Color.DisplayMember = "NameColor";
-        cbb_Color.ValueMember = "IdColor";
-        cbb_Size.DataSource = sizeController.GetAllSize();
-        cbb_Size.DisplayMember = "SizeValue";
-        cbb_Size.ValueMember = "IdSize";
+
+        LoadSizeToCheckedListBox();
+        LoadColorToCheckedListBox();
     }
     private void LoadDataInvoice()
     {
@@ -318,6 +315,8 @@ public partial class Form1 : Form
             txt_IdColor.Text = row.Cells["IdColor"].Value.ToString();
             txt_NameColor.Text = row.Cells["NameColor"].Value.ToString();
             txt_ColorCode.Text = row.Cells["ColorCode"].Value.ToString();
+            panel1.BackColor = System.Drawing.ColorTranslator.FromHtml(txt_ColorCode.Text);
+
         }
     }
 
@@ -361,8 +360,6 @@ public partial class Form1 : Form
             DataGridViewRow row = tableVariant.Rows[e.RowIndex];
             idVariant.Text = row.Cells["IdVariant"].Value.ToString();
             cbb_Product.SelectedValue = row.Cells["IdProduct"].Value;
-            cbb_Color.SelectedValue = row.Cells["IdColor"].Value;
-            cbb_Size.SelectedValue = row.Cells["IdSize"].Value;
             txt_Quantity.Text = row.Cells["Quantity"].Value.ToString();
             expired_date.Value = Convert.ToDateTime(row.Cells["ExpiredDate"].Value);
         }
@@ -841,8 +838,7 @@ public partial class Form1 : Form
         ProductVariant productVariant = new ProductVariant()
         {
             IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
-            IdColor = Convert.ToInt32(cbb_Color.SelectedValue),
-            IdSize = Convert.ToInt32(cbb_Size.SelectedValue),
+
             Quantity = Convert.ToInt32(txt_Quantity.Text),
             ExpiredDate = Convert.ToDateTime(expired_date.Value)
 
@@ -865,8 +861,7 @@ public partial class Form1 : Form
         {
             IdVariant = Convert.ToInt32(idVariant.Text),
             IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
-            IdColor = Convert.ToInt32(cbb_Color.SelectedValue),
-            IdSize = Convert.ToInt32(cbb_Size.SelectedValue),
+
             Quantity = Convert.ToInt32(txt_Quantity.Text),
             ExpiredDate = Convert.ToDateTime(expired_date.Value)
         };
@@ -1048,4 +1043,46 @@ public partial class Form1 : Form
         }
     }
 
+    private void FakeComboColor_Click(object sender, EventArgs e)
+    {
+        checkedListBox1.Visible = !checkedListBox1.Visible;
+    }
+
+    private void checkedListBox1_MouseLeave(object sender, EventArgs e)
+    {
+        checkedListBox1.Visible = false;
+    }
+
+    private void textBox1_Click(object sender, EventArgs e)
+    {
+        checkedListBox2.Visible = !checkedListBox2.Visible;
+    }
+
+    private void checkedListBox2_MouseLeave(object sender, EventArgs e)
+    {
+        checkedListBox2.Visible = false;
+    }
+
+    private void LoadSizeToCheckedListBox()
+    {
+        SizeController sizeController = new SizeController();
+        List<Size> sizes = sizeController.GetAllSize();
+
+        checkedListBox1.Items.Clear();
+        foreach (Size size in sizes)
+        {
+            checkedListBox1.Items.Add(size);
+        }
+    }
+
+    private void LoadColorToCheckedListBox()
+    {
+        ColorController colorController = new ColorController();
+        List<Color> colors = colorController.GetAllColor();
+        checkedListBox2.Items.Clear();
+        foreach (Color color in colors)
+        {
+            checkedListBox2.Items.Add(color);
+        }
+    }
 }

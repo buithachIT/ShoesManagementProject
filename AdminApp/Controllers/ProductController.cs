@@ -80,8 +80,9 @@ namespace AdminApp.Controllers
             parameters[5] = new MySqlParameter("@price", product.Price);
             parameters[6] = new MySqlParameter("@releasedate", product.Releasedate);
             parameters[7] = new MySqlParameter("@status", product.Status);
-            parameters[8] = new MySqlParameter("@id_product", product.IdProduct);
-            parameters[9] = new MySqlParameter("@imageUrl", product.ImageUrl);
+            parameters[8] = new MySqlParameter("@imageUrl", product.ImageUrl);
+            parameters[9] = new MySqlParameter("@id_product", product.IdProduct);
+            
             return db.ExecuteNonQuery(query, parameters);
         }
         public bool DeleteProduct(int idProduct)
@@ -90,7 +91,7 @@ namespace AdminApp.Controllers
             MySqlParameter[] parameters =
             {
             new MySqlParameter("@id", idProduct)
-        };
+            };
             db.ExecuteNonQuery(deleteVariantsQuery, parameters);
 
             string query = "DELETE FROM product WHERE id_product = @id";

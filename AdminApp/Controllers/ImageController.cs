@@ -32,15 +32,17 @@ namespace AdminApp.Controllers
             return images;
         }
 
-        public bool AddImage(int productId, string imageName)
+        public bool AddImage(int productId, string imageName, int variantId, int colorId)
         {
             try
             {
 
-                string query = "INSERT INTO image(imageUrl, isPrimary, id_product) VALUES(@imageUrl, 0, @id_product)";
-                MySqlParameter[] parameters = new MySqlParameter[3];
+                string query = "INSERT INTO image(imageUrl, isPrimary, id_product, id_variant, id_color) VALUES(@imageUrl, 0, @id_product, @id_variant, @id_color)";
+                MySqlParameter[] parameters = new MySqlParameter[4];
                 parameters[0] = new MySqlParameter("@imageUrl", imageName);
-                parameters[2] = new MySqlParameter("@id_product", productId);
+                parameters[1] = new MySqlParameter("@id_product", productId);
+                parameters[2] = new MySqlParameter("@id_variant", variantId);
+                parameters[3] = new MySqlParameter("@id_color", colorId);
 
                 bool insertSuccess = db.ExecuteNonQuery(query, parameters);
                 return insertSuccess;
