@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Shared.Models
 {
-    [Table("invoice_detail")]
+    [Table("invoicedetail")]
     public class InvoiceDetail
     {
-        [Key]
+
         [Column("id_invoice")]
         public int IdInvoice { get; set; }
 
@@ -22,7 +22,7 @@ namespace Shared.Models
         public int Quantity { get; set; }
 
         [Column("sub_total")]
-        public int SubTotal { get; set; }
+        public decimal SubTotal { get; set; }
 
         [ForeignKey("IdInvoice")]
         public Invoice Invoice { get; set; }

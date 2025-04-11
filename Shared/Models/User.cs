@@ -50,5 +50,7 @@ namespace Shared.Models
 
         [Column("email_value")]
         public bool? EmailValue { get; set; }
+
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
     }
 }

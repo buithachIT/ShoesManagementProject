@@ -15,49 +15,35 @@ public class UserController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Profile()
     {
-        return View();
+        var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+        var user = await _context.Users.FindAsync(userId);
+        return View(user);
     }
-    public async Task<IActionResult> Edit(int id)
+
+    public async Task<IActionResult> EditProfile()
     {
-        var user = await _context.User.FindAsync(id);
+        var userIdStr = HttpContext.Session.GetString("UserId");
+        if (string.IsNullOrEmpty(userIdStr)) return Redirect("/login");
+
+        int idUser = int.Parse(userIdStr);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.IdUser == idUser);
         if (user == null) return NotFound();
 
-        var model = new UserEditViewModel
-        {
-            Id = user.IdUser,
-            Fullname = user.FullName,
-            Email = user.Email,
-            Phone = user.Phone,
-
-        };
-
-        return View(model);
+        return View(user);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(UserEditViewModel model)
+    public async Task<IActionResult> Edit(User updatedUser)
     {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        var user = await _context.User.FindAsync(model.Id);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.IdUser == updatedUser.IdUser);
         if (user == null) return NotFound();
 
-        user.FullName = model.Fullname;
-        user.Email = model.Email;
-        user.Phone = model.Phone;
-        
-        // Cập nhật mật khẩu nếu có nhập mới
-        if (!string.IsNullOrEmpty(model.NewPassword))
-        {
-            user.PasswordHash = model.NewPassword;
-        }
+        user.FullName = updatedUser.FullName;
+        user.Phone = updatedUser.Phone;
 
-        _context.User.Update(user);
         await _context.SaveChangesAsync();
-
-        return RedirectToAction("Edit", new { id = model.Id });
+        return RedirectToAction("Profile");
     }
 }

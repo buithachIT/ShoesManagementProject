@@ -1,0 +1,27 @@
+@model Address
+
+<h3>Chỉnh sửa địa chỉ</h3>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="IdAddress" />
+    <input type="hidden" asp-for="IdUser" />
+    <div class="mb-3">
+        <label>Đường:</label>
+        <input asp-for="Street" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Phường:</label>
+        <input asp-for="Ward" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Quận:</label>
+        <input asp-for="District" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Tỉnh/Thành phố:</label>
+        <input asp-for="Province" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>
+<a class="btn btn-success mb-3" asp-action="Create">Thêm địa chỉ mới</a>

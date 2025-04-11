@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace WebApp.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public AccountController(ApplicationDbContext context)
+        public AccountController(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -27,30 +27,29 @@ namespace WebApp.Controllers
         {
             return View();
         }
-    
-    
+
         [HttpPost]
         public IActionResult Register(User model)
         {
             if (ModelState.IsValid)
             {
                 // Kiểm tra username đã tồn tại chưa
-                var existingUser = _context.User.FirstOrDefault(u => u.Username == model.Username);
+                var existingUser = _context.Users.FirstOrDefault(u => u.Username == model.Username);
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại.");
                     return View(model);
                 }
 
-                // Hash mật khẩu
+
                 model.PasswordHash = model.PasswordHash;
                 model.IsActive = true;
                 model.CreateDate = DateTime.Now;
                 model.IdRole = 2;
                 model.Email = model.Email;
 
-                // Lưu vào database
-                _context.User.Add(model);
+                // Lưu
+                _context.Users.Add(model);
                 _context.SaveChanges();
 
                 return RedirectToAction("Login");
@@ -62,7 +61,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            var user = _context.User.FirstOrDefault(u => u.Username == username);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
             if (user == null || user.PasswordHash != password)
             {

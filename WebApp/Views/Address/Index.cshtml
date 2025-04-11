@@ -1,0 +1,21 @@
+@model List<Address>
+
+<h2>Sổ địa chỉ</h2>
+<a asp-action="Create" class="btn btn-primary mb-3">+ Thêm địa chỉ mới</a>
+
+@foreach (var addr in Model)
+{
+    <div class="border p-3 mb-2 shadow-sm rounded">
+        <div>
+            <strong>@(addr.User?.FullName ?? "Không rõ tên")</strong> @(addr.User?.Phone?.ToString() ?? "Không có SĐT")
+        </div>
+        <div>@addr.Street, @addr.Ward, @addr.District, @addr.Province</div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@addr.IdAddress">Sửa</a> |
+            <a asp-action="Delete" asp-route-id="@addr.IdAddress" onclick="return confirm('Xoá địa chỉ này?')">Xoá</a>
+        </div>
+    </div>
+}
+
+<a href="/User/Profile" class="btn btn-secondary mt-3">
+    << Quay lại Profile</a>

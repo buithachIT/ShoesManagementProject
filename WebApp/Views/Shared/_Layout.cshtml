@@ -53,7 +53,7 @@
                                     @HttpContextAccessor.HttpContext.Session.GetString("Username")</span>
                                 <i class="fa fa-user ms-1 mb-1" aria-hidden="true"></i>
                                 <ul class="ul-hover-group">
-                                    <li><a href="../user-group">Profile</a></li>
+                                    <li><a asp-controller="User" asp-action="Profile">Profile</a></li>
                                     <li> <a class="nav-link text-danger" href="/Account/Logout">Log out</a></li>
                                 </ul>
                             }

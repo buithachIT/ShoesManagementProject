@@ -28,7 +28,7 @@ namespace Shared.Models
         public DateTime InvoiceDate { get; set; }
 
         [Column("totalAmount")]
-        public double TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         [Column("status")]
         public string Status { get; set; }
@@ -38,6 +38,8 @@ namespace Shared.Models
 
         [ForeignKey("IdUser")]
         public User User { get; set; }
+
+        public List<InvoiceDetail> InvoiceDetails { get; set; }
 
     }
 }

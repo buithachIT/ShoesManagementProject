@@ -32,7 +32,7 @@ namespace Shared.Models
         public string? Material { get; set; }
 
         [Column("price")]
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         [Column("imageUrl")]
         [MaxLength(255)]
@@ -52,5 +52,5 @@ namespace Shared.Models
         public Brand Brand { get; set; }
         public virtual ICollection<ProductVariant> Variants { get; set; }
     }
-        
+
 }

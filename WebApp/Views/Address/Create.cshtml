@@ -1,0 +1,30 @@
+@model Address
+
+<h3 class="mb-4">Thêm địa chỉ mới</h3>
+
+<form asp-action="Create" method="post" class="border p-4 rounded shadow-sm">
+
+    <div class="mb-3">
+        <label asp-for="Street" class="form-label">Đường:</label>
+        <input asp-for="Street" class="form-control" />
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Ward" class="form-label">Phường:</label>
+        <input asp-for="Ward" class="form-control" />
+        <span asp-validation-for="Ward" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="District" class="form-label">Quận:</label>
+        <input asp-for="District" class="form-control" />
+        <span asp-validation-for="District" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Province" class="form-label">Tỉnh/Thành phố:</label>
+        <input asp-for="Province" class="form-control" />
+        <span asp-validation-for="Province" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Huỷ</a>
+</form>
