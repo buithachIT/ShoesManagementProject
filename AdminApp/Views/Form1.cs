@@ -362,6 +362,8 @@ public partial class Form1 : Form
             idVariant.Text = row.Cells["IdVariant"].Value.ToString();
             cbb_Product.SelectedValue = row.Cells["IdProduct"].Value;
             txt_Quantity.Text = row.Cells["Quantity"].Value.ToString();
+            FakeComboColor.Text = row.Cells["IdColor"].Value.ToString();
+            FakeComboSize.Text = row.Cells["IdSize"].Value.ToString();
             expired_date.Value = Convert.ToDateTime(row.Cells["ExpiredDate"].Value);
         }
 
