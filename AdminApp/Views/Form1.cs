@@ -3,6 +3,7 @@ using AdminApp.Views;
 using Microsoft.VisualBasic.ApplicationServices;
 using Org.BouncyCastle.Asn1.Cmp;
 using Shared.Models;
+using System.Data;
 using System.Xml.Linq;
 using Color = Shared.Models.Color;
 using Size = Shared.Models.Size;
@@ -835,25 +836,33 @@ public partial class Form1 : Form
 
     private void AddVariant_Click(object sender, EventArgs e)
     {
-        ProductVariant productVariant = new ProductVariant()
-        {
-            IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
+        int idProduct = Convert.ToInt32(cbb_Product.SelectedValue);
+        int quantity = Convert.ToInt32(txt_Quantity.Text);
+        DateTime expired = expired_date.Value;
 
-            Quantity = Convert.ToInt32(txt_Quantity.Text),
-            ExpiredDate = Convert.ToDateTime(expired_date.Value)
+        foreach (Color selectedColor in checkedListBox2.CheckedItems)
+        {
+            foreach (Size selectedSize in checkedListBox1.CheckedItems)
+            {
+                ProductVariant variant = new ProductVariant
+                {
+                    IdProduct = idProduct,
+                    IdColor = selectedColor.IdColor,
+                    IdSize = selectedSize.IdSize,
+                    Quantity = quantity,
+                    ExpiredDate = expired
+                };
 
-        };
-        bool result = productVariantController.AddProductVariant(productVariant);
-        if (result)
-        {
-            MessageBox.Show("Thêm biến thể sản phẩm thành công!");
-            LoadDataVariant(); // Cập nhật lại danh sách
+                bool result = productVariantController.AddProductVariant(variant);
+                if (!result)
+                {
+                    MessageBox.Show($"Thêm thất bại: Màu {selectedColor.NameColor} - Size {selectedSize.SizeValue}");
+                }
+            }
         }
-        else
-        {
-            MessageBox.Show("Thêm biến thể sản phẩm thất bại!");
-        }
+        LoadDataVariant(); // Cập nhật lại danh sách
     }
+
 
     private void Repair_Variant_Click(object sender, EventArgs e)
     {

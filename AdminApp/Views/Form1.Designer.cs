@@ -443,9 +443,9 @@ partial class Form1
         // checkedListBox2
         // 
         checkedListBox2.FormattingEnabled = true;
-        checkedListBox2.Location = new Point(239, 210);
+        checkedListBox2.Location = new Point(569, 494);
         checkedListBox2.Name = "checkedListBox2";
-        checkedListBox2.Size = new Size(297, 149);
+        checkedListBox2.Size = new Size(277, 149);
         checkedListBox2.TabIndex = 18;
         checkedListBox2.Visible = false;
         checkedListBox2.MouseLeave += checkedListBox2_MouseLeave;
