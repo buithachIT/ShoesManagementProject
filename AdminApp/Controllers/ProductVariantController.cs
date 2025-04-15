@@ -70,22 +70,27 @@ namespace AdminApp.Controllers
 
         public bool DeleteProductVariant(int productVariant)
         {
-            string checkQuery = "SELECT COUNT(*) FROM invoicedetail WHERE id_variant = @id_variant";
+            string checkQuery = @"
+            SELECT COUNT(*) 
+            FROM invoicedetail d
+            JOIN invoice i ON d.id_invoice = i.id_invoice
+            WHERE d.id_variant = @id_variant AND i.status != 'Hoàn thành'";
             MySqlParameter[] checkParams = new MySqlParameter[1];
             checkParams[0] = new MySqlParameter("@id_variant", productVariant);
 
             int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
 
-            if (count > 0)
+            if (count == 0)
             {
-                MessageBox.Show("Không thể xóa biến thể sản phẩm vì có đơn hàng chứa biến thể này!");
-                return false;
+                // Tức là tất cả các hóa đơn đều "Hoàn thành" hoặc không có liên quan thì được phép xóa
+                string query = "DELETE FROM product_variant WHERE id_variant = @id_variant";
+                MySqlParameter[] parameters = new MySqlParameter[1];
+                parameters[0] = new MySqlParameter("@id_variant", productVariant);
+                return db.ExecuteNonQuery(query, parameters);
             }
 
-            string query = "DELETE FROM product_variant WHERE id_variant = @id_variant";
-            MySqlParameter[] parameters = new MySqlParameter[1];
-            parameters[0] = new MySqlParameter("@id_variant", productVariant);
-            return db.ExecuteNonQuery(query, parameters);
+            // Có ít nhất 1 hoá đơn chưa hoàn thành → không được xoá
+            return false;
         }
     }
 }

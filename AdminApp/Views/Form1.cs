@@ -82,8 +82,8 @@ public partial class Form1 : Form
     private void LoadDataInvoice()
     {
         tableInvoice.DataSource = invoiceController.GetAllInvoice();
-        cbb_User.DataSource = userController.GetAllUsers();
-        cbb_User.DisplayMember = "IdUser";
+        cbb_User.DataSource = userController.GetUserBuyPrd();
+        cbb_User.DisplayMember = "Username";
         cbb_User.ValueMember = "IdUser";
     }
 
@@ -466,7 +466,7 @@ public partial class Form1 : Form
             }
             else
             {
-                MessageBox.Show("Xóa sản phẩm thất bại!");
+                MessageBox.Show("Xóa sản phẩm thất bại! Hãy kiểm tra lại xem thử có biến thể của Product này trong hóa đơn nào đó chưa hoàn thành");
             }
         }
     }
@@ -923,7 +923,7 @@ public partial class Form1 : Form
             }
             else
             {
-                MessageBox.Show("Xóa biến thể sản phẩm thất bại!");
+                MessageBox.Show("Xóa biến thể sản phẩm thất bại! Biến thể đang nằm trong hoá đơn chưa hoàn thành.");
             }
         }
     }
@@ -1114,7 +1114,7 @@ public partial class Form1 : Form
     private void Detail_Invoice_Click(object sender, EventArgs e)
     {
         this.Hide(); // Ẩn Form1
-        using (Views.InvoiceDetail detailInvoice = new Views.InvoiceDetail())
+        using (Views.InvoiceDetailForm detailInvoice = new Views.InvoiceDetailForm())
         {
             detailInvoice.ShowDialog();
         }

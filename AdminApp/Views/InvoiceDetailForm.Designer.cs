@@ -1,6 +1,6 @@
 ﻿namespace AdminApp.Views
 {
-    partial class InvoiceDetail
+    partial class InvoiceDetailForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,6 @@
             label3 = new Label();
             label4 = new Label();
             button1 = new Button();
-            button2 = new Button();
             cbbInvoice = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -126,20 +125,11 @@
             button1.Font = new Font("Segoe UI", 14F);
             button1.Location = new Point(120, 552);
             button1.Name = "button1";
-            button1.Size = new Size(141, 47);
+            button1.Size = new Size(362, 47);
             button1.TabIndex = 9;
             button1.Text = "Thêm";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Segoe UI", 14F);
-            button2.Location = new Point(376, 552);
-            button2.Name = "button2";
-            button2.Size = new Size(141, 47);
-            button2.TabIndex = 10;
-            button2.Text = "Xóa";
-            button2.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // cbbInvoice
             // 
@@ -150,13 +140,12 @@
             cbbInvoice.Size = new Size(249, 39);
             cbbInvoice.TabIndex = 11;
             // 
-            // InvoiceDetail
+            // InvoiceDetailForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(631, 621);
             Controls.Add(cbbInvoice);
-            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -166,7 +155,7 @@
             Controls.Add(txt_Quantity);
             Controls.Add(cbbVariant);
             Controls.Add(dataGridView1);
-            Name = "InvoiceDetail";
+            Name = "InvoiceDetailForm";
             Text = "InvoiceDetail";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -184,7 +173,6 @@
         private Label label3;
         private Label label4;
         private Button button1;
-        private Button button2;
         private ComboBox cbbInvoice;
     }
 }

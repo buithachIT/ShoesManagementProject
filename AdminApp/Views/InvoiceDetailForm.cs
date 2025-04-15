@@ -12,14 +12,14 @@ using System.Windows.Forms;
 
 namespace AdminApp.Views
 {
-    public partial class InvoiceDetail : Form
+    public partial class InvoiceDetailForm : Form
     {
         InvoiceController invoiceController = new InvoiceController();
         ProductVariantController productVariantController = new ProductVariantController();
         InvoiceDetailController invoiceDetailController = new InvoiceDetailController();
         ProductController productController = new ProductController();
 
-        public InvoiceDetail()
+        public InvoiceDetailForm()
         {
             InitializeComponent();
             LoadVariantComboBox();
@@ -100,6 +100,28 @@ namespace AdminApp.Views
         private void txt_Quantity_TextChanged(object sender, EventArgs e)
         {
             UpdateSubTotal();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InvoiceDetail invoiceDetail = new InvoiceDetail()
+            {
+                IdInvoice = Convert.ToInt32(cbbInvoice.SelectedValue),
+                IdVariant = Convert.ToInt32(cbbVariant.SelectedValue),
+                Quantity = Convert.ToInt32(txt_Quantity.Text),
+                SubTotal = Convert.ToDecimal(subtotal.Text)
+            };
+            bool result = invoiceDetailController.AddInvoiceDetail(invoiceDetail);
+            if (result)
+            {
+                MessageBox.Show("Thêm hóa đơn chi tiết thành công!");
+                LoadInvoiceDetailDataGridView();
+            }
+            else
+            {
+                MessageBox.Show("Thêm hóa đơn chi tiết thất bại!");
+            }
+
         }
     }
 }

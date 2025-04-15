@@ -58,6 +58,25 @@ namespace AdminApp.Controllers
             }
             return users;
         }
+        public List<User> GetUserBuyPrd()
+        {
+            string query = "SELECT id_user, fullname, email, phone, username FROM user WHERE id_role = '3'";
+            DataTable dt = db.ExecuteQuery(query);
+            List<User> users = new List<User>();
+            foreach (DataRow row in dt.Rows)
+            {
+                users.Add(new User
+                {
+                    IdUser = Convert.ToInt32(row["id_user"]),
+                    FullName = row["fullname"].ToString(),
+                    Email = row["email"].ToString(),
+                    Phone = Convert.ToInt32(row["phone"]),
+                    Username = row["username"].ToString()
+                });
+            }
+            return users;
+        }
+
         public bool AddUser(User user)
         {
             // Kiểm tra xem user đã tồn tại ở bản ghi khác chưa

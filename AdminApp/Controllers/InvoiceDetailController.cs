@@ -38,27 +38,27 @@ namespace AdminApp.Controllers
             parameters[1] = new MySqlParameter("@id_variant", invoiceDetail.IdVariant);
             parameters[2] = new MySqlParameter("@quantity", invoiceDetail.Quantity);
             parameters[3] = new MySqlParameter("@sub_total", invoiceDetail.SubTotal);
-            return db.ExecuteNonQuery(query, parameters);
-        }
+            bool insertSuccess = db.ExecuteNonQuery(query, parameters);
 
-        public bool UpdateInvoiceDetail(InvoiceDetail invoiceDetail)
-        {
-            string query = "UPDATE invoicedetail SET id_variant = @id_variant, quantity = @quantity, sub_total = @sub_total WHERE id_invoice = @id_invoice";
-            MySqlParameter[] parameters = new MySqlParameter[4];
-            parameters[0] = new MySqlParameter("@id_invoice", invoiceDetail.IdInvoice);
-            parameters[1] = new MySqlParameter("@id_variant", invoiceDetail.IdVariant);
-            parameters[2] = new MySqlParameter("@quantity", invoiceDetail.Quantity);
-            parameters[3] = new MySqlParameter("@sub_total", invoiceDetail.SubTotal);
-            return db.ExecuteNonQuery(query, parameters);
-        }
+            if (insertSuccess)
+            {
+                string updateQuery = @"
+            UPDATE invoice
+            SET totalamount = (
+                SELECT SUM(sub_total)
+                FROM invoicedetail
+                WHERE id_invoice = @id_invoice
+            )
+            WHERE id_invoice = @id_invoice";
 
-        public bool DeleteInvoiceDetail(int id_invoice)
-        {
-            string query = "DELETE FROM invoicedetail WHERE id_invoice = @id_invoice";
-            MySqlParameter[] parameters = new MySqlParameter[1];
-            parameters[0] = new MySqlParameter("@id_invoice", id_invoice);
-            return db.ExecuteNonQuery(query, parameters);
-        }
+                MySqlParameter[] updateParams = {
+            new MySqlParameter("@id_invoice", invoiceDetail.IdInvoice)
+        };
 
+                return db.ExecuteNonQuery(updateQuery, updateParams);
+            }
+
+            return false;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using Shared.Models;
 using System.Collections.Generic;
 using System.Data;
@@ -116,15 +117,28 @@ namespace AdminApp.Controllers
         }
         public bool DeleteProduct(int idProduct)
         {
-            string deleteVariantsQuery = "DELETE FROM product_variant WHERE id_product = @id";
-            MySqlParameter[] parameters =
-            {
-            new MySqlParameter("@id", idProduct)
-            };
-            db.ExecuteNonQuery(deleteVariantsQuery, parameters);
+            string checkQuery = @"
+            SELECT COUNT(*) 
+            FROM invoicedetail d
+            JOIN invoice i ON d.id_invoice = i.id_invoice
+            JOIN product_variant v ON d.id_variant = v.id_variant
+            WHERE v.id_product = @id_product AND i.status != 'Hoàn thành'";
 
-            string query = "DELETE FROM product WHERE id_product = @id";
-            return db.ExecuteNonQuery(query, parameters);
+            MySqlParameter[] checkParams = new MySqlParameter[]
+            {
+                new MySqlParameter("@id_product", idProduct)
+            };
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+
+            if (count == 0)
+            {
+                string deleteVariantQuery = "DELETE FROM product_variant WHERE id_product = @id_product";
+                string deleteProductQuery = "DELETE FROM product WHERE id_product = @id_product";
+
+                db.ExecuteNonQuery(deleteVariantQuery, checkParams); // Xoá variant
+                return db.ExecuteNonQuery(deleteProductQuery, checkParams); // Xoá product
+            }
+            return false;
         }
 
     }
