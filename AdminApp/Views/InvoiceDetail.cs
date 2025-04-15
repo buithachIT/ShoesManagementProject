@@ -61,18 +61,9 @@ namespace AdminApp.Views
 
         private void cbbVariant_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbbVariant.SelectedItem is ProductVariant selectedVariant)
-            {
-                int idProduct = selectedVariant.IdProduct;
-
-                // Lấy product theo ID
-                Product product = productController.GetProductById(idProduct);
-                if (product != null)
-                {
-                    subtotal.Text = product.Price.ToString(); // format nếu muốn
-                }
-            }
+            UpdateSubTotal();
         }
+
         // check quantity 
         private void Quantity_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -86,6 +77,29 @@ namespace AdminApp.Views
             {
                 e.Handled = true;
             }
+        }
+
+        private void UpdateSubTotal()
+        {
+            if (cbbVariant.SelectedItem is ProductVariant selectedVariant)
+            {
+                Product product = productController.GetProductById(selectedVariant.IdProduct);
+
+                if (product != null && decimal.TryParse(txt_Quantity.Text, out decimal quantity))
+                {
+                    decimal subTotal = product.Price * quantity;
+                    subtotal.Text = subTotal.ToString();
+                }
+                else
+                {
+                    subtotal.Text = "";
+                }
+            }
+        }
+
+        private void txt_Quantity_TextChanged(object sender, EventArgs e)
+        {
+            UpdateSubTotal();
         }
     }
 }

@@ -30,7 +30,7 @@
         {
             dataGridView1 = new DataGridView();
             cbbVariant = new ComboBox();
-            quantity = new TextBox();
+            txt_Quantity = new TextBox();
             subtotal = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -61,14 +61,15 @@
             cbbVariant.TabIndex = 1;
             cbbVariant.SelectedIndexChanged += cbbVariant_SelectedIndexChanged;
             // 
-            // quantity
+            // txt_Quantity
             // 
-            quantity.Font = new Font("Segoe UI", 14F);
-            quantity.Location = new Point(376, 369);
-            quantity.Name = "quantity";
-            quantity.Size = new Size(249, 39);
-            quantity.TabIndex = 3;
-            quantity.KeyPress += Quantity_KeyPress;
+            txt_Quantity.Font = new Font("Segoe UI", 14F);
+            txt_Quantity.Location = new Point(376, 369);
+            txt_Quantity.Name = "txt_Quantity";
+            txt_Quantity.Size = new Size(249, 39);
+            txt_Quantity.TabIndex = 3;
+            txt_Quantity.TextChanged += txt_Quantity_TextChanged;
+            txt_Quantity.KeyPress += Quantity_KeyPress;
             // 
             // subtotal
             // 
@@ -162,7 +163,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(subtotal);
-            Controls.Add(quantity);
+            Controls.Add(txt_Quantity);
             Controls.Add(cbbVariant);
             Controls.Add(dataGridView1);
             Name = "InvoiceDetail";
@@ -176,7 +177,7 @@
 
         private DataGridView dataGridView1;
         private ComboBox cbbVariant;
-        private TextBox quantity;
+        private TextBox txt_Quantity;
         private TextBox subtotal;
         private Label label1;
         private Label label2;
