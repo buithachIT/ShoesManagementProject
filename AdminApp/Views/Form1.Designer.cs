@@ -234,6 +234,7 @@ partial class Form1
         Detail_Invoice.TabIndex = 33;
         Detail_Invoice.Text = "Detail";
         Detail_Invoice.UseVisualStyleBackColor = true;
+        Detail_Invoice.Click += Detail_Invoice_Click;
         // 
         // Repair_Invoice
         // 
@@ -438,12 +439,12 @@ partial class Form1
         FakeComboSize.ReadOnly = true;
         FakeComboSize.Size = new Size(277, 34);
         FakeComboSize.TabIndex = 19;
-        FakeComboSize.Click += textBox1_Click;
+        FakeComboSize.Click += FakeComboSize_Click;
         // 
         // checkedListBox2
         // 
         checkedListBox2.FormattingEnabled = true;
-        checkedListBox2.Location = new Point(569, 494);
+        checkedListBox2.Location = new Point(569, 210);
         checkedListBox2.Name = "checkedListBox2";
         checkedListBox2.Size = new Size(277, 149);
         checkedListBox2.TabIndex = 18;
@@ -453,7 +454,7 @@ partial class Form1
         // checkedListBox1
         // 
         checkedListBox1.FormattingEnabled = true;
-        checkedListBox1.Location = new Point(569, 210);
+        checkedListBox1.Location = new Point(569, 494);
         checkedListBox1.Name = "checkedListBox1";
         checkedListBox1.Size = new Size(277, 149);
         checkedListBox1.TabIndex = 17;
@@ -467,7 +468,7 @@ partial class Form1
         FakeComboColor.ReadOnly = true;
         FakeComboColor.Size = new Size(277, 34);
         FakeComboColor.TabIndex = 16;
-        FakeComboColor.Click += FakeComboColor_Click;
+        FakeComboColor.Click += FakeComboBoxColor_Click;
         // 
         // expired_date
         // 

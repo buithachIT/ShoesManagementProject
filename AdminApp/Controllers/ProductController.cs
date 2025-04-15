@@ -32,6 +32,35 @@ namespace AdminApp.Controllers
              }
             return products;
         }
+
+        public Product GetProductById(int idProduct)
+        {
+            string query = "SELECT * FROM product WHERE id_product = @id";
+            MySqlParameter[] parameters = new MySqlParameter[]
+            {
+                new MySqlParameter("@id", idProduct)
+            };
+            DataTable table = db.ExecuteQuery(query, parameters);
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+                return new Product
+                {
+                    IdProduct = Convert.ToInt32(row["id_product"]),
+                    NameProduct = row["name_product"].ToString(),
+                    IdLine = Convert.ToInt32(row["id_line"]),
+                    IdBrand = Convert.ToInt32(row["id_brand"]),
+                    Description = row["description"].ToString(),
+                    Material = row["material"].ToString(),
+                    Price = Convert.ToDecimal(row["price"]),
+                    ImageUrl = row["imageUrl"].ToString(),
+                    Releasedate = Convert.ToDateTime(row["releasedate"]),
+                    Status = row["status"].ToString()
+                };
+            }
+            return null;
+        }
+
         public bool AddProduct(Product product)
         {
             string query = "INSERT INTO product (name_product, id_line, id_brand, description, material, price, imageUrl, releasedate, status) " +

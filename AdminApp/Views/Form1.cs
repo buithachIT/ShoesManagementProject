@@ -4,6 +4,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Org.BouncyCastle.Asn1.Cmp;
 using Shared.Models;
 using System.Data;
+using System.Drawing;
 using System.Xml.Linq;
 using Color = Shared.Models.Color;
 using Size = Shared.Models.Size;
@@ -842,6 +843,18 @@ public partial class Form1 : Form
         int quantity = Convert.ToInt32(txt_Quantity.Text);
         DateTime expired = expired_date.Value;
 
+        if (checkedListBox1.CheckedItems.Count == 0 || checkedListBox2.CheckedItems.Count == 0)
+        {
+            ProductVariant variant = new ProductVariant
+            {
+                IdProduct = idProduct,
+                IdColor = Convert.ToInt32(FakeComboColor.Text),
+                IdSize = Convert.ToInt32(FakeComboSize.Text),
+                Quantity = quantity,
+                ExpiredDate = expired,
+            };
+            bool result = productVariantController.AddProductVariant(variant);
+        }
         foreach (Color selectedColor in checkedListBox2.CheckedItems)
         {
             foreach (Size selectedSize in checkedListBox1.CheckedItems)
@@ -852,13 +865,16 @@ public partial class Form1 : Form
                     IdColor = selectedColor.IdColor,
                     IdSize = selectedSize.IdSize,
                     Quantity = quantity,
-                    ExpiredDate = expired
+                    ExpiredDate = expired,
                 };
-
                 bool result = productVariantController.AddProductVariant(variant);
-                if (!result)
+                if (result)
                 {
-                    MessageBox.Show($"Thêm thất bại: Màu {selectedColor.NameColor} - Size {selectedSize.SizeValue}");
+                    MessageBox.Show("Thêm biến thể sản phẩm thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Thêm biến thể sản phẩm thất bại!");
                 }
             }
         }
@@ -872,7 +888,6 @@ public partial class Form1 : Form
         {
             IdVariant = Convert.ToInt32(idVariant.Text),
             IdProduct = Convert.ToInt32(cbb_Product.SelectedValue),
-
             Quantity = Convert.ToInt32(txt_Quantity.Text),
             ExpiredDate = Convert.ToDateTime(expired_date.Value)
         };
@@ -968,7 +983,6 @@ public partial class Form1 : Form
 
     /////////////////////////////////// Load dữ liệu user khi chọn combobox trong hóa đơn //////////////////////////////
 
-
     private void DisplayUserDetails(User user)
     {
         if (user != null)
@@ -1054,7 +1068,7 @@ public partial class Form1 : Form
         }
     }
 
-    private void FakeComboColor_Click(object sender, EventArgs e)
+    private void FakeComboSize_Click(object sender, EventArgs e)
     {
         checkedListBox1.Visible = !checkedListBox1.Visible;
     }
@@ -1064,7 +1078,7 @@ public partial class Form1 : Form
         checkedListBox1.Visible = false;
     }
 
-    private void textBox1_Click(object sender, EventArgs e)
+    private void FakeComboBoxColor_Click(object sender, EventArgs e)
     {
         checkedListBox2.Visible = !checkedListBox2.Visible;
     }
@@ -1095,5 +1109,15 @@ public partial class Form1 : Form
         {
             checkedListBox2.Items.Add(color);
         }
+    }
+
+    private void Detail_Invoice_Click(object sender, EventArgs e)
+    {
+        this.Hide(); // Ẩn Form1
+        using (Views.InvoiceDetail detailInvoice = new Views.InvoiceDetail())
+        {
+            detailInvoice.ShowDialog();
+        }
+        this.Show();
     }
 }

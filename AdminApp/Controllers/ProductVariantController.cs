@@ -35,6 +35,18 @@ namespace AdminApp.Controllers
 
         public bool AddProductVariant(ProductVariant productVariant)
         {
+            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_product = @id_product AND id_color = @id_color AND id_size = @id_size";
+            MySqlParameter[] checkParams = new MySqlParameter[3];
+            checkParams[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
+            checkParams[1] = new MySqlParameter("@id_color", productVariant.IdColor);
+            checkParams[2] = new MySqlParameter("@id_size", productVariant.IdSize);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Biến thể sản phẩm đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO product_variant(id_product, id_color, id_size, quantity, expired_date) VALUES(@id_product, @id_color, @id_size, @quantity, @expired_date)";
             MySqlParameter[] parameters = new MySqlParameter[5];
             parameters[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
@@ -47,14 +59,12 @@ namespace AdminApp.Controllers
 
         public bool UpdateProductVariant(ProductVariant productVariant)
         {
-            string query = "UPDATE product_variant SET id_product = @id_product, id_color = @id_color, id_size = @id_size, quantity = @quantity, expired_date = @expired_date WHERE id_variant = @id_variant";
-            MySqlParameter[] parameters = new MySqlParameter[6];
+            string query = "UPDATE product_variant SET id_product = @id_product, quantity = @quantity, expired_date = @expired_date WHERE id_variant = @id_variant";
+            MySqlParameter[] parameters = new MySqlParameter[4];
             parameters[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
-            parameters[1] = new MySqlParameter("@id_color", productVariant.IdColor);
-            parameters[2] = new MySqlParameter("@id_size", productVariant.IdSize);
-            parameters[3] = new MySqlParameter("@quantity", productVariant.Quantity);
-            parameters[4] = new MySqlParameter("@expired_date", productVariant.ExpiredDate);
-            parameters[5] = new MySqlParameter("@id_variant", productVariant.IdVariant);
+            parameters[1] = new MySqlParameter("@quantity", productVariant.Quantity);
+            parameters[2] = new MySqlParameter("@expired_date", productVariant.ExpiredDate);
+            parameters[3] = new MySqlParameter("@id_variant", productVariant.IdVariant);
             return db.ExecuteNonQuery(query, parameters);
         }
 
