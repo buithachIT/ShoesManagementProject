@@ -506,6 +506,7 @@ public partial class Form1 : Form
     {
         User user = new User()
         {
+            IdUser = Convert.ToInt32(txt_idUser.Text),
             Username = txt_nameUser.Text,
             PasswordHash = txt_PassWord.Text,
             FullName = txt_FullName.Text,
