@@ -27,7 +27,29 @@ namespace AdminApp.Controllers
                     CustomerName = row["customerName"].ToString(),
                     CustomerPhone = row["customerPhone"].ToString(),
                     InvoiceDate = Convert.ToDateTime(row["InvoiceDate"]),
-                    TotalAmount = Convert.ToDouble(row["totalAmount"]),
+                    TotalAmount = Convert.ToDecimal(row["totalAmount"]),
+                    Status = row["status"].ToString(),
+                    CustomerAddress = row["customerAddress"].ToString()
+                });
+            }
+            return invoices;
+        }
+
+        public List<Invoice> GetInvoiceNotAllowStatus()
+        {
+            string query = "SELECT id_invoice, id_user, customerName, customerPhone, InvoiceDate, totalAmount, status, customerAddress, InvoiceDate  FROM invoice WHERE status = 'Đang xử lý'";
+            DataTable dt = db.ExecuteQuery(query);
+            List<Invoice> invoices = new List<Invoice>();
+            foreach (DataRow row in dt.Rows)
+            {
+                invoices.Add(new Invoice
+                {
+                    IdInvoice = Convert.ToInt32(row["id_invoice"]),
+                    IdUser = Convert.ToInt32(row["id_user"]),
+                    CustomerName = row["customerName"].ToString(),
+                    CustomerPhone = row["customerPhone"].ToString(),
+                    InvoiceDate = Convert.ToDateTime(row["InvoiceDate"]),
+                    TotalAmount = Convert.ToDecimal(row["totalAmount"]),
                     Status = row["status"].ToString(),
                     CustomerAddress = row["customerAddress"].ToString()
                 });

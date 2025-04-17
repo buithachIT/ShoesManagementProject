@@ -35,6 +35,18 @@ namespace AdminApp.Controllers
 
         public bool AddProductVariant(ProductVariant productVariant)
         {
+            string checkQuery = "SELECT COUNT(*) FROM product_variant WHERE id_product = @id_product AND id_color = @id_color AND id_size = @id_size";
+            MySqlParameter[] checkParams = new MySqlParameter[3];
+            checkParams[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
+            checkParams[1] = new MySqlParameter("@id_color", productVariant.IdColor);
+            checkParams[2] = new MySqlParameter("@id_size", productVariant.IdSize);
+            int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
+            if (count > 0)
+            {
+                MessageBox.Show("Biến thể sản phẩm đã tồn tại!");
+                return false;
+            }
+
             string query = "INSERT INTO product_variant(id_product, id_color, id_size, quantity, expired_date) VALUES(@id_product, @id_color, @id_size, @quantity, @expired_date)";
             MySqlParameter[] parameters = new MySqlParameter[5];
             parameters[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
@@ -47,35 +59,38 @@ namespace AdminApp.Controllers
 
         public bool UpdateProductVariant(ProductVariant productVariant)
         {
-            string query = "UPDATE product_variant SET id_product = @id_product, id_color = @id_color, id_size = @id_size, quantity = @quantity, expired_date = @expired_date WHERE id_variant = @id_variant";
-            MySqlParameter[] parameters = new MySqlParameter[6];
+            string query = "UPDATE product_variant SET id_product = @id_product, quantity = @quantity, expired_date = @expired_date WHERE id_variant = @id_variant";
+            MySqlParameter[] parameters = new MySqlParameter[4];
             parameters[0] = new MySqlParameter("@id_product", productVariant.IdProduct);
-            parameters[1] = new MySqlParameter("@id_color", productVariant.IdColor);
-            parameters[2] = new MySqlParameter("@id_size", productVariant.IdSize);
-            parameters[3] = new MySqlParameter("@quantity", productVariant.Quantity);
-            parameters[4] = new MySqlParameter("@expired_date", productVariant.ExpiredDate);
-            parameters[5] = new MySqlParameter("@id_variant", productVariant.IdVariant);
+            parameters[1] = new MySqlParameter("@quantity", productVariant.Quantity);
+            parameters[2] = new MySqlParameter("@expired_date", productVariant.ExpiredDate);
+            parameters[3] = new MySqlParameter("@id_variant", productVariant.IdVariant);
             return db.ExecuteNonQuery(query, parameters);
         }
 
         public bool DeleteProductVariant(int productVariant)
         {
-            string checkQuery = "SELECT COUNT(*) FROM invoicedetail WHERE id_variant = @id_variant";
+            string checkQuery = @"
+            SELECT COUNT(*) 
+            FROM invoicedetail d
+            JOIN invoice i ON d.id_invoice = i.id_invoice
+            WHERE d.id_variant = @id_variant AND i.status != 'Hoàn thành'";
             MySqlParameter[] checkParams = new MySqlParameter[1];
             checkParams[0] = new MySqlParameter("@id_variant", productVariant);
 
             int count = Convert.ToInt32(db.ExecuteScalar(checkQuery, checkParams));
 
-            if (count > 0)
+            if (count == 0)
             {
-                MessageBox.Show("Không thể xóa biến thể sản phẩm vì có đơn hàng chứa biến thể này!");
-                return false;
+                // Tức là tất cả các hóa đơn đều "Hoàn thành" hoặc không có liên quan thì được phép xóa
+                string query = "DELETE FROM product_variant WHERE id_variant = @id_variant";
+                MySqlParameter[] parameters = new MySqlParameter[1];
+                parameters[0] = new MySqlParameter("@id_variant", productVariant);
+                return db.ExecuteNonQuery(query, parameters);
             }
 
-            string query = "DELETE FROM product_variant WHERE id_variant = @id_variant";
-            MySqlParameter[] parameters = new MySqlParameter[1];
-            parameters[0] = new MySqlParameter("@id_variant", productVariant);
-            return db.ExecuteNonQuery(query, parameters);
+            // Có ít nhất 1 hoá đơn chưa hoàn thành → không được xoá
+            return false;
         }
     }
 }
