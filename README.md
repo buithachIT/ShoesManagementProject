@@ -59,7 +59,7 @@
 
 ## 🖼️ Giao diện demo
 
-> (Chèn ảnh hoặc GIF nếu cần: ảnh WebApp + AdminApp)
+
 
 ---
 
@@ -81,9 +81,6 @@
 
 ## 🙌 Tác giả
 
-- Họ tên: **[Điền tên anh tại đây]**
-- Lớp: **DCT121C1**  
-- Môn học: **Đồ án chuyên ngành – Công nghệ phần mềm**
-
+- Họ tên: **Bùi Công Thạch** 
 ---
 
